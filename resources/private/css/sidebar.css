@@ -1,0 +1,80 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+:root{
+    --bg-color: #F7EFE5;
+    --text-color: #000;
+    --hover-container-color: #FFFBF2;
+    --hover-text-color: #424242;
+}
+body{
+    height: 100vh;
+    background-color: var(--hover-container-color);
+}
+img.logo-slide {
+    width: 230px;
+    background-color: var(--bg-color);
+}
+.side-bar{
+    height: 100%;
+    width: 230px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-color);
+}
+.options-container{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    gap: 50px;
+    margin-top: 25px;
+    width: 100%;
+}
+ul li{
+    list-style: none;
+    text-decoration: none;    
+}
+li a{
+    color: var(--text-color);
+    font-size: 16px;
+}
+li:hover{
+    background-color: var(--hover-container-color);
+    border-radius: 25 0 0 25px;
+    transition: 0.5s all;
+}
+ul{
+    display: flex;
+    flex-direction: column;    
+    margin-left: 35px;
+    color: var(--text-color);
+    gap: 15px;
+}
+ul[n1]:hover{
+    border-radius: 25 0 0 25px;
+    height: 35px;
+    color: var(--hover-text-color);
+}
+li{
+    height: 45px;
+    border-radius: 15px 0px 0px 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+.icon-sidebar{
+    margin-left: 10px;
+}
+.options-account::before{
+    content: '';
+    padding-top: 20px;
+    border-top: 1px solid #42424242;
+    display: block;
+    width: 100%;
+}
+li:hover a{
+    color: var(--hover-text-color)
+}
