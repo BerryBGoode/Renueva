@@ -31,11 +31,12 @@ sidebar.innerHTML = `<div class="side-bar">
                         </path>
                     </g>
                 </svg>
-                <a href="">Dashboard</a>
+                <a href="/view/private/dashboard.html">Dashboard</a>
             </li>
             <li>
+
                 <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" class="icon-sidebar"
-                    xmlns="http://www.w3.org/2000/svg">
+                    xmlns="/resources/icons/users-svgrepo-com.svg">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                     <g id="SVGRepo_iconCarrier">
@@ -49,11 +50,11 @@ sidebar.innerHTML = `<div class="side-bar">
                         </path>
                     </g>
                 </svg>
-                <a href="">Staffs</a>
+                <a href="/view/private/staffs.html">Staffs</a>
             </li>
             <li>
                 <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" class="icon-sidebar"
-                    xmlns="http://www.w3.org/2000/svg">
+                    xmlns="/resources/icons/clients-svgrepo-com.svg">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                     <g id="SVGRepo_iconCarrier">
@@ -75,11 +76,11 @@ sidebar.innerHTML = `<div class="side-bar">
                         </path>
                     </g>
                 </svg>
-                <a href="">Clients</a>
+                <a href="/view/private/clients.html">Clients</a>
             </li>
             <li>
                 <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" class="icon-sidebar"
-                    xmlns="http://www.w3.org/2000/svg">
+                    xmlns="/resources/icons/orders-svgrepo-com.svg">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                     <g id="SVGRepo_iconCarrier">
@@ -99,11 +100,11 @@ sidebar.innerHTML = `<div class="side-bar">
                             stroke-linecap="round" stroke-linejoin="round"></path>
                     </g>
                 </svg>
-                <a href="">Orders</a>
+                <a href="/view/private/orders.html">Orders</a>
             </li>
             <li>
                 <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" class="icon-sidebar"
-                    xmlns="http://www.w3.org/2000/svg">
+                    xmlns="/resources/icons/products-svgrepo-com.svg">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                     <g id="SVGRepo_iconCarrier">
@@ -118,11 +119,11 @@ sidebar.innerHTML = `<div class="side-bar">
                         </path>
                     </g>
                 </svg>
-                <a href="">Products</a>
+                <a href="/view/private/products.html">Products</a>
             </li>
             <li>
                 <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" class="icon-sidebar"
-                    xmlns="http://www.w3.org/2000/svg">
+                    xmlns="/resources/icons/categories-svgrepo-com.svg">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                     <g id="SVGRepo_iconCarrier">
@@ -139,7 +140,7 @@ sidebar.innerHTML = `<div class="side-bar">
                         </path>
                     </g>
                 </svg>
-                <a href="">Categories</a>
+                <a href="/view/private/categories.html">Categories</a>
             </li>
         </ul>
 
@@ -148,7 +149,7 @@ sidebar.innerHTML = `<div class="side-bar">
         <ul>
             <li>
                 <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" class="icon-sidebar"
-                    xmlns="http://www.w3.org/2000/svg">
+                    xmlns="/resources/icons/account-svgrepo-com.svg">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                     <g id="SVGRepo_iconCarrier">
@@ -170,7 +171,7 @@ sidebar.innerHTML = `<div class="side-bar">
             </li>
             <li>
                 <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" class="icon-sidebar"
-                    xmlns="http://www.w3.org/2000/svg">
+                    xmlns="/resources/icons/logout-svgrepo-com.svg">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                     <g id="SVGRepo_iconCarrier">
