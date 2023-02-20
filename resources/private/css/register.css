@@ -1,0 +1,104 @@
+* {
+    --bg-color: #FFFBF2;
+    --sec-color: #F5EADC;
+    --first-color: #F7EFE5;
+    --letra-negra: #000000;
+    --letra-azul: #0044C7;
+}
+body{
+    background-attachment: fixed;
+    background-color: var(--bg-color);    
+    height: 100vh;
+    display: grid;
+    place-content: center;
+}
+.container{    
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 3px;
+    width: 800px;
+    height: 450px;
+    background-color: var(--sec-color);
+    border-radius: 20px;
+    /*box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.5);*/
+    box-shadow: -1px 2px 7px rgba(0, 0, 0, 0.5);
+}
+.logo{
+    background-color: var(--first-color);
+}
+img.logo-login{
+    width: 330px;
+    height: 170px;
+    background-color: var(--first-color);
+}
+.main-form{    
+    height: 100%;
+}
+.logo-container{
+    height: 100%;
+    margin: 0%;
+    width: 50%;
+    display: grid;
+    place-content: center;
+    border-radius: 0 20px 20px 0;
+    background-color: var(--first-color);
+}
+
+p{  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.texto-register{
+    margin-top: 30px;
+}
+
+.forgot-pass{
+    color: var(--letra-azul);
+    text-shadow: -1px 2px 7px rgba(0, 0, 0, 0.5);
+}
+
+.button{
+    margin-top: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.usuario{
+    margin-top: 100px;
+}
+
+.boton-inicio{
+
+    background-color: var(--first-color);
+    color: var(--letra-negra);
+
+}
+
+.btn-register{
+    margin-top: 12px;
+}
+
+.boton-register{
+    
+    background-color: var(--sec-color);
+    color: var(--letra-negra);
+
+}
+
+.boton-inicio :focus{
+    background-color: var(--bg-color)
+}
+
+.btn:hover,.btn-large:hover,.btn-small:hover{
+    background-color: var(--bg-color)
+}
+
+
+input[type='text']:not(.browser-default){
+   width:300px;
+}
