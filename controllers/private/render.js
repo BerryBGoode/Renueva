@@ -202,6 +202,9 @@ xmlns="http://www.w3.org/2000/svg">
 </svg>
 <input type="text" placeholder="Search">`;
 
+
 let buttons = document.getElementById('more-actions');
-buttons.innerHTML = `<a href="#modal" class="waves-effect waves-light btn modal-trigger">Add</a>
-<a href="#modal" class="waves-effect waves-light btn modal-trigger">Print</a>`;
+if(buttons !== null){
+    buttons.innerHTML = `<a href="#modal" class="waves-effect waves-light btn modal-trigger">Add</a>
+    <a href="#modal" class="waves-effect waves-light btn modal-trigger">Print</a>`;
+}

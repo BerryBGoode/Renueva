@@ -52,8 +52,7 @@ input[placeholder="Search"]:not(.browser-default):focus:not([readonly]){
     border-bottom: 0px solid transparent;
     box-shadow: 0 0 0 0;
 }
-.btn-danger{background-color: var(--danger-color); color: white;}
-.btn-succes{background-color: var(--success-color); color: white;}
+
 
 #more-actions{
     margin: 0 25px 0 25px;
