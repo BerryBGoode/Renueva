@@ -6,7 +6,7 @@
     --success-color: #2b9348;
 }
 
-.staffs-container {
+.products-container{
     display: flex;
     flex-direction: column;
     gap: 15px;

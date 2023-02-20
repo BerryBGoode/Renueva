@@ -6,3 +6,9 @@
     width: 100%;
 
 }
+#more-actions{
+    margin: 0 25px 0 25px;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 20px;
+}
