@@ -1,0 +1,13 @@
+.btn-danger{background-color: var(--danger-color); color: white;}
+.btn-succes{background-color: var(--success-color); color: white;}
+.btn{
+    color: #000;
+    background-color: #F4F3EB;
+}
+.btn:hover{
+    background-color: #E8E7DF;
+    color: #424242;
+}
+.btn:focus{
+    background-color: #BEBEB8;
+}

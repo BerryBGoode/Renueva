@@ -4,6 +4,7 @@
     --first-color: #FFFBF2;
     --dark-color: #42424242;
     --input-color: #6d6d6d;
+    --button-color: #DCD3C3;
 }
 body{
     background-attachment: fixed;
@@ -104,13 +105,20 @@ textarea.materialize-textarea:focus:not([readonly]) {
     font-weight: 500;    
     background-color: var(--sec-color);
 }
+.login-button:hover{
+    background-color: var(--button-color);
+}
 .login-button:focus{
     background-color: var(--bg-color);
-    transition: ease-out 0.5s;
+
+}
+#Login-link{
+    color: var(--dark-color);
 }
 .login-button:active{
     transform: scale(0.9);
 }
+
 .link-forgot{
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }

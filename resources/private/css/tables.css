@@ -1,6 +1,9 @@
 .table-container{
     margin: 0 25px 0 25px;
+    border: 1px solid #42424242;
+    border-radius: 15px;
 }
 .table{
     background-color: #F7EFE5;
+    border-radius: 15px;
 }
