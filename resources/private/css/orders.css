@@ -11,3 +11,7 @@
     flex-direction: row-reverse;
     gap: 20px;
 }
+.select-wrapper{
+    display: flex;
+    align-items: center;
+}
