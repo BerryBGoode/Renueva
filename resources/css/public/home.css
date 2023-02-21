@@ -37,7 +37,10 @@ body{
 nav{
     position: fixed;
     background-color: var(--primary-color);
+<<<<<<< HEAD
+=======
     
+>>>>>>> 3ded456ef3743c26f479ae14ddb92478c7f6a6f3
 }
 
 nav ul li a{
