@@ -3,7 +3,7 @@
 //render sidebar
 let sidebar = document.getElementById('slidebar-main-container');
 sidebar.innerHTML = `<div class="side-bar">
-<img src="../../resources/img/sidebar-logo.png" alt="Logo" class="logo-slide">
+<img src="/resources/img/Logo/sidebar-logo.png" alt="Logo" class="logo-slide">
 <div class="options-container">
     <div class="options-main">
         <ul>
@@ -191,6 +191,7 @@ sidebar.innerHTML = `<div class="side-bar">
 </div>
 </div>`;
 
+//render sidebar input
 let search = document.getElementById('search-container');
 search.innerHTML = `<svg width="18px" height="18px" viewBox="0 0 29 29" fill="none" class="search-icon"
 xmlns="http://www.w3.org/2000/svg">
@@ -202,7 +203,7 @@ xmlns="http://www.w3.org/2000/svg">
 </svg>
 <input type="text" placeholder="Search">`;
 
-
+//render buttons print and add
 let buttons = document.getElementById('more-actions');
 if(buttons !== null){
     buttons.innerHTML = `<a href="#modal" class="waves-effect waves-light btn modal-trigger">Add</a>
