@@ -6,7 +6,7 @@ HEADER.innerHTML = `
 
 <nav class="nav-extended navbar-home">
                 <div class="nav-wrapper">
-                    <img src="../../resources/img/LogoRenueva_Login.png" alt="" class="header-img">
+                    <img src="/resources/img/Logo/LogoRenueva_Login.png" alt="" class="header-img">
                 </div>
                 <div class="nav-content">
                   <ul class="right hide-on-med-and-down">
