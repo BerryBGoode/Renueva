@@ -12,13 +12,7 @@
     <!--Icon title-->
     <link rel="shortcut icon" href="./../../resources/img/LogoFavIcon.png" type="image/x-icon">
     <!--css archive-->
-    <link rel="stylesheet" href="./../../resources/private/css/dashboard.css">
-    <link rel="stylesheet" href="/resources/private/css/products.css">
-    <link rel="stylesheet" href="/resources/private/css/tables.css">
-    <!--css archive sidebar-->
-    <link rel="stylesheet" href="/resources/private/css/sidebar.css">
-    <!--css buttons-->
-    <link rel="stylesheet" href="/resources/private/css/buttons_actions.css">
+    <link rel="stylesheet" href="/resources/css/private/style_private.css">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8">
@@ -36,7 +30,7 @@
                     <!--component render search input-->
                     <div class="search-container" id="search-container"></div>
                     <!--dashboard container-->
-                    <div class="products-container">     
+                    <div class="products-container">
                         <!--component render-->
                         <div id="more-actions"></div>
                         <div class="table-container">
@@ -51,43 +45,116 @@
                                         <th>Reviews</th>
                                         <th>Actions</th>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td scope="row"></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row"></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td scope="row"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
                             </table>
-                        </div>                   
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+
+    <!-- Modal Structure -->
+    <div id="modal" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <form action="">
+
+                <div class="row">
+                    <div class="input-field col s12 m12">
+                        <input type="text" name="" id="Name_product" class="validate" required>
+                        <label for="Name_product">Name of product</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m12">
+                        <input type="text" name="" id="description_product" class="validate" required>
+                        <label for="description_product">Description of product</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s4 m4">
+                        <div class="select-wrapper">
+                            <input type="text" name="" id="category" class="select-dropdown dropdown-trigger validate" required>
+                            <!--icon-->
+                            <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path
+                                        d="M19.9201 8.94995L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.94995"
+                                        stroke="#000" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                    </path>
+                                </g>
+                            </svg>
+                            <!--end icon-->
+                        </div>
+                        <label for="category">Categories</label>
+                    </div>
+                    <div class="input-field col s4 m4">
+                        <div class="select-wrapper">
+                            <input type="text" name="" id="state" class="select-dropdown dropdown-trigger validate" required>
+                            <!--icon-->
+                            <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path
+                                        d="M19.9201 8.94995L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.94995"
+                                        stroke="#000" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                    </path>
+                                </g>
+                            </svg>
+                            <!--end icon-->
+                        </div>
+                        <label for="state">States</label>
+                    </div>
+                    <div class="input-field col s4 m4">
+                        <input type="number" name="" id="price" class="validate" required>
+                        <label for="price">Price $</label>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-close waves-effect waves-green btn-flat btn-danger">Cancel</a>
+            <a class="modal-close waves-effect waves-green btn-flat btn-succes">Add</a>
+        </div>
+    </div>
+
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="../../resources/general/js/materialize.min.js"></script>
     <!--JavaScript to render some components-->
-    <script type="text/javascript" src="../../controllers/private/render.js"></script>
+    <script type="text/javascript" src="/controllers/private/render.js"></script>
     <!--modal script-->
-    <script src="/resources/private/js/modal_init.js"></script>
+    <script src="/controllers/private/modal_init.js"></script>
 </body>
 
 </html>

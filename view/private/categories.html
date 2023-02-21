@@ -12,13 +12,7 @@
     <!--Icon title-->
     <link rel="shortcut icon" href="./../../resources/img/LogoFavIcon.png" type="image/x-icon">
     <!--css archive-->
-    <link rel="stylesheet" href="./../../resources/private/css/dashboard.css">
-    <link rel="stylesheet" href="/resources/private/css/categories.css">
-    <link rel="stylesheet" href="/resources/private/css/tables.css">
-    <!--css archive sidebar-->
-    <link rel="stylesheet" href="/resources/private/css/sidebar.css">
-    <!--css buttons-->
-    <link rel="stylesheet" href="/resources/private/css/buttons_actions.css">
+    <link rel="stylesheet" href="/resources/css/private/style_private.css">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8">
@@ -79,30 +73,15 @@
             <form action="">
 
                 <div class="row">
-                    <div class="input-field col s6">
-                        <input id="names" type="text" class="validate" required>
-                        <label for="names">Names</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <input id="last_name" type="text" class="validate" required>
-                        <label for="last_name">Last Name</label>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="input-field col s6">
-                        <input id="Document" type="text" class="validate" required>
-                        <label for="Document">Document</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <input id="Phone" type="text" class="validate" required>
-                        <label for="Phone">Phone Number</label>
+                    <div class="input-field col s12">
+                        <input id="product_name" type="text" class="validate" required>
+                        <label for="product_name">Name of product</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="email" type="email" class="validate" required>
-                        <label for="email">Email</label>
+                        <input id="description_product" type="text" class="validate" required>
+                        <label for="description_product">Description</label>
                     </div>
                 </div>
             </form>
@@ -116,9 +95,8 @@
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="../../resources/general/js/materialize.min.js"></script>
     <!--JavaScript to render some components-->
-    <script type="text/javascript" src="../../controllers/private/render.js"></script>
+    <script type="text/javascript" src="/controllers/private/render.js"></script>
     <!--modal script-->
-    <script src="/resources/private/js/modal_init.js"></script>
-</body>
+    <script src="/controllers/private/modal_init.js"></script>
 
 </html>
