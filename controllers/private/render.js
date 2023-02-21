@@ -206,5 +206,5 @@ xmlns="http://www.w3.org/2000/svg">
 let buttons = document.getElementById('more-actions');
 if(buttons !== null){
     buttons.innerHTML = `<a href="#modal" class="waves-effect waves-light btn modal-trigger">Add</a>
-    <a href="#modal" class="waves-effect waves-light btn modal-trigger">Print</a>`;
+    <a href="" class="waves-effect waves-light btn ">Print</a>`;
 }

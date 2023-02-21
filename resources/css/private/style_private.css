@@ -1,0 +1,520 @@
+/* values use general */
+:root {
+    --input-color: #7a7a7a;
+    --label-color: #4242;
+    --valid-input-color: #424242;
+    --danger-color: #c1121f;
+    --success-color: #2b9348;
+    --bg-color: #F7EFE5;
+    --text-color: #000;
+    --hover-container-color: #FFFBF2;
+    --hover-text-color: #424242;
+    --bg-color: #F7EFE5;
+    --sec-color: #FCFCEB;
+    --first-color: #FFFBF2;
+    --dark-color: #42424242;
+    --input-color: #6d6d6d;
+    --button-color: #DCD3C3;
+    --container-color: #FFFBF2;
+    --label-color: #4242;
+}
+
+/* general rules */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* table rules */
+.table-container {
+    margin: 0 25px 0 25px;
+    border: 1px solid #42424242;
+    border-radius: 15px;
+}
+
+.table {
+    background-color: #F7EFE5;
+    border-radius: 15px;
+}
+
+/* end table rules */
+/* buttons more actions rules */
+.btn-danger {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.btn-succes {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.btn {
+    color: #000;
+    background-color: #F4F3EB;
+}
+
+.btn:hover {
+    background-color: #E8E7DF;
+    color: #424242;
+}
+
+.btn:focus {
+    background-color: #BEBEB8;
+}
+
+/* end buttons more actions rules */
+/* modal rules */
+:root {
+    --input-color: #7a7a7a;
+    --label-color: #4242;
+    --valid-input-color: #424242;
+}
+
+input.valid[type=text]:not(.browser-default) {
+    border-bottom: 1px solid var(--valid-input-color);
+    -webkit-box-shadow: 0 1px 0 0 var(--valid-input-color);
+    box-shadow: 0 1px 0 0 var(--valid-input-color);
+}
+
+input[type=email]:not(.browser-default):focus:not([readonly]) {
+    border-bottom: 1px solid var(--input-color);
+    -webkit-box-shadow: 0 1px 0 0 var(--input-color);
+    box-shadow: 0 1px 0 0 var(--input-color);
+}
+
+input[type=email]:not(.browser-default):focus:not([redonly])+label {
+    color: var(--input-color);
+}
+
+input.valid[type=email]:not(.browser-default) {
+    border-bottom: 1px solid var(--valid-input-color);
+    -webkit-box-shadow: 0 1px 0 0 var(--valid-input-color);
+    box-shadow: 0 1px 0 0 var(--valid-input-color);
+}
+
+input[placeholder="Search"]:not(.browser-default) {
+    margin: 0px;
+    border-bottom: 0px;
+}
+
+input[placeholder="Search"]:not(.browser-default):focus:not([readonly]) {
+    border-bottom: 0px solid transparent;
+    box-shadow: 0 0 0 0;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+    border-bottom: 1px solid var(--input-color);
+    -webkit-box-shadow: 0 1px 0 0 var(--input-color);
+    box-shadow: 0 1px 0 0 var(--input-color);
+}
+
+input[type=text]:not(.browser-default):focus:not([redonly])+label {
+    color: var(--input-color);
+}
+
+input[type=number]:not(.browser-default):focus:not([readonly]) {
+    border-bottom: 1px solid var(--input-color);
+    -webkit-box-shadow: 0 1px 0 0 var(--input-color);
+    box-shadow: 0 1px 0 0 var(--input-color);
+}
+
+input[type=number]:not(.browser-default):focus:not([redonly])+label {
+    color: var(--input-color);
+}
+
+/* end modal rules */
+/* sidebar rules */
+body {
+    height: 100vh;
+    background-color: var(--hover-container-color);
+}
+
+img.logo-slide {
+    width: 230px;
+    background-color: var(--bg-color);
+}
+
+.side-bar {
+    height: 100%;
+    width: 230px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-color);
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    gap: 50px;
+    margin-top: 25px;
+    width: 100%;
+}
+
+ul li {
+    list-style: none;
+    text-decoration: none;
+}
+
+li a {
+    color: var(--text-color);
+    font-size: 16px;
+}
+
+li:hover {
+    background-color: var(--hover-container-color);
+    border-radius: 25 0 0 25px;
+    transition: 0.5s all;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    margin-left: 35px;
+    color: var(--text-color);
+    gap: 15px;
+}
+
+ul[n1]:hover {
+    border-radius: 25 0 0 25px;
+    height: 35px;
+    color: var(--hover-text-color);
+}
+
+li {
+    height: 45px;
+    border-radius: 15px 0px 0px 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+
+.icon-sidebar {
+    margin-left: 10px;
+}
+
+.options-account::before {
+    content: '';
+    padding-top: 20px;
+    border-top: 1px solid #42424242;
+    display: block;
+    width: 100%;
+}
+
+li:hover a {
+    color: var(--hover-text-color)
+}
+
+/* end sidebar rules */
+/* index rules */
+.index {
+    background-attachment: fixed;
+    background-color: var(--bg-color);
+    height: 100vh;
+    display: grid;
+    place-content: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 3px;
+    width: 978px;
+    height: 604px;
+    background-color: var(--first-color);
+    border-radius: 20px;
+    /*box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.5);*/
+    box-shadow: -1px 2px 7px rgba(0, 0, 0, 0.5);
+}
+
+.main-form {
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo {
+    background-color: var(--sec-color);
+}
+
+img.logo-login {
+    width: 330px;
+    height: 170px;
+    background-color: var(--sec-color);
+}
+
+.form {
+    height: 100%;
+    width: 50%;
+    display: grid;
+    place-content: center;
+    margin: 0;
+}
+
+.logo-container {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    background-color: var(--sec-color);
+    border-radius: 0 20px 20px 0;
+}
+
+.data {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.link-forgot {
+    color: default;
+}
+
+input[class='login-input']:not(.browser-default) {
+    width: 368px;
+}
+
+input:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=url]:not(.browser-default):focus:not([readonly]),
+input[type=time]:not(.browser-default):focus:not([readonly]),
+input[type=date]:not(.browser-default):focus:not([readonly]),
+input[type=datetime]:not(.browser-default):focus:not([readonly]),
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+input[type=tel]:not(.browser-default):focus:not([readonly]),
+input[type=number]:not(.browser-default):focus:not([readonly]),
+input[type=search]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid var(--input-color);
+    -webkit-box-shadow: 0 1px 0 0 var(--input-color);
+    box-shadow: 0 1px 0 0 var(--input-color);
+}
+
+.content-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-button {
+    color: var(--input-color);
+    width: 125px;
+    border-radius: 7px;
+    height: 27px;
+    border: 0.2mm solid var(--dark-color);
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: var(--sec-color);
+}
+
+.login-button:hover {
+    background-color: var(--button-color);
+}
+
+.login-button:focus {
+    background-color: var(--bg-color);
+
+}
+
+#Login-link {
+    color: var(--dark-color);
+}
+
+.login-button:active {
+    transform: scale(0.9);
+}
+
+.link-forgot {
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* end index rules */
+/* dashboard html rules */
+.body {
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.dashboard {
+    display: flex;
+    height: 100%;
+    background-color: var(--bg-color);
+
+}
+
+.content-container {
+    display: grid;
+    /*this display have the container use all parent container*/
+    background-color: var(--container-color);
+    box-sizing: border-box;
+    border-radius: 50px;
+    box-shadow: 0px 4px 10px rgb(0 0 0 / 25%);
+    border: 1px solid rgba(66, 66, 66, 0.2);
+    height: 100%;
+    /*this height have to use 100% of parent*/
+    /*margin-right: 15px;
+    box-sizing: border-box;
+    position: absolute;
+    width: 85vw;
+    height: 96vh;
+    left: 29vh;
+    top: 15px;
+    background: #FFFBF2;
+    border-radius: 50px;*/
+}
+
+.template-main-container {
+    width: 100%;
+    margin: 10px 10px 10px 0;
+}
+
+.main-content {
+    box-sizing: border-box;
+    background-color: var(--container-color);
+    border-radius: 50px;
+    padding: 7px 20px 7px 20px;
+}
+
+input[placeholder="Search"]:not(.browser-default) {
+    margin: 0px;
+    border-bottom: 0px;
+}
+
+input[placeholder="Search"]:not(.browser-default):focus:not([readonly]) {
+    border-bottom: 0px solid transparent;
+    box-shadow: 0 0 0 0;
+}
+
+.search-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0px 25px 0px;
+    background-color: var(--bg-color);
+    border-radius: 15px;
+    gap: 5px;
+    box-shadow: 0px 1px 3px rgb(0 0 0 / 25%);
+}
+
+.search-icon {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.container-graph {
+    background-color: var(--bg-color);
+    margin: 0 25px 0;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgb(0 0 0 / 25%);
+}
+
+.dashboard-container {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    gap: 15px;
+    margin: 15px 0 0 0;
+    width: 100%;
+}
+
+.graph-line {
+    width: 100%;
+    height: 42vh;
+}
+
+.graph-pie {
+    width: 47%;
+    margin: 0 0 0 25px;
+    height: 42vh;
+
+}
+
+.graph-column {
+    width: 47.5%;
+    margin: 0 25px 0 0;
+    height: 42vh;
+}
+
+/* end dashboard html rules */
+
+/* staffs html rules */
+.staffs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 15px 0 0 0;
+    width: 100%;
+}
+
+/* end staffs html rules */
+
+/*clients html rules*/
+.clients-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 15px 0 0 0;
+    width: 100%;
+}
+
+/*end clients html rules*/
+
+/*orders html rules*/
+.orders-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 15px 0 0 0;
+    width: 100%;
+}
+
+.select-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+/*end orders html rules*/
+
+/*products html rules*/
+.products-container{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 15px 0 0 0;
+    width: 100%;
+}
+/*end products html rules*/
+
+/*categories html rules*/
+.categories-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 15px 0 0 0;
+    width: 100%;
+
+}
+/*end categories html rules*/
+
+/*more actions id rules*/
+#more-actions {
+    margin: 0 25px 0 25px;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 20px;
+}
+
+/*end more actions id rules*/
