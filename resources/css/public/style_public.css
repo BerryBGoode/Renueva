@@ -1,0 +1,874 @@
+:root{
+    --body-color: #F4F3EB;
+    --card-color: #DCD3C3;
+    --yellow-color: #FADC64;
+    --primary-color: #F7EFE5;
+    --bg-color: #FFFBF2;
+    --sec-color: #F5EADC;
+    --first-color: #F7EFE5;
+    --letra-negra: #000000;
+    --letra-azul: #0044C7;
+}
+/* rules for change color of inputs text and email */
+input[type=text]:not(.browser-default):focus:not([readonly]){
+    border-bottom: 1px solid #424242;
+    -webkit-box-shadow: 0 1px 0 0 #424242;
+    box-shadow: 0 1px 0 0 #424242;
+}
+input[type=email]:not(.browser-default):focus:not([readonly]){
+    border-bottom: 1px solid #424242;
+    -webkit-box-shadow: 0 1px 0 0 #424242;
+    box-shadow: 0 1px 0 0 #424242;
+}
+/* rules for change color of label in inputs text and email */
+input[type=text]:not(.browser-default):focus:not([redonly])+label {
+    color: #6d6d6d;
+}
+input[type='email']:not(.browser-default):focus:not([readonly])+label{
+    color: #6d6d6d;
+}
+
+/* home html rules */
+/*header*/
+header {
+    background-color: var(--yellow-color);
+    top: 0px;
+    z-index: 10px;
+}
+
+.header-img {
+    width: 50%;
+    height: 50%;
+
+}
+
+.navbar-home {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.icons-nav {
+    width: 30px;
+    height: 30px;
+}
+
+body {
+    background: var(--card-color);
+}
+
+nav {
+    position: fixed;
+    background-color: var(--primary-color);
+
+}
+
+nav ul li a {
+    text-decoration: none;
+    padding-right: 20px;
+    position: relative;
+    color: #424242;
+}
+
+nav ul li a::before {
+    content: '';
+    border-bottom: 2px solid red;
+    position: absolute;
+    bottom: -5px;
+    width: 40%;
+    right: 0;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+
+nav ul li a::after {
+    content: '';
+    border-bottom: 2px solid red;
+    position: absolute;
+    bottom: -10px;
+    width: 30%;
+    left: 0;
+    opacity: 0;
+    transition: 0.3s;
+
+}
+
+
+nav ul li a:hover:before {
+    width: 60%;
+    opacity: 1;
+}
+
+
+nav ul li a:hover::after {
+    opacity: 1;
+    width: 40%;
+
+}
+
+/*space*/
+
+.space {
+    padding-top: 10%;
+}
+
+/*search*/
+
+#wrap {
+    margin: 50px 100px;
+    display: inline-block;
+    position: relative;
+    height: 60px;
+    float: right;
+    position: relative;
+}
+
+input[id='search'] {
+    height: 60px;
+    font-size: 55px;
+    display: inline-block;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    color: #424242;
+    padding-right: 60px;
+    width: 0px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    z-index: 3;
+    transition: width .4s cubic-bezier(0.000, 0.795, 0.000, 1.000);
+    cursor: pointer;
+}
+
+input[id='search']:focus {
+    width: 200px;
+    z-index: 1;
+    border-bottom: 1px solid #927EF4;
+    cursor: text;
+}
+
+input[id='search']:focus+input[type="submit"] {
+    opacity: 1;
+}
+
+input[type="submit"] {
+    height: 67px;
+    width: 63px;
+    display: inline-block;
+    float: right;
+    background: #927EF4;
+    text-indent: -10000px;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    cursor: pointer;
+    opacity: 0.4;
+    cursor: pointer;
+    transition: opacity .4s ease;
+}
+
+/* end home hmtl rules */
+/* welcome html rules */
+/*nav*/
+body {
+    background-color: var(--body-color);
+    height: 100%;
+
+    flex-wrap: wrap;
+    gap: 20px;
+    flex: 1 0 200px;
+}
+
+.banner {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background-attachment: fixed;
+    background-position: center;
+    background: center fixed url(../../img/Group\ 46.png);
+    background-repeat: no-repeat;
+}
+
+.banner-description {
+    width: 100%;
+    max-width: 1000px;
+    display: block;
+    margin: auto;
+}
+
+.see-products {
+    padding: 2px;
+    background-color: var(--yellow-color);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.one {
+    padding: 20px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.text-one {
+    display: flex;
+    align-items: center;
+}
+
+
+.boton-inicio {
+    background-color: var(--card-color);
+    color: var(--letra-negra);
+    height: 40px;
+    width: 200px;
+    border-radius: 12px;
+}
+
+.btn-register {
+    margin-top: 12px;
+}
+
+
+.boton-inicio :focus {
+    background-color: var(--body-color)
+}
+
+.btn:hover,
+.btn-large:hover,
+.btn-small:hover {
+    background-color: var(--body-color)
+}
+
+/*cards*/
+
+
+
+.cards {
+    position: relative;
+    z-index: -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0%;
+    gap: 8px;
+
+}
+
+.card {
+    padding: 30px;
+    margin: 50px;
+    background: var(--card-color);
+    width: 600px;
+    height: 270px;
+    box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+    transition: .2s all;
+    cursor: pointer;
+    border-radius: 10%;
+}
+
+
+.cards:hover .card {
+    filter: blur(3px);
+    opacity: .5;
+    transform: scale(.98);
+    box-shadow: none;
+
+}
+
+.cards:hover .card:hover {
+    transform: scale(1);
+    filter: blur(0px);
+    opacity: 1;
+    box-shadow: 0 8px 20px 0px rgba(0, 0, 0, 0.125);
+    background: var(--card-color);
+    color: black;
+}
+
+
+p {
+    margin-top: 20px;
+    display: grid;
+    place-content: center;
+}
+
+h4 {
+    display: grid;
+    place-content: center;
+}
+
+/*Minicards*/
+
+.minicards {
+
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0%;
+    gap: 190px;
+
+}
+
+.minicard {
+    padding: 0px;
+    margin: 40px;
+    background: var(--card-color);
+    width: 65px;
+    height: 70px;
+    box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+    transition: .2s all;
+    cursor: pointer;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+}
+
+
+.minicards:hover .minicard {
+    filter: blur(3px);
+    opacity: .5;
+    transform: scale(.98);
+    box-shadow: none;
+
+}
+
+.minicards:hover .minicard:hover {
+    transform: scale(1);
+    filter: blur(0px);
+    opacity: 1;
+    box-shadow: 0 8px 20px 0px rgba(0, 0, 0, 0.125);
+    background: var(--card-color);
+    color: black;
+}
+
+
+/*text post minicards*/
+
+
+.text-minicards {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+}
+
+.text-minicards .p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*image*/
+
+.sing {
+    margin-top: -50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.Sing-up {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: var(--card-color);
+}
+
+.soap {
+    padding: 70px;
+    margin-top: 2%;
+    height: 90%;
+    width: 90%;
+}
+
+
+.boton-sing {
+    background-color: var(--body-color);
+    color: var(--letra-negra);
+    height: 40px;
+    width: 200px;
+    border-radius: 12px;
+}
+
+
+
+.boton-sing :focus {
+    background-color: var(--card-color)
+}
+
+.boton-sing:hover,
+.btn-large:hover,
+.btn-small:hover {
+    background-color: var(--card-color)
+}
+
+/*Contact us*/
+
+.contact-us {
+    background-color: var(--card-color);
+}
+
+.contact {
+    position: relative;
+    z-index: -1;
+    display: grid;
+    place-content: center;
+    background-color: var(--card-color);
+}
+
+.contact-cards {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--card-color);
+}
+
+.card-contact {
+    padding: 40px;
+    margin: 40px;
+    background: var(--body-color);
+    width: 60px;
+    height: 60px;
+    box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+    transition: .2s all;
+    cursor: pointer;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+
+}
+
+.card-contact:hover .card-contact {
+    filter: blur(3px);
+    opacity: .5;
+    transform: scale(.98);
+    box-shadow: none;
+
+}
+
+.card-contact:hover .card-contact:hover {
+    transform: scale(1);
+    filter: blur(0px);
+    opacity: 1;
+    box-shadow: 0 8px 20px 0px rgba(0, 0, 0, 0.125);
+    background: var(--card-color);
+    color: black;
+}
+
+/*form*/
+
+.form {
+    margin-top: 50px;
+}
+
+.button-send {
+    display: grid;
+    place-content: center;
+}
+
+.send {
+    background-color: var(--yellow-color);
+    color: var(--letra-negra);
+    height: 40px;
+    width: 200px;
+    border-radius: 12px;
+}
+
+.send :focus {
+    background-color: var(--card-color);
+}
+
+.send:hover,
+.btn-large:hover,
+.btn-small:hover {
+    background-color: var(--card-color);
+}
+
+/*slider*/
+
+.container-slider {
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+    overflow: hidden;
+    box-shadow: 0 0 0 10px var(--body-color), 0 15PX 50PX;
+    position: relative;
+}
+
+.slider {
+    display: flex;
+    width: 400%;
+    height: 400px;
+    margin-left: -100%;
+}
+
+.slider-section {
+    width: 100%;
+}
+
+.slider-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slider-btn {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 50%;
+    background-color: var(--body-color);
+    transform: translateY(-50%);
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.slider-btn:hover {
+    background: var(--card-color);
+}
+
+.slider-btn--right {
+    right: 20px;
+}
+
+.slider-btn--left {
+    left: 20px;
+}
+
+footer {
+    padding: 5%;
+    background: var(--yellow-color);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.copyright {
+    height: 20px;
+    flex: 1 0 200px;
+}
+
+
+/*home*/
+/*Galery*/
+
+.galery {
+    background: var(--card-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.galery-img {
+    padding: 20px;
+    display: flex;
+    width: 600px;
+    height: 330px;
+}
+
+.galery-img img {
+    width: 0px;
+    flex-grow: 1;
+    object-fit: cover;
+    opacity: .8;
+    transition: .5s ease;
+}
+
+.galery-img img:hover {
+    cursor: pointer;
+    width: 300px;
+    opacity: 1;
+    filter: contrast(120%);
+}
+
+/*galery cards*/
+
+.galerycard-img {
+    display: flex;
+    width: 600px;
+    height: 330px;
+}
+
+.galerycard {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.galerycard-img {
+    display: flex;
+    width: 1000px;
+    height: 330px;
+}
+
+.galerycard-img img {
+    background: var(--card-color);
+    box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 30px;
+    width: 0px;
+    flex-grow: 2;
+    object-fit: cover;
+    opacity: .8;
+    transition: .5s ease;
+}
+
+.galerycard-img img:hover {
+    cursor: pointer;
+    width: 200px;
+    opacity: 1;
+    filter: contrast(120%);
+}
+
+
+/*comment*/
+.comment {
+    background: var(--card-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/*products*/
+
+.card-products {
+    background: var(--card-color);
+}
+
+/* end welcome html rules */
+/*login html rules*/
+.form-init {
+    background-attachment: fixed;
+    background-color: var(--bg-color);
+    height: 100vh;
+    display: grid;
+    place-content: center;
+}
+
+.container-login {
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 3px;
+    width: 800px;
+    height: 450px;
+    background-color: var(--sec-color);
+    border-radius: 20px;
+    /*box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.5);*/
+    box-shadow: -1px 2px 7px rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+    background-color: var(--first-color);
+}
+
+img.logo-login {
+    width: 330px;
+    height: 170px;
+    background-color: var(--first-color);
+}
+
+.main-form {
+    height: 100%;
+}
+
+.logo-container {
+    height: 100%;
+    margin: 0%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 20px 20px 0;
+    background-color: var(--first-color);
+}
+
+p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.texto-register {
+    margin-top: 30px;
+}
+
+.forgot-pass {
+    color: var(--letra-azul);
+    text-shadow: -1px 2px 7px rgba(0, 0, 0, 0.5);
+}
+
+.button {
+    margin-top: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.usuario {
+    margin-top: 100px;
+}
+
+.boton-inicio {
+
+    background-color: var(--first-color);
+    color: var(--letra-negra);
+
+}
+
+.btn-register {
+    margin-top: 12px;
+}
+
+.boton-register {
+
+    background-color: var(--sec-color);
+    color: var(--letra-negra);
+
+}
+
+.boton-inicio :focus {
+    background-color: var(--bg-color)
+}
+
+.btn:hover,
+.btn-large:hover,
+.btn-small:hover {
+    background-color: var(--bg-color)
+}
+
+
+input[classs='login-input']:not(.browser-default) {
+    width: 300px;
+}
+
+/*end login html rule*/
+
+/*register html rules*/
+.form-init{
+    background-attachment: fixed;
+    background-color: var(--bg-color);    
+    height: 100vh;
+    display: grid;
+    place-content: center;
+}
+.container-login{    
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 3px;
+    width: 800px;
+    height: 450px;
+    background-color: var(--sec-color);
+    border-radius: 20px;
+    /*box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.5);*/
+    box-shadow: -1px 2px 7px rgba(0, 0, 0, 0.5);
+}
+.logo{
+    background-color: var(--first-color);
+}
+img.logo-login{
+    width: 330px;
+    height: 170px;
+    background-color: var(--first-color);
+}
+.main-form{    
+    height: 100%;
+}
+.logo-container{
+    height: 100%;
+    margin: 0%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 20px 20px 0;
+    background-color: var(--first-color);
+}
+
+p{  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.texto-register{
+    margin-top: 30px;
+}
+
+.forgot-pass{
+    color: var(--letra-azul);
+    text-shadow: -1px 2px 7px rgba(0, 0, 0, 0.5);
+}
+
+.button{
+    margin-top: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.usuario{
+    margin-top: 100px;
+}
+
+.boton-inicio{
+
+    background-color: var(--first-color);
+    color: var(--letra-negra);
+
+}
+
+.btn-register{
+    margin-top: 12px;
+}
+
+.boton-register{
+    
+    background-color: var(--sec-color);
+    color: var(--letra-negra);
+
+}
+
+.boton-inicio :focus{
+    background-color: var(--bg-color)
+}
+
+.btn:hover,.btn-large:hover,.btn-small:hover{
+    background-color: var(--bg-color)
+}
+
+
+input[class='login-input']:not(.browser-default){
+    width: 300px;
+}
+/*end register html rules*/
