@@ -348,6 +348,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .body {
     height: 100vh;
     box-sizing: border-box;
+    background-color: var(--bg-color);
 }
 
 .dashboard {
@@ -643,6 +644,10 @@ input[placeholder="Search"]:not(.browser-default):focus:not([readonly]) {
     .graph-line{
         margin: 0 10px;
     }
+    /*sidebar*/
+    .side-bar{
+        display: none;
+    }
 }
 @media screen and (max-width: 520px) {
     input[class='login-input']:not(.browser-default) {
@@ -679,5 +684,9 @@ input[placeholder="Search"]:not(.browser-default):focus:not([readonly]) {
 
     .template-main-container{
         height: 100%;
+    }
+    /* sidebar */
+    .side-bar{
+        display: none;
     }
 }
