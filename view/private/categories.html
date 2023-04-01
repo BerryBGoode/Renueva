@@ -3,16 +3,16 @@
 
 <head>
     <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../../resources/general/fonts/fonts.css" rel="stylesheet">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="../../resources/general/css/materialize.min.css"
         media="screen,projection" />
     <!--title-->
     <title>Renueva</title>
     <!--Icon title-->
-    <link rel="shortcut icon" href="/resources/img/Logo/LogoFavIcon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../../resources/img/Logo/LogoFavIcon.png" type="image/x-icon">
     <!--css archive-->
-    <link rel="stylesheet" href="/resources/css/private/style_private.css">
+    <link rel="stylesheet" href="../../resources/css/private/style_private.css">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8">
@@ -28,8 +28,10 @@
             <!--content-container, this component have border radius-->
             <div class="content-container">
                 <div class="main-content">
-                    <!--component render search input-->
-                    <div class="search-container" id="search-container"></div>
+                    <div class="search">
+                        <!--component render search input-->
+                        <div class="search-container" id="search-container"></div>
+                    </div>
                     <!--dashboard container-->
                     <div class="categories-container">
                         <!--component render-->
@@ -95,8 +97,8 @@
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="../../resources/general/js/materialize.min.js"></script>
     <!--JavaScript to render some components-->
-    <script type="text/javascript" src="/controllers/private/render.js"></script>
+    <script type="text/javascript" src="../../controllers/private/render.js"></script>
     <!--modal script-->
-    <script src="/controllers/private/modal_init.js"></script>
+    <script src="../../controllers/private/modal_init.js"></script>
 
 </html>

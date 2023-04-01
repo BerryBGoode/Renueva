@@ -6,7 +6,7 @@ let width_fixed = window.innerWidth;
 //render sidebar
 let sidebar = document.getElementById('slidebar-main-container');
 
-sidebar.innerHTML = `<div class="side-bar">
+sidebar.innerHTML = `<div class="side-bar hide-on-small-only">
     <img src="/resources/img/Logo/sidebar-logo.png" alt="Logo" class="logo-slide">
     <div class="options-container">
         <div class="options-main">
