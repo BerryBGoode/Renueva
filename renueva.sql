@@ -21,7 +21,7 @@ CREATE TABLE states_products(
 CREATE TABLE users(
 	id_user serial not null primary key,
 	username character varying(15) not null,
-	password character varying(10) not null,
+	password character varying(100) not null,
 	email character varying(50) not null,
 	photo character varying(500),
 	id_type_user integer not null,
@@ -291,7 +291,9 @@ begin
 end 
 $$;
 --execute
-call createDetail(8, 5, 1)
+INSERT INTO orders(id_client, date_order, id_state_order) VALUES (5, CURRENT_DATE, 1);
+call createDetail(8, 5, 1);
+SELECT * FROM detail_orders;
 
 --STORE PROCEDURE DEL TRIGGER "subStockProduct"
 
@@ -329,10 +331,14 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 --TRIGGER QUE SUMA LA CANTIDAD DE EXISTENCIAS QUE SE LE RESTO A "CUANTITIVE"
-CREATE TRIGGER update_stock
+CREATE OR REPLACE TRIGGER update_stock
 AFTER UPDATE ON detail_orders
 FOR EACH ROW
-EXECUTE FUNCTION add_stock();
+EXECUTE FUNCTION FUN_addStockProduct();
+
+SELECT * FROM products;
+SELECT * FROM detail_orders;
+UPDATE detail_orders SET cuantitive = cuantitive - 2 WHERE id_detail_order = 23
 	--OPERADOR ARTIMETICO
 
 --PREV ANTES DE HACER LA CONSULTA

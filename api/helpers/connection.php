@@ -21,8 +21,6 @@ class Connection
     private static $connection = null;
     //attr para estatico para las sentencias SQL
     private static $sql = null;
-    //objeto de la clase Connection para llamar métodos no estaticos
-    private $con = null;
     //atr estatico para los errores 
     private static $error = null;
 
@@ -42,16 +40,16 @@ class Connection
             //si existe un error cambiarán los valores de estos attri
             self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return true;
-        } catch (PDOException $ex) {
-            $ex;
+        } catch (PDOException $exep) {
+            self::formatError($exep->getCode(), $exep->getMessage());
             return false;
         }
     }
 
     //MÉTODOS DEL SCRUD
     /**
-     * TODOS LOS MÉTODOS HACEN PRIMERO UN TESTING A LA CONEXIÓN Y SÍ OCURRE UN ERROR
-     * RETORNAN -1, RETORNAN 0 SÍ EXISTE ERROR EN EL 'try'
+     * !TODOS LOS MÉTODOS HACEN PRIMERO UN TESTING A LA CONEXIÓN Y SÍ OCURRE UN ERROR
+     * !RETORNAN -1, RETORNAN 0 SÍ EXISTE ERROR EN EL 'try'
      */
 
 
@@ -64,7 +62,7 @@ class Connection
      * 0 si existe un error en el código dentro del 'try...'
      * sino retorna los datos al realizar el 'store'
      */
-    public function storeProcedure($query, $data)
+    public static function storeProcedure($query, $data)
     {
         try {
             //sí algo salió mal en la conexión el método se cerrará y retornará -1
@@ -72,13 +70,15 @@ class Connection
                 return -1;
             }
             //sino hara el proceso de almacenado
-            //preparando la sentencia INSERT 
+            //preparando la sentencia INSERT             
             self::$sql = self::$connection->prepare($query);
+            print_r(self::$sql);
             //ejecutar el query con los datos y retornar el resultado
             return self::$sql->execute($data);
-        } catch (\Throwable $th) {
-            echo $th;
-            //si algo está mal dentro del catch retornará 0s
+        } catch (\Throwable $exep) {
+            self::formatError($exep->getCode(), $exep->getMessage());
+            //si algo está mal dentro del catch retornará 0
+            echo $exep;
             return 0;
         }
     }
@@ -89,26 +89,65 @@ class Connection
      * $values valores que retorna la consulta
      * 
      */
-    public function allRows($query, $data = null)
+    public static function all($query, $data = null)
     {
-        //instancia del objeto de la clase 'Connection'
-        $con = new Connection;
         try {
+            //verificar la conexión
             if (!Connection::settingConection()) {
                 return -1;
             }
-            if ($con->storeProcedure($query, $data)) {
+            if (self::storeProcedure($query, $data)) {
                 //retornar el valor de la rows encontradas según la sentencia establecida
                 return self::$sql->fetchAll(PDO::FETCH_ASSOC);
-            }            
-
-        } catch (\Throwable $th) {
+            }
+        } catch (\Throwable $exep) {
+            self::formatError($exep->getCode(), $exep->getMessage());
+            //error dentro del 'try'
             return 0;
         }
     }
+
+    /*
+     * Método para formatear los mensajes de error en una exepción
+     * $type es el tipo de error y $msg el mensaje nativo de php (PDOExeption)
+     * retorno $error o mensaje de error
+     */
+    public static function formatError($type, $msg)
+    {
+        //en dado caso el mensaje nativo se le asigna al error
+        self::$error = $msg . PHP_EOL;
+        //en caso de que el error nativo sea de algún tipo de tipo, establecido en el switch
+        switch ($type) {
+            case '7':
+                //error con el servidor
+                self::$error = 'Something is wrong in the server :(';
+                break;
+            case '42703':
+                //error en algún campo de la sentencia
+                self::$error = 'Field unknown';
+                break;
+            case '23505':
+                //error de duplicación de clave en SQL
+                self::$error = 'Primary key data already exist';
+                break;
+            case '42P01':
+                //Entidad desconocida
+                self::$error = 'Object or entitie unknwon';
+                break;
+            case '23503':
+                //error de violación de llave foránea
+                self::$error = 'Foreign key data already exists';
+                break;
+            default:
+                //otro tipo de error en SQL
+                self::$error = 'Something was wrong in the database';
+                break;
+        }
+        return self::$error;
+    }
 }
-$con = new Connection();
-// $query = 'INSERT INTO categories(category) VALUES (?)';
-// $data = array('a');
+// $con = new Connection();
+// // $query = 'INSERT INTO categories(category) VALUES (?)';
+// // $data = array('a');
 //$query = 'SELECT * FROM categories';
-print_r($con->allRows($query));
+//print_r(Connection::all($query));
