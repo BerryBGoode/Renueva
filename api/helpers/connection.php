@@ -78,7 +78,6 @@ class Connection
         } catch (\Throwable $exep) {
             self::formatError($exep->getCode(), $exep->getMessage());
             //si algo está mal dentro del catch retornará 0
-            echo $exep;
             return 0;
         }
     }
@@ -143,6 +142,14 @@ class Connection
                 self::$error = 'Something was wrong in the database';
                 break;
         }
+    }
+
+    /**
+     * métdodo para obtener el mensaje del exeception formateado
+     * retorna el error con el formato
+     */
+    public static function getExecption()
+    {
         return self::$error;
     }
 }

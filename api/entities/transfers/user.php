@@ -83,7 +83,7 @@ class User
         return $this->email;
     }
 
-    public function setPhoto($img)
+    public function setPhoto($img = null)
     {
         if (!$img) {
             $this->photo = null;
