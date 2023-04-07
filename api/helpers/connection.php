@@ -26,26 +26,6 @@ class Connection
 
 
 
-    /**
-     * método para settear las attri de la conexión
-     * a la db por la clase PDO
-     */
-    public static function settingConection()
-    {
-        try {
-            //llamar al attr, por medio de "self" referirse a la clase
-            //crear objeto de la clase PDO con los attr de la conexión
-            self::$connection = new PDO('pgsql:host=' . SERVER . '; dbname=' . DATABASE . ';port=' . PORT, USERNAME, PASSWORD);
-            //verificar por medio de los ERRMODE de PDO
-            //si existe un error cambiarán los valores de estos attri
-            self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
-            return true;
-        } catch (PDOException $exep) {
-            self::formatError($exep->getCode(), $exep->getMessage());
-            return false;
-        }
-    }
 
     //MÉTODOS DEL SCRUD
     /**
@@ -59,23 +39,21 @@ class Connection
      * este método retornará un int
      * $query es la sentencia de SQL
      * $data son los valores para el query
-     * retorna -1 sí hubo error en la conexión y no ejecuta lo demás sí hay error de conexión,
-     * 0 si existe un error en el código dentro del 'try...'
+     * retorna 0 si existe un error en el código dentro del 'try...'
      * sino retorna los datos al realizar el 'store'
      */
     public static function storeProcedure($query, $data)
     {
         try {
-            //sí algo salió mal en la conexión el método se cerrará y retornará -1
-            if (!Connection::settingConection()) {
-                return -1;
-            }
+            //llamar al attr, por medio de "self" referirse a la clase
+            //crear objeto de la clase PDO con los attr de la conexión
+            self::$connection = new PDO('pgsql:host=' . SERVER . '; dbname=' . DATABASE . ';port=' . PORT, USERNAME, PASSWORD);
             //sino hara el proceso de almacenado
-            //preparando la sentencia             
+            //preparando la sentencia INSERT 
             self::$sql = self::$connection->prepare($query);
             //ejecutar el query con los datos y retornar el resultado
             return self::$sql->execute($data);
-        } catch (PDOException $exep) {
+        } catch (\Throwable $exep) {
             self::formatError($exep->getCode(), $exep->getMessage());
             //si algo está mal dentro del catch retornará 0
             return 0;
@@ -90,19 +68,10 @@ class Connection
      */
     public static function all($query, $data = null)
     {
-        try {
-            //verificar la conexión
-            if (!Connection::settingConection()) {
-                return -1;
-            }
-            if (self::storeProcedure($query, $data)) {
-                //retornar el valor de la rows encontradas según la sentencia establecida
-                return self::$sql->fetchAll(PDO::FETCH_ASSOC);
-            }
-        } catch (\Throwable $exep) {
-            self::formatError($exep->getCode(), $exep->getMessage());
-            //error dentro del 'try'
-            return 0;
+        if (self::storeProcedure($query, $data)) {
+            return self::$sql->fetchAll(PDO::FETCH_ASSOC);
+        }else {
+            return false;
         }
     }
 
@@ -114,19 +83,10 @@ class Connection
      */
     public static function row($query, $data = null)
     {
-        try {
-            //verificar la conexión
-            if (!Connection::settingConection()) {
-                return -1;
-            }
-            if (self::storeProcedure($query, $data)) {
-                //retornar el valor de la rows encontradas según la sentencia establecida
-                return self::$sql->fetch(PDO::FETCH_ASSOC);
-            }
-        } catch (\Throwable $exep) {
-            self::formatError($exep->getCode(), $exep->getMessage());
-            //error dentro del 'try'
-            return 0;
+        if (self::storeProcedure($query, $data)) {
+            return self::$sql->fetch(PDO::FETCH_ASSOC);
+        }else {
+            return false;
         }
     }
 
@@ -166,14 +126,6 @@ class Connection
                 self::$error = 'Something was wrong in the database';
                 break;
         }
-    }
-
-    /**
-     * métdodo para obtener el mensaje del exeception formateado
-     * retorna el error con el formato
-     */
-    public static function getExecption()
-    {
         return self::$error;
     }
 }

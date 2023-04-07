@@ -2,8 +2,14 @@
 const USERS = 'business/private/user.php';
 //const para el formulario donde se obtienen los datos
 const FORM = document.getElementById('form');
+//obj. const. para las opciones del modal
+const OPTIONS = {
+    dismissible : false
+}
+// inicialización de modal
+M.Modal.init(document.querySelectorAll('.modal'));
 //const para el modal
-const MODAL = document.getElementById('modal');
+const MODAL = M.Modal.getInstance(document.getElementById('modal'));
 //const para el botton
 const BUTTON = document.getElementById('save');
 
@@ -21,7 +27,6 @@ FORM.addEventListener('submit', async (event) => {
     //obj. const. para guardar los datos del form se le instancia la clase y se le envia el form
     const DATA = new FormData(FORM);
     //const para obtener el response del api
-    console.log(DATA.get('username') + ' '+DATA.get('password') +' '+DATA.get('email'));
     const JSON = await dataRequest(USERS, action, DATA);
     if (JSON.status) {
 
@@ -29,9 +34,9 @@ FORM.addEventListener('submit', async (event) => {
         //cerrar el modal
         MODAL.close();
         //llamar la notificación, el tipo en caso el proceso sea exitoso y el mesaje enviado del api
-        notificationRedirect('success', JSON.msg, true);
+        // notificationRedirect('success', JSON.msg, true);
     } else {
-        notificationRedirect('error', JSON.msg , true);
-        console.log('a');
+        // notificationRedirect('error', JSON.msg , true);
+        console.log('a: ' + JSON.exception);
     }
 })

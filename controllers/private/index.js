@@ -7,14 +7,17 @@ const LOGIN = document.getElementById('login');
  * Método para cuando el documento ha sido establecido
  * trigger cuando cargue el contenido
  */
-document.addEventListener('DOMContentLoaded', async (event) => {
-    //verificar los usuarios registrados
-    const JSON = await dataRequest(USERS, 'readUsers');
-
-    if (condition) {
+// document.addEventListener('DOMContentLoaded', async (event) => {
+//     //verificar los usuarios registrados
+//     const JSON = await dataRequest(USERS, 'readUsers');
+//     //verfificar si existe una session
+//     if (JSON.session) {
+//         //direccionar al dashboard
+//         location.href = 'dashboard.html';
+//     } else if (JSON.status) {
         
-    }
-})
+//     }
+// })
 
 /**
  * Método para enviar los datos del login
@@ -29,7 +32,8 @@ LOGIN.addEventListener('submit', async (event) => {
     //const. tipo JSON que retorna el response del server
     const JSON = await dataRequest(USERS, 'login', DATA);
     //sí el estado de este proceso es 1 se redirecciona al dashboard
-    console.log(JSON.exception);
+    console.log('exeception: ' + JSON.exception);
+    console.log('message:' + JSON.message);
     if (JSON.status) {
         notificationRedirect('success', JSON.message, true, 'dashboard.html');
     } else {

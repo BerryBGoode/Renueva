@@ -5,9 +5,7 @@ require_once('../../entities/access/user.php');
 
 //comprobar si no existe (isset) un acción por el método GET solicitada por el usuario
 //el 'action' viene del controlador (el botton presionado)
-if (!isset($_GET['action'])) {
-    json_encode('Solicitud no registrada');
-} else {
+if (isset($_GET['action'])) {
     //crear una sesión o reaundarla (necesario para realizar proceso que necesitan datos de la sesión)
     session_start();
     //objeto de la clase user con los attr de trasnferencia 
@@ -30,7 +28,7 @@ if (!isset($_GET['action'])) {
                 if (isset($_SESSION['username'])) {
                     $response['status'] = 1;
                     $response['username'] = $_SESSION['username'];
-                }else {
+                } else {
                     $response['exception'] = 'Undefined username';
                 }
 
@@ -41,7 +39,29 @@ if (!isset($_GET['action'])) {
                 } else {
                     $response['exception'] = 'Something wrong to log out';
                 }
+                break;
+
+            case 'readProfile':
+
+
+                break;
+
+            case 'editProfile':
+
+
+                break;
+            case 'changePassword':
                 
+
+                break;
+            case 'readAll':
+
+
+                break;
+
+            case 'search':
+                
+
                 break;
 
                 //para insertar
@@ -67,10 +87,16 @@ if (!isset($_GET['action'])) {
                 }
 
                 break;
+            case 'readOne':
 
+
+                break;
+            case 'delete':
+
+
+                break;
             default:
                 $response['exception'] = 'This Action is disable';
-                break;
         }
     } else {
         //acciones cuando no sé a iniciado sesión
@@ -78,26 +104,37 @@ if (!isset($_GET['action'])) {
             case 'login':
                 //validar que el $_POST no traiga espacio demás
                 $_POST = Validate::form($_POST);
-                if ($userquery->validatUser($_POST['username'], $_POST['password']) == -1) {
+                if ($userquery->validateUser($_POST['username'], $_POST['password']) == -1) {
                     $response['exception'] = 'User no registred';
-                } elseif ($userquery->validatUser($_POST['username'], $_POST['password'] == 0)) {
+                } elseif ($userquery->validateUser($_POST['username'], $_POST['password'] == 0)) {
                     $response['exception'] = 'Incorrect password';
                 } else {
                     $response['status'] = 1;
-                    $response['message'] = 'Correct user';
+                    $response['message'] = 'Authenticate Correct';
                     //crear  una sesión con el id usuario recuperado
                     $_SESSION['id_user'] = $user->getID();
                     $_SESSION['username'] = $user->getUsername();
                 }
                 break;
 
+            case 'readUsers':
+                
+
+                break;
+
+            case 'signup':
+                
+
+                break;
+
             default:
                 $response['exception'] = 'This Action is disable';
-                break;
         }
     }
     //formato para mostrar el contenido
     header('content-type: application/json; charset=utf-8');
     //resultado formato json y retorna al controlador
-    json_encode($response['exception']);
+    print(json_encode($response));
+} else {
+    print(json_encode('Solicitud no registrada'));
 }

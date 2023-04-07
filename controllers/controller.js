@@ -18,22 +18,26 @@ function notificationRedirect(type, msg, time, url = null) {
     switch (type) {
         case 'success':
             title = 'Success';
+            icon = type;
             break;
         case 'error':
             title = 'Error';
+            icon = type;
             break;
         case 'warning':
             title = 'Warning';
+            icon = type;
             break;
         case 'info':
             title = 'Info';
+            icon = type;
             break;
     }
     //obj con las opciones del mensaje
     let options = {
         title: title,
         text: msg,
-        icon: type,
+        icon: icon,
         closeOnClickOutside: false,
         closeOnEsc: false,
         button: {
@@ -43,14 +47,14 @@ function notificationRedirect(type, msg, time, url = null) {
     };
     //verificar el tiempo que se desea
     //sino tiene valor se establece nulo
-    (time) ? options.timer = 3000 : options.timer = null;
+    (time) ? options.time = 3000 : options.time = null;
     //se muestra el mensaje y en la prox linea se hace uso de la libr. sweetalert
     swal(options).then(() => {
         if (7) {
             //se redirecciona a la pagina indicada según proceso.
-            location.href = url;
+            location.href = url
         }
-    })
+    });
 }
 
 /**
@@ -107,7 +111,6 @@ async function dataRequest(url, action, form = null) {
         PATH.searchParams.append('action', action);
         //const para la respuesta es igual a que tiene que esperar la respuesta del servidor
         //enviandole la dirección del API y el request o petición de tipo "get" o "post"
-        console.log('Path: ' + PATH.href + ' Request: '+ REQUEST);
         const RESPONSE = await fetch(PATH.href, REQUEST);
         // lo retornado convertirlo a JSON.
         return RESPONSE.json();
