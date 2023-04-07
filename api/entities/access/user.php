@@ -1,7 +1,7 @@
 <?php
 //archivo con las transaciones SQL
 require_once('../../helpers/connection.php');
-require_once('../transfers/user.php');
+require_once('../../entities/transfers/user.php');
 
 class UserQuery
 {
@@ -20,12 +20,7 @@ class UserQuery
     public function store()
     {
         //instanciar el objeto de la clase 'User'
-        $user = new User();
-        $user->setUsername('Fernando');
-        $user->setPassword('1234567');
-        $user->setEmail('21321313@gmail.com');
-        // $user->setPhoto(null);
-        $user->setTypeUser(1);
+        $user = new User;
         //declarar var con el query
         $sql = 'INSERT INTO users(username, password, email, id_type_user) VALUES (?, ?, ?, ?)';
         //declara los parametros con arreglo con los get de cada dato del INSERT. El origen de estos es el objeto de la clase
@@ -33,5 +28,36 @@ class UserQuery
         //retornar el resultado del procedimiento, enviandole los parametros de la función
          Connection::storeProcedure($sql, $params);
     }
+
+    /**
+     * Métodos para verificar que los datos ingresados (login)
+     * $username nombre de usuario a loggearse, $password contraseña del usuario
+     * retorna -1 si usuario no existe, 0 si a contraseña es incorrecta
+     * 1 si todo es correcto
+     */
+    public function validatUser($username, $password){
+        //instancia del obj tipo User con los attr 
+        $user = new User;
+        //query para validar sí existe un registro con el nombre de ese usuario
+        $sql = 'SELECT id_usuario
+        FROM users, 
+        WHERE username  = ?';
+        $param = array($username);
+        //resulta es igual a los datos que retorne ese query
+        $result = Connection::all($sql, $param);
+        if($result){
+            $user->setID($result['id_user']);
+            $user->setPassword($result['password']);
+            if (password_verify($password,$user->getPassword())) {
+                return 1;
+            }else {
+                return 0;
+            }
+        }else {
+            return -1;
+        }
+    }
+    
+
 }
 

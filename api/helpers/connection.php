@@ -39,6 +39,7 @@ class Connection
             //verificar por medio de los ERRMODE de PDO
             //si existe un error cambiarán los valores de estos attri
             self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
             return true;
         } catch (PDOException $exep) {
             self::formatError($exep->getCode(), $exep->getMessage());
@@ -70,12 +71,11 @@ class Connection
                 return -1;
             }
             //sino hara el proceso de almacenado
-            //preparando la sentencia INSERT             
+            //preparando la sentencia             
             self::$sql = self::$connection->prepare($query);
-            print_r(self::$sql);
             //ejecutar el query con los datos y retornar el resultado
             return self::$sql->execute($data);
-        } catch (\Throwable $exep) {
+        } catch (PDOException $exep) {
             self::formatError($exep->getCode(), $exep->getMessage());
             //si algo está mal dentro del catch retornará 0
             return 0;
@@ -98,6 +98,30 @@ class Connection
             if (self::storeProcedure($query, $data)) {
                 //retornar el valor de la rows encontradas según la sentencia establecida
                 return self::$sql->fetchAll(PDO::FETCH_ASSOC);
+            }
+        } catch (\Throwable $exep) {
+            self::formatError($exep->getCode(), $exep->getMessage());
+            //error dentro del 'try'
+            return 0;
+        }
+    }
+
+    /*
+     * método para cargar todos los datos de una consulta con parametros
+     * $query sentencia SQL
+     * $values valores que retorna la consulta
+     * 
+     */
+    public static function row($query, $data = null)
+    {
+        try {
+            //verificar la conexión
+            if (!Connection::settingConection()) {
+                return -1;
+            }
+            if (self::storeProcedure($query, $data)) {
+                //retornar el valor de la rows encontradas según la sentencia establecida
+                return self::$sql->fetch(PDO::FETCH_ASSOC);
             }
         } catch (\Throwable $exep) {
             self::formatError($exep->getCode(), $exep->getMessage());

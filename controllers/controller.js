@@ -10,20 +10,74 @@ const API = 'http://localhost/renueva_temp/api/';
 /*****  S  W  E  E  T    A  L  E  R  T */
 /**************************************/
 
-
-
 /**
- * Método para formar un mensaje tipo confirmación.
+ * Método para formar un mensaje tipo confirmación y redirección.
  */
-function notification(title, msg) {
-    //tipo de icono error, warning, info, success
-
-    return Swal.fire({
-        position: 'top-end',
-        icon: title.charAt(0).toLowerCase() + title.slice(1),
+function notificationRedirect(type, msg, time, url = null) {
+    //evaluar el tipo de mensaje
+    switch (type) {
+        case 'success':
+            title = 'Success';
+            break;
+        case 'error':
+            title = 'Error';
+            break;
+        case 'warning':
+            title = 'Warning';
+            break;
+        case 'info':
+            title = 'Info';
+            break;
+    }
+    //obj con las opciones del mensaje
+    let options = {
         title: title,
         text: msg,
-        showConfirmButton: false,
+        icon: type,
+        closeOnClickOutside: false,
+        closeOnEsc: false,
+        button: {
+            text: 'Accept',
+            className: 'cyan'
+        }
+    };
+    //verificar el tiempo que se desea
+    //sino tiene valor se establece nulo
+    (time) ? options.timer = 3000 : options.timer = null;
+    //se muestra el mensaje y en la prox linea se hace uso de la libr. sweetalert
+    swal(options).then(() => {
+        if (7) {
+            //se redirecciona a la pagina indicada según proceso.
+            location.href = url;
+        }
+    })
+}
+
+/**
+ * Método para enviar mensaje de confirmación
+ */
+
+function notificaciónConfirm(msg) {
+    return swal({
+        title: 'Confirm',
+        text: msg,
+        icon: 'info',
+        closeOnClickOutside: false,
+        closeOnEsc: false,
+        buttons: {
+            cancel: {
+                text : 'No',
+                value: false,
+                visible: true,
+                className : 'read accent-1'
+            },
+            confirm: {
+                text : 'Yes',
+                value: true,
+                visible : true,
+                className : 'grey darken-1'
+            }
+        }
     });
 }
 
@@ -53,13 +107,12 @@ async function dataRequest(url, action, form = null) {
         PATH.searchParams.append('action', action);
         //const para la respuesta es igual a que tiene que esperar la respuesta del servidor
         //enviandole la dirección del API y el request o petición de tipo "get" o "post"
-        console.log(PATH.href + REQUEST);
+        console.log('Path: ' + PATH.href + ' Request: '+ REQUEST);
         const RESPONSE = await fetch(PATH.href, REQUEST);
         // lo retornado convertirlo a JSON.
-        console.log(RESPONSE.json())
         return RESPONSE.json();
     } catch (error) {
         //si hay un problema la consola imprimirá el error
-        console.log(error);
+        console.log('a: '+error);
     }
 }

@@ -29,9 +29,9 @@ FORM.addEventListener('submit', async (event) => {
         //cerrar el modal
         MODAL.close();
         //llamar la notificación, el tipo en caso el proceso sea exitoso y el mesaje enviado del api
-        notification('success',' JSON.msg');
+        notificationRedirect('success', JSON.msg, true);
     } else {
-        notification('error', 'JSON.execep');
+        notificationRedirect('error', JSON.msg , true);
         console.log('a');
     }
 })
