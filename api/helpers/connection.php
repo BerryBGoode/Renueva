@@ -24,18 +24,8 @@ class Connection
     //atr estatico para los errores 
     private static $error = null;
 
-
-
-
-    //MÉTODOS DEL SCRUD
-    /**
-     * !TODOS LOS MÉTODOS HACEN PRIMERO UN TESTING A LA CONEXIÓN Y SÍ OCURRE UN ERROR
-     * !RETORNAN -1, RETORNAN 0 SÍ EXISTE ERROR EN EL 'try'
-     */
-
-
     /*
-     * método para insertar datos
+     * método para hacer procedimiento de datos según el query enviado en el $query
      * este método retornará un int
      * $query es la sentencia de SQL
      * $data son los valores para el query
@@ -56,6 +46,7 @@ class Connection
         } catch (\Throwable $exep) {
             self::formatError($exep->getCode(), $exep->getMessage());
             //si algo está mal dentro del catch retornará 0
+            echo $exep;
             return 0;
         }
     }
@@ -70,7 +61,7 @@ class Connection
     {
         if (self::storeProcedure($query, $data)) {
             return self::$sql->fetchAll(PDO::FETCH_ASSOC);
-        }else {
+        } else {
             return false;
         }
     }
@@ -85,7 +76,7 @@ class Connection
     {
         if (self::storeProcedure($query, $data)) {
             return self::$sql->fetch(PDO::FETCH_ASSOC);
-        }else {
+        } else {
             return false;
         }
     }
@@ -126,6 +117,11 @@ class Connection
                 self::$error = 'Something was wrong in the database';
                 break;
         }
+        return self::$error;
+    }
+
+    public static function getException()
+    {
         return self::$error;
     }
 }

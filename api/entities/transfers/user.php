@@ -1,7 +1,8 @@
 <?php
 //llamar el archivo para validar datos ingresados del lado del cliente
 include_once('../../helpers/validate.php');
-
+//constante con la instancia de la clase para llamarla en el store, update,destroy etc
+const USER = new User;
 class User
 {
 
@@ -17,6 +18,7 @@ class User
     public $photo = null;
 
     public $typeuser = null;
+
 
     /**
      * * Métodos para obtener datos del lado del cliente y enviar datos al db (set, get)
@@ -45,7 +47,7 @@ class User
 
     public function setUsername($username)
     {
-        if (Validate::checkAlphanumeric($username, 1, 15)) {            
+        if (Validate::checkString($username, 1, 15)) {
             $this->username = $username;
             return true;
         }

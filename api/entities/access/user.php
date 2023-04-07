@@ -6,7 +6,6 @@ require_once('../../entities/transfers/user.php');
 class UserQuery
 {
     //attr tipo objeto de la clase user con los datos de transferencia (getter and setter)
-    protected $user = null;
     //Clase para manejar los querys de los distintos objetos SQL 
 
     /******************************
@@ -19,14 +18,17 @@ class UserQuery
      */
     public function store()
     {
-        //instanciar el objeto de la clase 'User'
-        $user = new User;
+
+        //$user igual a la constante con la instancia de la clase
+        $user = USER;
+        $user->setTypeUser(1);
         //declarar var con el query
-        $sql = 'INSERT INTO users(username, password, email, id_type_user) VALUES (?, ?, ?, ?)';
+        $sql = 'INSERT INTO users(username, password, email, id_type_user/*, photo*/) VALUES (?, ?, ?, ?/*,?*/)';
         //declara los parametros con arreglo con los get de cada dato del INSERT. El origen de estos es el objeto de la clase
-        $params = array($user->getUsername(), $user->getPassword(), $user->getEmail(), $user->getTypeUser());
+        $params = array($user->getUsername(), $user->getPassword(), $user->getEmail(), $user->getTypeUser()/*, $user->getPhoto()*/);
+        //print_r($params);
         //retornar el resultado del procedimiento, enviandole los parametros de la función
-        Connection::storeProcedure($sql, $params);
+        echo Connection::storeProcedure($sql, $params);
     }
 
     /**
@@ -35,9 +37,10 @@ class UserQuery
      * retorna -1 si usuario no existe, 0 si a contraseña es incorrecta
      * 1 si todo es correcto
      */
-    public function validateUser($username, $password){
-        //instancia del obj tipo User con los attr 
-        $user = new User;
+    public function validateUser($username, $password)
+    {
+        //$user igual a la constante con la instancia de la clase
+        $user = USER;
         //query para validar sí existe un registro con el nombre de ese usuario
         $sql1 = 'SELECT id_user
         FROM users 
@@ -45,16 +48,24 @@ class UserQuery
         $param1 = array($username);
         //resulta es igual a los datos que retorne ese query
         $result1 = Connection::row($sql1, $param1);
-        if($result1){
-            $user->setID($result1['id_user']);//enviar id para sesion
-            
-        }else {
+        if ($result1) {
+            $user->setID($result1['id_user']); //enviar id para sesion
+
+            $sql2 = 'SELECT password FROM users WHERE id_user = ?';
+            $param2 = array($result1['id_user']);
+            $result2 = Connection::row($sql2, $param2);
+            if (password_verify($password, $result2['password'])) {
+                //autenticación correcta
+                return 1;
+            } else {
+                // existe usuario pero no contraseña // contraseña incorrecta
+                return 0;
+            }
+        } else {
+            //no existe usuario ni contraseña
             return -1;
         }
     }
-
-    
-
 }
-
-
+// $query = new UserQuery;
+// echo $query->validateUser('Fer', 'Fer1234567');

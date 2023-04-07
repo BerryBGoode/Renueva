@@ -70,16 +70,16 @@ function notificaciónConfirm(msg) {
         closeOnEsc: false,
         buttons: {
             cancel: {
-                text : 'No',
+                text: 'No',
                 value: false,
                 visible: true,
-                className : 'read accent-1'
+                className: 'read accent-1'
             },
             confirm: {
-                text : 'Yes',
+                text: 'Yes',
                 value: true,
-                visible : true,
-                className : 'grey darken-1'
+                visible: true,
+                className: 'grey darken-1'
             }
         }
     });
@@ -116,6 +116,6 @@ async function dataRequest(url, action, form = null) {
         return RESPONSE.json();
     } catch (error) {
         //si hay un problema la consola imprimirá el error
-        console.log('a: '+error);
+        console.log('a: ' + error);
     }
 }

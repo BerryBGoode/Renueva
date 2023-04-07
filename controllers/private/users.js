@@ -38,5 +38,6 @@ FORM.addEventListener('submit', async (event) => {
     } else {
         // notificationRedirect('error', JSON.msg , true);
         console.log('a: ' + JSON.exception);
+        console.log(JSON.message);
     }
 })

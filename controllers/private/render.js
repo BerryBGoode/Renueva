@@ -1,3 +1,20 @@
+//const. con la dirección del api de ususarios
+const USER_LOGOUT = 'business/private/user.php';
+
+async function logOut() {
+    //const para confirmar la acción del usuario
+    const CONFIRM = await notificaciónConfirm('Do you wanna close sesion?');
+    if (CONFIRM) {
+        //const para ejecutar la respuesta del servidor al cerrar sesión
+        const JSON = await dataRequest(USER_LOGOUT, 'logOut');
+        if (JSON.status) {
+            notificationRedirect('success', JSON.message, true, 'index.html');
+        } else {
+            notificationRedirect('error', JSON.exception, false);
+        }
+    }
+}
+
 //in this file use fun render, 'cause reduce code html, here render the components most important
 //cont
 let width_change = document.documentElement.clientWidth;
@@ -191,7 +208,7 @@ sidebar.innerHTML = `<div class="side-bar hide-on-small-only">
                     </svg>
                     <a href="">Account</a>
                 </li>
-                <li>
+                <li onclick="logOut()">
                     <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" class="icon-sidebar"
                         xmlns="../../resources/icons/logout-svgrepo-com.svg">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -206,7 +223,7 @@ sidebar.innerHTML = `<div class="side-bar hide-on-small-only">
                                 stroke-linejoin="round"></path>
                         </g>
                     </svg>
-                    <a href="../../view/private/">Log out</a>
+                    <a onclick="logOut()">Log out</a>
                 </li>
             </ul>
         </div>
