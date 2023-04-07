@@ -116,6 +116,6 @@ async function dataRequest(url, action, form = null) {
         return RESPONSE.json();
     } catch (error) {
         //si hay un problema la consola imprimirá el error
-        console.log('a: ' + error);
+        console.log(error);
     }
 }

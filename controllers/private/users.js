@@ -34,10 +34,11 @@ FORM.addEventListener('submit', async (event) => {
         //cerrar el modal
         MODAL.close();
         //llamar la notificación, el tipo en caso el proceso sea exitoso y el mesaje enviado del api
-        // notificationRedirect('success', JSON.msg, true);
+        notificationRedirect('success', JSON.message, true);
     } else {
-        // notificationRedirect('error', JSON.msg , true);
-        console.log('a: ' + JSON.exception);
+        notificationRedirect('error', JSON.exception , true);
+        console.log('users => a: ' + JSON.exception);
         console.log(JSON.message);
+        console.log(JSON.status)
     }
 })

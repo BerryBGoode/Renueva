@@ -46,7 +46,6 @@ class Connection
         } catch (\Throwable $exep) {
             self::formatError($exep->getCode(), $exep->getMessage());
             //si algo está mal dentro del catch retornará 0
-            echo $exep;
             return 0;
         }
     }

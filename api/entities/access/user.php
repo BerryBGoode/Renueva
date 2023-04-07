@@ -28,7 +28,7 @@ class UserQuery
         $params = array($user->getUsername(), $user->getPassword(), $user->getEmail(), $user->getTypeUser()/*, $user->getPhoto()*/);
         //print_r($params);
         //retornar el resultado del procedimiento, enviandole los parametros de la función
-        echo Connection::storeProcedure($sql, $params);
+        return Connection::storeProcedure($sql, $params);
     }
 
     /**

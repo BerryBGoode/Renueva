@@ -2,6 +2,7 @@
 const USERS = 'business/private/user.php';
 //const para manejar el form de inicio de sesión
 const LOGIN = document.getElementById('login');
+
 /**
  * Método para cuando el documento ha sido establecido
  * trigger cuando cargue el contenido
