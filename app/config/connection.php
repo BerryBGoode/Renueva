@@ -2,31 +2,26 @@
 //Se crea una clase para la conexion a la base de datos
 class Connection
 {
-    //Se crean las variables
-    public $host = 'localhost';
-    public $dbname = 'renueva';
-    public $port = '5432';
-    public $user = 'postgres';
-    public $password = 'alvaradolira';
-    public $driver = 'pgsql';
-    public $connect;
-
-    //crear una fincion
-    public static function getConnection()
+    class Connection
     {
-        //se crea el try-catch para verificar (ejecutandolo en el catch) si se realizó la conexión a la base.
-        try {
-            //hacemos una instancia de la clase "conexion"
-            $conenection = Connection();
-            //realiza un PDO en postgres 
-            $connection->connect = new PDO("{$connection->driver}:host={$connection->host};port={$connection->port};dbname={$connection->dbname}", $connection->user, $conenection->password);
-            $conenection->connect->setAtribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            //return $conenection->connect;
-            echo "connection success"; 
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+        public $host = 'localhost';
+        public $dbname = 'renuevaa';
+        public $username = 'postgres';
+        public $password = 'alvaradolira';
+    
+        public static function getConnection()
+        {
+            try {
+                $connection = new Connection();
+                $pdo = new PDO("pgsql:host=$connection->host; dbname=$connection->dbname", $connection->username, $connection->password);
+                echo "connection success"; 
+            } catch (PDOException $exp) {
+                echo "Error: ", $exp;
+            }
         }
     }
+    
+    Connection::getConnection();
 }
 
 Connection::getConnection();
