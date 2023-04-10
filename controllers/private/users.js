@@ -37,8 +37,5 @@ FORM.addEventListener('submit', async (event) => {
         notificationRedirect('success', JSON.message, true);
     } else {
         notificationRedirect('error', JSON.exception , true);
-        console.log('users => a: ' + JSON.exception);
-        console.log(JSON.message);
-        console.log(JSON.status)
     }
 })

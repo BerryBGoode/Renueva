@@ -25,6 +25,9 @@
     padding: 0;
 }
 
+body{
+    overflow: hidden;
+}
 
 /* table rules */
 .table-container {
@@ -553,6 +556,12 @@ td>svg {
     cursor: pointer;
 }
 
+
+/*footer modal rules*/
+.modal.modal-fixed-footer .modal-footer {
+    position: sticky;
+}
+
 /* responsive design */
 @media screen and (max-width: 840px) {
 
@@ -732,9 +741,11 @@ td>svg {
     .graph-line {
         margin: 0 10px;
     }
-    .body{
+
+    .body {
         height: 150vh;
     }
+
     /* sidebar
 .side-bar{
     display: none;
@@ -793,8 +804,11 @@ td>svg {
         border-radius: 0;
     }
 }
-@media screen and (max-width: 320px){
-    html, body{
+
+@media screen and (max-width: 320px) {
+
+    html,
+    body {
         margin: 0;
         height: 100%;
         width: 100%;

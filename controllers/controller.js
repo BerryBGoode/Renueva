@@ -14,8 +14,10 @@ const API = 'http://localhost/renueva_temp/api/';
  * Método para formar un mensaje tipo confirmación y redirección.
  */
 function notificationRedirect(type, msg, time, url = null) {
+    //convertir el type a letra minuscula
+    
     //evaluar el tipo de mensaje
-    switch (type) {
+    switch (type.toLowerCase()) {
         case 'success':
             title = 'Success';
             icon = type;

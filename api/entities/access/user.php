@@ -1,11 +1,10 @@
 <?php
-//archivo con las transaciones SQL
+//archivo con las sentencias SQL
 require_once('../../helpers/connection.php');
 require_once('../../entities/transfers/user.php');
 
 class UserQuery
 {
-    //attr tipo objeto de la clase user con los datos de transferencia (getter and setter)
     //Clase para manejar los querys de los distintos objetos SQL 
 
     /******************************
@@ -14,14 +13,14 @@ class UserQuery
      */
 
     /**
-     * Método para agregar un nuevo cliente
+     * Método para agregar un nuevo registro
      */
     public function store()
     {
 
         //$user igual a la constante con la instancia de la clase
         $user = USER;
-        $user->setTypeUser(1);
+        //$user->setTypeUser(1);
         //declarar var con el query
         $sql = 'INSERT INTO users(username, password, email, id_type_user/*, photo*/) VALUES (?, ?, ?, ?/*,?*/)';
         //declara los parametros con arreglo con los get de cada dato del INSERT. El origen de estos es el objeto de la clase

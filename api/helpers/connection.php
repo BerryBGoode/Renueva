@@ -14,6 +14,8 @@ define('PASSWORD', '123');
 //definir la constante con define, texto es mayus. es el nombre de la constante
 //y después el valor
 
+header('Access-Control-Allow-Origin: *');
+
 class Connection
 {
 
@@ -43,9 +45,10 @@ class Connection
             self::$sql = self::$connection->prepare($query);
             //ejecutar el query con los datos y retornar el resultado
             return self::$sql->execute($data);
-        } catch (\Throwable $exep) {
+        } catch (PDOException $exep) {
             self::formatError($exep->getCode(), $exep->getMessage());
             //si algo está mal dentro del catch retornará 0
+            echo $exep;
             return 0;
         }
     }
@@ -78,6 +81,21 @@ class Connection
         } else {
             return false;
         }
+    }
+
+    /*
+     * Método para obtener el id de la última fila agregada
+     * $query en la consulta, $data son los parametros 
+     * retorna el último id o 0 si ocurrio un problema
+     */
+    public static function getLastId($query, $data)
+    {
+        if (self::storeProcedure($query, $data)) {
+            $id = self::$connection->lastInsertId();            
+        }else {
+            $id = 0;
+        }
+        return $id;
     }
 
     /*
