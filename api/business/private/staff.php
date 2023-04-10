@@ -44,7 +44,7 @@ if (isset($_GET['action'])) {
                 } /*else if (!$user->setPhoto('')) {
                     $response['exception'] = Validate::errorFile();
                 }*/ elseif ($userquery->store()) {
-                    
+
                     $response['status']  = 1;
                     // $iduser = $staffquery->getLastUser();
                     //datos del empleado (staff)                    
@@ -117,9 +117,16 @@ if (isset($_GET['action'])) {
 
                 break;
 
-            case 'readAll':
+            case 'all':
 
-
+                if ($response['dataset'] = $staffquery->all()) {
+                    $response['status'] = 1;
+                    $response['message'] = '';
+                } elseif (Connection::getException()) {
+                    $response['exception'] = Connection::getException();
+                } else {
+                    $response['message'] = "Doesn't exist register";
+                }
 
                 break;
 
