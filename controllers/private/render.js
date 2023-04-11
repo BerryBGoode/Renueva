@@ -242,6 +242,6 @@ search = document.getElementById('search-container'); search.innerHTML = `<svg w
 //render buttons print and add
 let buttons = document.getElementById('more-actions');
 if (buttons !== null) {
-buttons.innerHTML = `<a href="#modal" class="waves-effect waves-light btn modal-trigger">Add</a>
+buttons.innerHTML = `<a href="#modal" class="waves-effect waves-light btn modal-trigger" onclick="window.onCreate()">Add</a>
 <a href="" class="waves-effect waves-light btn ">Print</a>`;
 }

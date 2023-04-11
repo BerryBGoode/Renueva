@@ -56,7 +56,7 @@ if (isset($_GET['action'])) {
                         $response['exception'] = 'Format document is incorrect';
                     } elseif (!$staff->setPhone($_POST['phone'])) {
                         $response['exception'] = 'Format phone number is incorrect';
-                    } else if ($response['status']) {
+                    } else if ($response['status'] == 1) {
                         $iduser = $staffquery->getLastUser();
                         if (!$staff->setUser($iduser)) {
                             $response['exception'] = 'User incorrect';
@@ -78,7 +78,7 @@ if (isset($_GET['action'])) {
                 break;
 
             case 'logOut':
-
+                //si se pudo eliminar la sesión
                 if (session_destroy()) {
                     $response['status'] = 1;
                     $response['message'] = 'Log out process correct';
@@ -90,12 +90,12 @@ if (isset($_GET['action'])) {
 
             case 'getUser':
 
-                if (isset($_SESSION['username'])) {
-                    $response['status'] = 1;
-                    $response['username'] = $_SESSION['username'];
-                } else {
-                    $response['exception'] = 'Undefined username';
-                }
+                // if (isset($_SESSION['username'])) {
+                //     $response['status'] = 1;
+                //     $response['username'] = $_SESSION['username'];
+                // } else {
+                //     $response['exception'] = 'Undefined username';
+                // }
 
                 break;
 
@@ -118,14 +118,15 @@ if (isset($_GET['action'])) {
                 break;
 
             case 'all':
-
+                //si existe un valor al intentar recuperar los registros
+                //asignarlo al 'dataset'
                 if ($response['dataset'] = $staffquery->all()) {
                     $response['status'] = 1;
                     $response['message'] = '';
                 } elseif (Connection::getException()) {
                     $response['exception'] = Connection::getException();
                 } else {
-                    $response['message'] = "Doesn't exist register";
+                    $response['exception'] = "Doesn't exist register";
                 }
 
                 break;
@@ -136,7 +137,21 @@ if (isset($_GET['action'])) {
 
                 break;
 
-            case 'readOne':
+            case 'one':
+                //sí no existe un 'id_staff'
+                if (!$_POST['id_staff']) {
+                    $response['exception'] = 'Error to get staff';
+                } else {
+                    //si existe un valor al intentar recuperar los registros
+                    //asignarlo al 'dataset'
+                    if ($response['dataset'] = $staffquery->row($_POST['id_staff'])) {
+                        $response['status'] = 1;
+                    } elseif (Connection::getException()) {
+                        $response['exception'] = Connection::getException();
+                    } else {
+                        $response['exception'] = "This register doesn't exist";
+                    }
+                }
 
 
 

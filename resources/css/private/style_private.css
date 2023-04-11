@@ -31,7 +31,7 @@ body{
 
 /* table rules */
 .table-container {
-    margin: 0 25px 0 25px;
+    margin: 0 25px 25px 25px;
     border: 1px solid #42424242;
     border-radius: 15px;
 }
@@ -44,6 +44,10 @@ body{
     border-collapse: collapse;
     width: 100%;
     max-width: 100%;
+
+    /* margin: 0 25px 0 25px;
+    border: 1px solid #42424242;
+    border-radius: 15px; */
 }
 
 /* end table rules */
@@ -389,6 +393,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 }
 
 .template-main-container {
+    overflow: auto;
     width: 100%;
     margin: 10px 10px 10px 0;
 }

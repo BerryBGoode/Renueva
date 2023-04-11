@@ -14,7 +14,8 @@ const OPTIONS = {
 const ROWS = document.getElementById('table-body');
 //const. para mostrar el mensage cargado del backend, para avisar por sí no existen ningún registro
 const MSG = document.getElementById('table-heade');
-
+//const. con el input con el "id_staff"
+const INPUT = document.getElementById('id_staff');
 /**
  * async-awat método tipo event para enviar los datos del form al api
  * trigger: submit 
@@ -68,7 +69,7 @@ async function getData(form = null) {
                 <td class="action-col">
 
                     <!-- boton para actualizar -->
-                    <svg width="26" height="25" viewBox="0 0 34 33" fill="none" id="update"
+                    <svg width="26" height="25" viewBox="0 0 34 33" fill="none" onclick="onModify(${data.id_staff})"
                     xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M15.0215 1.91666H12.0468C4.60998 1.91666 1.63525 4.83332 1.63525 12.125V20.875C1.63525 28.1667 4.60998 31.0833 12.0468 31.0833H20.971C28.4078 31.0833 31.3825 28.1667 31.3825 20.875V17.9583"
@@ -85,7 +86,7 @@ async function getData(form = null) {
                     </svg>
 
                     <!-- boton para eliminar -->
-                    <svg width="22" height="25" viewBox="0 0 30 33" fill="none" id="delete"
+                    <svg width="22" height="25" viewBox="0 0 30 33" fill="none" onclick="destroy()"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M28.4432 7.7208C23.4903 7.23955 18.5076 6.99164 13.5398 6.99164C10.5948 6.99164 7.64985 7.13747 4.70487 7.42914L1.67065 7.7208"
@@ -119,5 +120,56 @@ async function getData(form = null) {
 //evento que se ejecuta cada vez que cargue el contenido del DOM
 document.addEventListener('DOMContentLoaded', () => {
     //cargar la tabla
-    getData();  
+    getData();
 })
+
+//método que se desencadena en el evento click del boton para actualizar
+async function modify() {
+
+}
+
+//método que se descadena en el evento clicl del boton para eliminar
+async function destroy() {
+
+}
+//Método para preparar el modal para ingresar datos
+function onCreate() {
+    //limpiar los campos
+    FORM.reset();
+}
+// Método para cerrar el modal
+function close() {
+    //cerrar el modal
+    MODAL.close();
+}
+
+async function onModify(id) {
+    //const. tipo obj. con los datos necesarios para la consulta
+    const DATA = new FormData();
+    //agregar el id al obj. con los datos necesarios para la consulta
+    DATA.append('id_staff', id);
+    //const. en tendrá los resultados en formato JSON
+    const JSON = await dataRequest(STAFF, 'one', DATA);
+    if (JSON.status) {
+        //abrir modal
+        MODAL.open();
+        //desactivar input
+        document.getElementById('password').disabled = true;
+        document.getElementById('lblpassword').style.cursor = 'default';
+        //cargar los datos
+        console.log(JSON);
+        document.getElementById('id_staff').value = id;
+        document.getElementById('id_user').value = JSON.dataset.id_user;
+        document.getElementById('names').value = JSON.dataset.names;
+        document.getElementById('last_names').value = JSON.dataset.last_names;
+        document.getElementById('document').value = JSON.dataset.document;
+        document.getElementById('phone').value = JSON.dataset.phone;
+        document.getElementById('username').value = JSON.dataset.username;
+        document.getElementById('email').value = JSON.dataset.email;
+        //ordenar label del input arriba
+        M.updateTextFields();
+
+    } else {
+        notificationRedirect('error', JSON.exception, false);
+    }
+}

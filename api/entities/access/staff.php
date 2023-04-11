@@ -50,6 +50,20 @@ class StaffQuery
         INNER JOIN users u ON u.id_user = s.id_user';
         return Connection::all($sql);
     }
+
+    /**
+     * Método para recuperar los datos de 1 "staff" seleccionado
+     * retorna un arreglo con los datos
+     */
+    public function row($id)
+    {
+        $sql = 'SELECT u.id_user, u.username, s.names, s.last_names, s.document, s.phone, u.email
+        FROM staffs s
+        INNER JOIN users u ON u.id_user = s.id_user
+        WHERE s.id_staff = ?';
+        $param = array($id);
+        return Connection::row($sql, $param);
+    }
 }
 // $query = new StaffQuery;
 // print_r(json_encode($query->all()));
