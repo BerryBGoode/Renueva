@@ -11,12 +11,7 @@
 }
 
 /* rules for change color of inputs text and email */
-input[type=text]:not(.browser-default):focus:not([readonly]) {
-    border-bottom: 1px solid #424242;
-    -webkit-box-shadow: 0 1px 0 0 #424242;
-    box-shadow: 0 1px 0 0 #424242;
-}
-
+input[type=text]:not(.browser-default):focus:not([readonly]),
 input[type=email]:not(.browser-default):focus:not([readonly]) {
     border-bottom: 1px solid #424242;
     -webkit-box-shadow: 0 1px 0 0 #424242;
@@ -24,12 +19,15 @@ input[type=email]:not(.browser-default):focus:not([readonly]) {
 }
 
 /* rules for change color of label in inputs text and email */
-input[type=text]:not(.browser-default):focus:not([redonly])+label {
+input[type=text]:not(.browser-default):focus:not([redonly])+label,
+input[type='email']:not(.browser-default):focus:not([readonly])+label {
     color: #6d6d6d;
 }
 
-input[type='email']:not(.browser-default):focus:not([readonly])+label {
-    color: #6d6d6d;
+input.valid[type=email]:not(.browser-default),
+input.valid[type=text]:not(.browser-default) {
+    border-bottom: 1px solid #424242;
+    box-shadow: 0 1px 0 0 #424242;
 }
 
 /* home html rules */
@@ -293,7 +291,8 @@ body {
     box-shadow: none;
 
 }
-.identify-products{
+
+.identify-products {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -903,29 +902,25 @@ input[class='login-input']:not(.browser-default) {
         align-items: center;
     }
 
-    .card {
+    .card {}
 
-    }
-    .cards{
-        display: flex;   
+    .cards {
+        display: flex;
         flex-direction: column;
         width: 50%;
 
     }
-    .minicards{
+
+    .minicards {
         /* flex-wrap: wrap; para phone widht */
         gap: 0;
     }
-    .soap{
+
+    .soap {
         padding: 0;
     }
-    .sing{
-        padding: 30px;
-    }
-}
 
-@media screen and (min-width: 1170px) {
-    .card {
-    
+    .sing {
+        padding: 30px;
     }
 }

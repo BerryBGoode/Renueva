@@ -8,13 +8,14 @@
     <!--title-->
     <title>Renueva</title>
     <!--Icon title-->
-    <link rel="shortcut icon" href="/resources/img/Logo/LogoFavIcon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../../resources/img/Logo/LogoFavIcon.png" type="image/x-icon">
     <!--Import Google Icon Font-->
-    <link href="./../../resources/general/fonts/fonts.css" rel="stylesheet">
+    <link href="../../resources/general/fonts/fonts.css" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="../../resources/general/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../resources/general/css/materialize.min.css"
+        media="screen,projection" />
     <!--Main styles-->
-    <link rel="stylesheet" href="/resources/css/private/style_private.css">
+    <link rel="stylesheet" href="../../resources/css/private/style_private.css">
 </head>
 
 <body class="index">
@@ -24,39 +25,42 @@
         <div class="row form">
             <div class="content-form">
                 <div class="main-form">
-                    <form action="" class="data">
+                    <form method="post" class="data" id="login">
                         <div class="input">
-                            <input type="text" placeholder="Username" class="login-input">
+                            <input type="text" placeholder="Username" name="username" class="login-input" required>
                         </div>
                         <div class="password">
                             <div class="input">
-                                <input type="password" placeholder="Password" class="login-input">
+                                <input type="password" placeholder="Password" name="password" class="login-input"
+                                    required>
                             </div>
 
                             <div class="">
                                 <a href="" class="link-forgot">Forgot Password?</a>
                             </div>
                         </div>
-
+                        <div class="button">
+                            <button type="submit" class="login-button waves-effect">
+                                <a id="Login-link">Log in</a>
+                            </button>
+                        </div>
                     </form>
-                </div>
-                <div class="button">
-                    <button type="submit" class="login-button waves-effect">
-                        <a id="Login-link" href="dashboard.html">Log in</a>
-                    </button>
                 </div>
             </div>
 
         </div>
         <div class="row logo-container">
             <div class="logo col s12">
-                <img src="/resources/img/Logo/LogoRenueva_Login.png" class="logo-login" alt="Logo">
+                <img src="../../resources/img/Logo/LogoRenueva_Login.png" class="logo-login" alt="Logo">
             </div>
         </div>
     </main>
 
-    <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" src="./../../resources/general/js/materialize.min.js"></script>
 </body>
+<!--JavaScript at end of body for optimized loading-->
+<script type="text/javascript" src="./../../resources/general/js/materialize.min.js"></script>
+<script src="../../resources/general/js/sweetalert.min.js"></script>
+<script src="../../controllers/controller.js"></script>
+<script src="../../controllers/private/index.js"></script>
 
 </html>
