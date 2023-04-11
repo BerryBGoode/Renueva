@@ -64,6 +64,13 @@ class StaffQuery
         $param = array($id);
         return Connection::row($sql, $param);
     }
+
+    /**
+     * Método para cambiar los datos según el "staff" seleccionado
+     */
+    public function change(){
+        $sql = 'UPDATE ';
+    }
 }
 // $query = new StaffQuery;
 // print_r(json_encode($query->all()));

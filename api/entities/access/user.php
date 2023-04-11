@@ -64,7 +64,21 @@ class UserQuery
             //no existe usuario ni contraseña
             return -1;
         }
+        
+    }
+    
+    /**
+     * Método para actualizar los datos posibles del usuario
+     */
+    public function updateUser(){
+
+        //instancia de la clase con los attr de users
+        $user = USER;
+        $sql = 'UPDATE users SET username = ?, email = ? WHERE id_user = ?';
+        $params = array($user->getUsername(), $user->getEmail(), $user->getID());
+        return Connection::storeProcedure($sql, $params);
     }
 }
+
 // $query = new UserQuery;
 // echo $query->validateUser('Fer', 'Fer1234567');
