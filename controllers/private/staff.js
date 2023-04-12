@@ -123,15 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
     getData();
 })
 
-//método que se desencadena en el evento click del boton para actualizar
-async function modify() {
-
-}
-
-//método que se descadena en el evento clicl del boton para eliminar
-async function destroy() {
-
-}
 //Método para preparar el modal para ingresar datos
 function onCreate() {
     //limpiar los campos

@@ -23,7 +23,7 @@ if (isset($_GET['action'])) {
     //verficar si existe una sessión, así restrigir las acciones al tener una sesión activa        
     if (isset($_SESSION['id_user'])) {
 
-        $response['sesion'] = 1;
+        $response['session'] = 1;
         //verificar la acción
         switch ($_GET['action']) {
             case 'create':
@@ -64,7 +64,7 @@ if (isset($_GET['action'])) {
                             $response['exception'] = 'User error';
                         } else if ($staffquery->store()) {
                             $response['status'] = 1;
-                            $response['message'] = 'User and staff registred correctly';
+                            $response['message'] = 'Data was successfully registred';
                         } else {
                             $response['exception'] = Connection::getException();
                             $response['status'] = 2;
@@ -156,7 +156,43 @@ if (isset($_GET['action'])) {
                 break;
 
             case 'update':
-                
+
+                //enviar los datos a los attrs y así validarlos
+                $_POST = Validate::form($_POST);
+                //validar los datos del user
+                if (!$user->setID($_POST['id_user'])) {
+                    $response['exception'] = 'User incorrect';
+                } else if (!$user->setUsername($_POST['username'])) {
+                    $response['exception'] = 'Username incorrect';
+                } else if (!$user->setEmail($_POST['email'])) {
+                    $response['exception'] = 'Format email incorrect';
+                } else if ($userquery->change()) {
+                    //cuando se actualizo el usuario correctamente
+                    //asignar estado 
+                    $response['status'] = 1;
+
+                    //enviar y validar los datos recibidos del front para staff
+                    if (!$staff->setId($_POST['id_staff'])) {
+                        $response['exception'] = 'Staff incorrect';
+                    } else if (!$staff->setNames($_POST['names'])) {
+                        $response['exception'] = 'Names incorrect';
+                    } else if (!$staff->setLastNames($_POST['last_names'])) {
+                        $response['exception'] = 'Last names incorrect';
+                    } else if (!$staff->setDocument($_POST['document'])) {
+                        $response['exception'] = 'Format document incorrect';
+                    } else if (!$staff->setPhone($_POST['phone'])) {
+                        $response['exception'] = 'Format phone incorrect';
+                    } elseif ($staffquery->change()) {
+                        $response['status'] = 1;
+                        $response['message'] = 'Data was successfully modified';
+                    } else {
+                        $response['status']  = 2;
+                        $response['exception']  = Connection::getException();
+                        $response['message'] = 'Only user was successfully modified';
+                    }
+                } else {
+                    $response['exception'] = Connection::getException();
+                }
 
 
                 break;

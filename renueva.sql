@@ -248,14 +248,15 @@ having count(d.id_product) >= 0
 ORDER BY count(p.id_product) DESC
 
 
+
 --MOSTRAR LOS PRODUCTOS QUE COMPRÓ UN CLIENTE "(QUE PERTENEZCA A LA MISMA ORDEN, 
 --SACAR EL TOTAL DE LA CANTIDAD POR EL PRECIO UNITARIO "
-SELECT CONCAT(c.names, ' ', c.last_names) as client , p."name", p.price, /*SUM(*/d.cuantitive/*) AS cuantitive*/, /*SUM(*/p.price/*) AS total*/, o.id_order
+SELECT CONCAT(c.names, ' ', c.last_names) as client , p."name", p.price, /*SUM(*/d.cuantitive/*) AS cuantitive*/, /*SUM(*//*) AS total*/ o.id_order
 FROM detail_orders d
 INNER JOIN orders o ON o.id_order = d.id_order
 INNER JOIN products p ON p.id_product = d.id_product
 INNER JOIN clients c ON c.id_client = o.id_client
-WHERE o.id_client = c.id_client AND o.id_order = 1
+WHERE o.id_client = c.id_client AND o.id_order = 2
 GROUP BY CONCAT(c.names, ' ',  c.last_names),p."name", p.price,d.cuantitive, o.id_order
 ORDER BY COUNT(d.cuantitive) DESC
 
@@ -269,31 +270,30 @@ INNER JOIN clients c ON c.id_client = o.id_client
 WHERE c.id_client = 2
 ORDER BY o.date_order DESC
 
-	--STORE PROCEDURE
 	
---STORE PROCEDURE: CREAR UN DETALLE OBTENIENDO EL ID_PRODUCT, CUANTITIVE Y EL ID_CLIENT
-CREATE OR REPLACE PROCEDURE createDetail(
-	product integer, 
-	cuantitive integer,
-	client integer
-)
-language plpgsql
-as 
-$$
-declare
-	_order_ integer;
-begin
---ASIGNAR EL VALOR QUE RETORNE ESA CONSULTA A '_order_' CON "INTO"
---CURRENT SIRVE PARA OBTENER LA FECHA ACTUAL (SELECCIONAR EL ID_ORDER CUANDO LA FECHA SEA A LA DE AHORA) 
-	SELECT id_order FROM orders WHERE id_client = client AND date_order = CURRENT_DATE INTO _order_;
---LA FECHA DE AHORA PARA CREAR EL DETALLE Y BUSCAR LA ORDEN PERTENECIENTE A UN CLIENTE MÁS RECIENTE
-	INSERT INTO detail_orders(id_order, id_product, cuantitive) VALUES (_order_, product, cuantitive);
-end 
-$$;
---execute
-INSERT INTO orders(id_client, date_order, id_state_order) VALUES (5, CURRENT_DATE, 1);
-call createDetail(8, 5, 1);
-SELECT * FROM detail_orders;
+-- --STORE PROCEDURE: CREAR UN DETALLE OBTENIENDO EL ID_PRODUCT, CUANTITIVE Y EL ID_CLIENT
+-- CREATE OR REPLACE PROCEDURE createDetail(
+-- 	product integer, 
+-- 	cuantitive integer,
+-- 	client integer
+-- )
+-- language plpgsql
+-- as 
+-- $$
+-- declare
+-- 	_order_ integer;
+-- begin
+-- --ASIGNAR EL VALOR QUE RETORNE ESA CONSULTA A '_order_' CON "INTO"
+-- --CURRENT SIRVE PARA OBTENER LA FECHA ACTUAL (SELECCIONAR EL ID_ORDER CUANDO LA FECHA SEA A LA DE AHORA) 
+-- 	SELECT id_order FROM orders WHERE id_client = client AND date_order = CURRENT_DATE INTO _order_;
+-- --LA FECHA DE AHORA PARA CREAR EL DETALLE Y BUSCAR LA ORDEN PERTENECIENTE A UN CLIENTE MÁS RECIENTE
+-- 	INSERT INTO detail_orders(id_order, id_product, cuantitive) VALUES (_order_, product, cuantitive);
+-- end 
+-- $$;
+-- --execute
+-- INSERT INTO orders(id_client, date_order, id_state_order) VALUES (5, CURRENT_DATE, 1);
+-- call createDetail(8, 5, 1);
+-- SELECT * FROM detail_orders;
 
 --STORE PROCEDURE DEL TRIGGER "subStockProduct"
 
@@ -319,7 +319,8 @@ CREATE OR REPLACE TRIGGER TG_subStockProduct AFTER INSERT ON detail_orders
 	EXECUTE PROCEDURE FUN_subStockProduct()
 
 SELECT * FROM products
-INSERT INTO detail_orders(id_order, id_product, cuantitive) VALUES (15, 1, 3)
+SELECT * FROM orders
+INSERT INTO detail_orders(id_order, id_product, cuantitive) VALUES (1, 1, 3)
 
 --FUNCIÓN QUE SUME LA CANTIDAD DE EXISTENCIAS QUE SE LE RESTO A "CUANTITIVE" EN UNA ACTUALIZACIÓN
 CREATE OR REPLACE FUNCTION FUN_addStockProduct() RETURNS TRIGGER AS $$
@@ -338,8 +339,8 @@ EXECUTE FUNCTION FUN_addStockProduct();
 
 SELECT * FROM products;
 SELECT * FROM detail_orders;
-UPDATE detail_orders SET cuantitive = cuantitive - 2 WHERE id_detail_order = 23
-	--OPERADOR ARTIMETICO
+UPDATE detail_orders SET cuantitive = cuantitive - 1 WHERE id_detail_order = 2
+	--OPERADOR ARTIMETICO (-1)
 
 --PREV ANTES DE HACER LA CONSULTA
 SELECT * FROM products
@@ -347,7 +348,7 @@ UPDATE PRODUCTS SET stock = 0 WHERE id_product = 8
 --MOSTRAR LOS PRODUCTOS QUE NO TENGAN EXISTENCIAS
 SELECT *
 FROM products p
-WHERE p.stock = 0
+WHERE p.stock = 0  --OPERADOR LÓGICO +, -, *, / 
 
 	--OPERADOR LÓGICO
 
@@ -447,3 +448,37 @@ WHERE o.date_order BETWEEN '2023/02/01'  AND '2023/02/28'
 GROUP BY d.id_order, p."name", o.date_order
 ORDER BY count(d.id_product) DESC
 
+SELECT * FROM categories;
+SELECT * FROM clients;
+SELECT * FROM orders;
+SELECT * FROM products;
+SELECT * FROM users;
+SELECT * FROM staffs;
+SELECT * FROM reviews;
+SELECT * FROM states_orders;
+SELECT * FROM states_products;
+SELECT * FROM types_users;
+SELECT * FROM detail_orders;
+
+--INGRESAR UN PEDIDO 	CURRENT_DATE : recupera la fecha actual
+INSERT INTO orders(id_client, date_order, id_state_order) VALUES (2, CURRENT_DATE, 1)
+--INGREAR UN DETALLE 
+INSERT INTO detail_orders(id_order, id_product, cuantitive) VALUES (14, 2, 1), (14, 3, 1);
+--INGRESAR COMENTARIO
+INSERT INTO reviews(comment, id_client, id_order, id_product) VALUES ('I like this products', 1, 14, 2);
+INSERT INTO reviews(comment, id_client, id_order, id_product) VALUES('this not better of renueva', 1, 14, 3);
+
+SELECT * FROM products
+WHERE stock <= 40;
+--actualizar el precio de los productos que tengan stoke menor o igual a 40
+UPDATE products SET price = price - 2 WHERE stock <= 40
+
+--Eliminar los comentarios que correspondan a productos de categoria 2, 3 o 4
+SELECT * FROM reviews
+WHERE id_product IN (1, 3 ,6, 9 ,10)
+SELECT * FROM products
+WHERE id_category = 2
+SELECT * FROM categories
+
+DELETE FROM reviews
+WHERE id_product IN (1, 3 ,6, 9 ,10)

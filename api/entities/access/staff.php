@@ -47,7 +47,8 @@ class StaffQuery
     {
         $sql = 'SELECT s.id_staff, u.id_user, u.username, s.names, s.last_names, s.document, s.phone, u.email
         FROM staffs s
-        INNER JOIN users u ON u.id_user = s.id_user';
+        INNER JOIN users u ON u.id_user = s.id_user
+        ORDER BY s.id_staff ASC';
         return Connection::all($sql);
     }
 
@@ -69,7 +70,11 @@ class StaffQuery
      * Método para cambiar los datos según el "staff" seleccionado
      */
     public function change(){
-        $sql = 'UPDATE ';
+        //var. con la instancia de la clase user con los attr
+        $staff = STAFF;
+        $sql = 'UPDATE staffs SET names = ?, last_names = ?, document = ?, phone = ? WHERE id_staff = ?';
+        $params = array($staff->getNames(), $staff->getLastNames(), $staff->getDocument(), $staff->getPhone(), $staff->getId());
+        return Connection::storeProcedure($sql, $params);
     }
 }
 // $query = new StaffQuery;

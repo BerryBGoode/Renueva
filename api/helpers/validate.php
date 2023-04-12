@@ -207,7 +207,7 @@ class Validate
 
     /**
      * Método para verificar el formato del DUI
-     * $data dato a verificar si tiene formato DUI
+     * $data dato a verificar si tiene formato DUI (00000000-0)
      * retorna true si el formato es correcto
      */
     public static function checkDUI($data)
