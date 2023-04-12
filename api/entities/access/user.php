@@ -70,7 +70,7 @@ class UserQuery
     /**
      * Método para actualizar los datos posibles del usuario
      */
-    public function updateUser(){
+    public function change(){
 
         //instancia de la clase con los attr de users
         $user = USER;
