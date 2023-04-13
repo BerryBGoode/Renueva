@@ -50,9 +50,9 @@ function notificationRedirect(type, msg, time, url = null) {
     //verificar el tiempo que se desea
     //sino tiene valor se establece nulo
     (time) ? options.time = 3000 : options.time = null;
-    //se muestra el mensaje y en la prox linea se hace uso de la libr. sweetalert
+    //con el "swal" se muestra el mensaje en base a los que sale en el obj. options
     swal(options).then(() => {
-        if (7) {
+        if (url) {
             //se redirecciona a la pagina indicada según proceso.
             location.href = url
         }

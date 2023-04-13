@@ -16,6 +16,8 @@ const ROWS = document.getElementById('table-body');
 const MSG = document.getElementById('table-heade');
 //const. con el input con el "id_staff"
 const INPUT = document.getElementById('id_staff');
+//const. para agregar el texto al boton según el proceso
+const TXTBUTTON = document.getElementById('process');
 /**
  * async-awat método tipo event para enviar los datos del form al api
  * trigger: submit 
@@ -32,6 +34,7 @@ FORM.addEventListener('submit', async (event) => {
     //hacer la patición y guardarla en una const.
     const JSON = await dataRequest(STAFF, action, DATA);
     //verificar el estado de ese proceso
+    console.log(JSON)
     if (JSON.status == 1) {
 
         //llenar tabla
@@ -46,6 +49,17 @@ FORM.addEventListener('submit', async (event) => {
         notificationRedirect('error', JSON.exception, true);
     }
 })
+
+/**
+ * Método que se ejecutan un evento 
+ * trigger: button
+ */
+FORM.addEventListener('reset', () => {
+    //limpiar el form
+    FORM.reset();
+    //cerrar modal
+    MODAL.close();
+});
 
 async function getData(form = null) {
     //verificar la acción, sí es para buscar o carga toda la tabla
@@ -86,7 +100,7 @@ async function getData(form = null) {
                     </svg>
 
                     <!-- boton para eliminar -->
-                    <svg width="22" height="25" viewBox="0 0 30 33" fill="none" onclick="destroy()"
+                    <svg width="22" height="25" viewBox="0 0 30 33" fill="none" onclick="onDestroy(${data.id_user})"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M28.4432 7.7208C23.4903 7.23955 18.5076 6.99164 13.5398 6.99164C10.5948 6.99164 7.64985 7.13747 4.70487 7.42914L1.67065 7.7208"
@@ -127,13 +141,10 @@ document.addEventListener('DOMContentLoaded', () => {
 function onCreate() {
     //limpiar los campos
     FORM.reset();
+    //asignar el texto del boton
+    TXTBUTTON.innerText = `Add`;
 }
-// Método para cerrar el modal
-function close() {
-    //cerrar el modal
-    MODAL.close();
-}
-
+//async-await method para obtener los datos del 'staff' seleccionado, así también prepará el modal actualizar datos
 async function onModify(id) {
     //const. tipo obj. con los datos necesarios para la consulta
     const DATA = new FormData();
@@ -159,8 +170,33 @@ async function onModify(id) {
         document.getElementById('email').value = JSON.dataset.email;
         //ordenar label del input arriba
         M.updateTextFields();
+        //asignar el texto del boton
+        TXTBUTTON.innerText = `Modify`;
 
     } else {
         notificationRedirect('error', JSON.exception, false);
+    }
+}
+//async-await method para eliminar los datos del 'staff' seleccionado
+async function onDestroy(user) {
+
+    //const. obj. para después asignarle el valor solicitado
+    const DATA = new FormData();
+    DATA.append('id_user', user);
+    //confirmar la acción, especificando el usuario
+    let confirm = await notificaciónConfirm('Do you wanna delete this staff');
+    if (confirm) {
+        //const. para obtener la respuesta a la petición de eliminar
+        const JSON = await dataRequest(STAFF, 'delete', DATA);
+        if (JSON.status) {
+            //cerrar modal
+            MODAL.close();
+            //notificación
+            notificationRedirect('success', JSON.message, true);
+            //cargar la tabla
+            getData();
+        } else {
+            notificationRedirect('error', JSON.exception, false);
+        }
     }
 }

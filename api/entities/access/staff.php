@@ -68,14 +68,16 @@ class StaffQuery
 
     /**
      * Método para cambiar los datos según el "staff" seleccionado
+     * retorna si la query fue exitoso o si hubo un error
      */
     public function change(){
-        //var. con la instancia de la clase user con los attr
+        //var. con la instancia de la clase stff con los attr
         $staff = STAFF;
         $sql = 'UPDATE staffs SET names = ?, last_names = ?, document = ?, phone = ? WHERE id_staff = ?';
         $params = array($staff->getNames(), $staff->getLastNames(), $staff->getDocument(), $staff->getPhone(), $staff->getId());
         return Connection::storeProcedure($sql, $params);
     }
+
 }
 // $query = new StaffQuery;
 // print_r(json_encode($query->all()));
