@@ -64,19 +64,33 @@ class UserQuery
             //no existe usuario ni contraseña
             return -1;
         }
-        
     }
-    
+
     /**
      * Método para actualizar los datos posibles del usuario
+     * retornar el resultado el proceso
      */
-    public function change(){
+    public function change()
+    {
 
         //instancia de la clase con los attr de users
         $user = USER;
         $sql = 'UPDATE users SET username = ?, email = ? WHERE id_user = ?';
         $params = array($user->getUsername(), $user->getEmail(), $user->getID());
         return Connection::storeProcedure($sql, $params);
+    }
+
+    /**
+     * Método para eliminar "user" y como la claves extenriores (fk) están en cascada
+     * elimina el "staff" que está ligado al "user"
+     * $id, id del ususario a eliminar
+     * retorna el resultado del proceso
+     */
+    public function destroy($id)
+    {
+        $sql = 'DELETE FROM users WHERE id_user = ?';
+        $param = array($id);
+        return Connection::storeProcedure($sql, $param);
     }
 }
 

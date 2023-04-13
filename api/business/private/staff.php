@@ -50,26 +50,33 @@ if (isset($_GET['action'])) {
                     //datos del empleado (staff)                    
                     if (!$staff->setNames($_POST['names'])) {
                         $response['exception'] = 'Max number of character is 25';
+                        $response['status'] = 0;
                     } elseif (!$staff->setLastNames($_POST['last_names'])) {
                         $response['exception'] = 'Max number of character is 25';
+                        $response['status'] = 0;
                     } elseif (!$staff->setDocument($_POST['document'])) {
                         $response['exception'] = 'Format document is incorrect';
+                        $response['status'] = 0;
                     } elseif (!$staff->setPhone($_POST['phone'])) {
                         $response['exception'] = 'Format phone number is incorrect';
-                    } else if ($response['status'] == 1) {
-                        $iduser = $staffquery->getLastUser();
-                        if (!$staff->setUser($iduser)) {
-                            $response['exception'] = 'User incorrect';
-                        } else if ($staff->getUser() < 0) {
-                            $response['exception'] = 'User error';
-                        } else if ($staffquery->store()) {
-                            $response['status'] = 1;
-                            $response['message'] = 'Data was successfully registred';
-                        } else {
-                            $response['exception'] = Connection::getException();
-                            $response['status'] = 2;
-                            $response['message'] = 'Only user registred correctly';
-                        }
+                        $response['status'] = 0;
+                    }
+                    //obtener el id del último usuario ingresado
+                    $iduser = $staffquery->getLastUser();
+                    //validar los datos del ig recibido
+                    if (!$staff->setUser($iduser)) {
+                        $response['exception'] = 'User incorrect';
+                        $response['status'] = 0;
+                    } else if ($staff->getUser() < 0) {
+                        $response['exception'] = 'User error';
+                        $response['status'] = 0;
+                    } else if ($staffquery->store()) {
+                        $response['status'] = 1;
+                        $response['message'] = 'Data was successfully registred';
+                    } else {
+                        $response['exception'] = Connection::getException();
+                        $response['status'] = 2;
+                        $response['message'] = 'Only user registred correctly';
                     }
                 } else {
                     $response['exception'] = Connection::getException();
@@ -122,7 +129,6 @@ if (isset($_GET['action'])) {
                 //asignarlo al 'dataset'
                 if ($response['dataset'] = $staffquery->all()) {
                     $response['status'] = 1;
-                    $response['message'] = '';
                 } elseif (Connection::getException()) {
                     $response['exception'] = Connection::getException();
                 } else {
@@ -174,14 +180,19 @@ if (isset($_GET['action'])) {
                     //enviar y validar los datos recibidos del front para staff
                     if (!$staff->setId($_POST['id_staff'])) {
                         $response['exception'] = 'Staff incorrect';
+                        $response['status'] = 0;
                     } else if (!$staff->setNames($_POST['names'])) {
                         $response['exception'] = 'Names incorrect';
+                        $response['status'] = 0;
                     } else if (!$staff->setLastNames($_POST['last_names'])) {
                         $response['exception'] = 'Last names incorrect';
+                        $response['status'] = 0;
                     } else if (!$staff->setDocument($_POST['document'])) {
                         $response['exception'] = 'Format document incorrect';
+                        $response['status'] = 0;
                     } else if (!$staff->setPhone($_POST['phone'])) {
                         $response['exception'] = 'Format phone incorrect';
+                        $response['status'] = 0;
                     } elseif ($staffquery->change()) {
                         $response['status'] = 1;
                         $response['message'] = 'Data was successfully modified';
@@ -199,8 +210,16 @@ if (isset($_GET['action'])) {
 
             case 'delete':
 
-
-
+                //solo se ejecuta el método para eliminar 'users' porque la clave
+                //externa está en cascada
+                if (!$_POST['id_user'] || $_POST['id_user'] <= 0) {
+                    $response['exception'] = 'Error to get staff';
+                } elseif ($userquery->destroy($_POST['id_user'])) {
+                    $response['status'] = 1;
+                    $response['message'] = 'Staff was correctly delete';
+                } else {
+                    $response['exception'] = Connection::getException();
+                }
 
                 break;
             default:

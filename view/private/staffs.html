@@ -62,10 +62,10 @@
 
     <!-- Modal Structure -->
     <div id="modal" class="modal modal-fixed-footer">
-
-        <div class="modal-content">
+        <form method="post" id="form-staff">
+            <div class="modal-content">
             <!-- <h3 id="title-form" class="center-align"></h3> -->
-            <form method="post" id="form-staff">
+           
 
                 <input class="hide" type="number" name="id_staff" id="id_staff" value="" readonly>
                 <label class="hide" for="id_staff">ID</label>
@@ -112,12 +112,14 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button onclick="close()" class="modal-close waves-effect waves-green btn-flat btn-danger">Cancel</button>
-                    <button type="submit" class="modal-close waves-effect waves-green btn-flat btn-succes">Add</button>
+                    <button type="reset" class="modal-close waves-effect waves-green btn-flat btn-danger">Cancel</button>
+                    <button type="submit" class="modal-close waves-effect waves-green btn-flat btn-succes"><div class="hide">a</div>
+                        <span id="process"></span>
+                    </button>
                 </div>
-            </form>
-        </div>
-
+            
+            </div>
+        </form>
     </div>
 
     <!--JavaScript at end of body for optimized loading-->
