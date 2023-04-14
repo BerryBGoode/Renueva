@@ -289,4 +289,18 @@ class Validate
             self::$errorFile = 'Tipo de archivo erroneo, debe ser .pdf';
         }
     }
+
+    /**
+     * Método para verificar el formato de una fecha
+     * $date fecha a verificar
+     * retorna true si el formato yyyy-mm-dd
+     */
+    public static function checkDate($date)
+    {
+        //dividir el parametro en partes, con separador '-'
+        $date = explode('-', $date);
+        if (checkdate($date[1], $date[2], $date[0])) {
+            return true;
+        }
+    }
 }

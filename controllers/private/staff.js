@@ -52,7 +52,7 @@ FORM.addEventListener('submit', async (event) => {
 
 /**
  * Método que se ejecutan un evento 
- * trigger: button
+ * trigger: reset
  */
 FORM.addEventListener('reset', () => {
     //limpiar el form
@@ -159,7 +159,7 @@ async function onModify(id) {
         document.getElementById('password').disabled = true;
         document.getElementById('lblpassword').style.cursor = 'default';
         //cargar los datos
-        console.log(JSON);
+        // console.log(JSON);
         document.getElementById('id_staff').value = id;
         document.getElementById('id_user').value = JSON.dataset.id_user;
         document.getElementById('names').value = JSON.dataset.names;

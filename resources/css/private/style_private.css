@@ -525,6 +525,19 @@ input[placeholder="Search"]:not(.browser-default):focus:not([readonly]) {
 
 /*end products html rules*/
 
+/*dropdown style*/
+.dropdown-content li>a, .dropdown-content li>span{
+    color: var(--text-color);
+}
+.dropdown-content li:hover, .select-dropdown.dropdown-content li:hover{
+    color: var(--hover-container-color);
+}
+.select-wrapper input.select-dropdown:focus{
+    border-bottom: 1px solid var(--input-color);
+    box-shadow: 0 1px 0 0 var(--input-color);
+
+}
+
 /*categories html rules*/
 .categories-container {
     display: flex;
@@ -565,6 +578,7 @@ td>svg {
 /*footer modal rules*/
 .modal.modal-fixed-footer .modal-footer {
     position: sticky;
+    z-index: 2;
 }
 
 /* responsive design */

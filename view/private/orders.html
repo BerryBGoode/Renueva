@@ -75,32 +75,29 @@
 
     <!-- Modal Structure -->
     <div id="modal" class="modal modal-fixed-footer">
-        <form id="" method="post">
+        <form id="form-order" method="post">
             <div class="modal-content">
 
+                <!-- No. Order -->
                 <div class="row">
-                    <div class="input-field col s12 m12">
-                        <div class="select-wrapper">
-                            <input type="text" name="" id="documentDrop"
-                                class="select-dropdown dropdown-trigger validate" required>
-                            <!--icon-->
-                            <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                <g id="SVGRepo_iconCarrier">
-                                    <path
-                                        d="M19.9201 8.94995L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.94995"
-                                        stroke="#000" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                                        stroke-linejoin="round">
-                                    </path>
-                                </g>
-                            </svg>
-                            <!--end icon-->
-                        </div>
-                        <label for="documentDrop">Document</label>
+                    <div class="input-field col s12 m12" id="Order-input">
+                        <select type="text" name="orders" id="orders" class="select-dropdown dropdown-trigger validate"
+                            required>
+                        </select>
+                        <label for="orders">No. Order</label>
                     </div>
                 </div>
+
+                <!--Document  -->
+                <div class="row">
+                    <div class="input-field col s12 m12">
+                        <select name="document" id="documents" title="document">
+                        </select>
+                        <label>Document</label>
+                    </div>
+                </div>
+
+                <!-- Names y Last names -->
                 <div class="row">
                     <div class="input-field col s12 m6">
                         <input type="text" name="" id="names" readonly class="validate" required>
@@ -111,65 +108,52 @@
                         <label for="Lastnames">Last names</label>
                     </div>
                 </div>
+
+                <!-- Address -->
                 <div class="row">
                     <div class="input-field col s12 m12">
                         <input type="text" name="" id="Address" readonly class="validate" required>
                         <label for="Address">Address</label>
                     </div>
                 </div>
+
+                <!-- Product -->
+                <div class="row">
+                    <div class="input-field col s12 m12">
+                        <select name="products" id="products" title="products">
+                        </select>
+                        <label>Product</label>
+                    </div>
+                </div>
+
+                <!-- Quantity y state -->
+                <div class="row">
+                    <div class="input-field col s6 m6">
+                        <input type="number" name="quantity" id="quantity" class="validate" required>
+                        <label for="quantity">Quantity</label>
+                    </div>
+                    <div class="input-field col s6 m6">
+                        <select name="state" id="states" title="state">
+                        </select>
+                        <label>State</label>
+                    </div>
+                </div>
+
+                <!-- Date order -->
                 <div class="row">
                     <div class="input-field col s12 m12">
                         <div class="select-wrapper">
-                            <input type="text" name="" id="product" class="select-dropdown dropdown-trigger validate"
+                            <input type="date" name="date" id="date" class="select-dropdown dropdown-trigger validate"
                                 required>
-                            <!--icon-->
-                            <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                <g id="SVGRepo_iconCarrier">
-                                    <path
-                                        d="M19.9201 8.94995L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.94995"
-                                        stroke="#000" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                                        stroke-linejoin="round">
-                                    </path>
-                                </g>
-                            </svg>
-                            <!--end icon-->
                         </div>
-                        <label for="product">Products</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s6 m6">
-                        <input type="number" name="" id="lot" class="validate" required>
-                        <label for="lot">Lot</label>
-                    </div>
-                    <div class="input-field col s6 m6">
-                        <div class="select-wrapper">
-                            <input type="text" name="" id="state" class="select-dropdown dropdown-trigger validate"
-                                required>
-                            <!--icon-->
-                            <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                <g id="SVGRepo_iconCarrier">
-                                    <path
-                                        d="M19.9201 8.94995L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.94995"
-                                        stroke="#000" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                                        stroke-linejoin="round">
-                                    </path>
-                                </g>
-                            </svg>
-                            <!--end icon-->
-                        </div>
-                        <label for="state">State</label>
+                        <label for="date">Date order</label>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a class="modal-close waves-effect waves-green btn-flat btn-danger">Cancel</a>
-                    <a class="modal-close waves-effect waves-green btn-flat btn-succes">Add</a>
+                    <button class="modal-close waves-effect waves-green btn-flat btn-danger">Cancel</button>
+                    <button type="submit" class="modal-close waves-effect waves-green btn-flat btn-succes"><div class="hide">a</div>
+                        <span id="process"></span>
+                    </button>
                 </div>
             </div>
         </form>
@@ -183,6 +167,8 @@
     <script src="../../resources/general/js/sweetalert.min.js"></script>
     <!-- general controller -->
     <script src="../../controllers/controller.js"></script>
+    <!-- order controller -->
+    <script src="../../controllers/private/order.js"></script>
     <!--JavaScript to render some content-->
     <script type="text/javascript" src="../../controllers/private/render.js"></script>
 </body>

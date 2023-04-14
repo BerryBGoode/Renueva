@@ -270,6 +270,9 @@ INNER JOIN clients c ON c.id_client = o.id_client
 WHERE c.id_client = 2
 ORDER BY o.date_order DESC
 
+--cuando un usuario agrege un producto al carrito va a crear la orden y después a la detalle con el producto
+--cuando agrege otro producto al carrito al detalle
+--cuando confirme la orden el state_order va a cambiar
 	
 -- --STORE PROCEDURE: CREAR UN DETALLE OBTENIENDO EL ID_PRODUCT, CUANTITIVE Y EL ID_CLIENT
 -- CREATE OR REPLACE PROCEDURE createDetail(
@@ -448,6 +451,7 @@ WHERE o.date_order BETWEEN '2023/02/01'  AND '2023/02/28'
 GROUP BY d.id_order, p."name", o.date_order
 ORDER BY count(d.id_product) DESC
 
+--CONSULTA A TODAS LAS TABLAS
 SELECT * FROM categories;
 SELECT * FROM clients;
 SELECT * FROM orders;
@@ -460,6 +464,7 @@ SELECT * FROM states_products;
 SELECT * FROM types_users;
 SELECT * FROM detail_orders;
 
+--"AGREGAR UN NUVEO PEDIDO Y DOS COMENTARIOS A PRODUCTOS QUE PERTENEZCAN A DICHO PEDIDO"
 --INGRESAR UN PEDIDO 	CURRENT_DATE : recupera la fecha actual
 INSERT INTO orders(id_client, date_order, id_state_order) VALUES (2, CURRENT_DATE, 1)
 --INGREAR UN DETALLE 

@@ -53,8 +53,8 @@ class Connection
         }
     }
 
-    /*
-     * método para cargar todos los datos de una consulta sin parametros
+    /**
+     * método para cargar todos los datos de una consulta sin parametros (fetchAll)
      * $query sentencia SQL
      * $values valores que retorna la consulta
      * 
@@ -68,8 +68,8 @@ class Connection
         }
     }
 
-    /*
-     * método para cargar todos los datos de una consulta con parametros
+    /**
+     * método para cargar todos los datos de una consulta con parametros (fetch)
      * $query sentencia SQL
      * $values valores que retorna la consulta
      * 
