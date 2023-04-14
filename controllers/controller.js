@@ -15,7 +15,7 @@ const API = 'http://localhost/renueva_temp/api/';
  */
 function notificationRedirect(type, msg, time, url = null) {
     //convertir el type a letra minuscula
-    
+
     //evaluar el tipo de mensaje
     switch (type.toLowerCase()) {
         case 'success':
@@ -120,4 +120,54 @@ async function dataRequest(url, action, form = null) {
         //si hay un problema la consola imprimirá el error
         console.log(error);
     }
+}
+
+/**
+ * Método para cargar los datos de un select,
+ * filename referencia del archivo que evalua la acción,
+ * action acción a realizar,
+ * select id de la etiqueta <select> a llenar,
+ * option primer valor o opción del <option> de la etiqueta <select>,
+ * onlyid para verificar si se quieren cargar los id's (como en caso de ordenes)
+ * selected si se seleccionará uno (para cargar el valor ingresado en ese registro).
+ */
+async function loadSelect(filename, action, select, option, selected = null) {
+
+    //const. formato JSON, para guardar los datos de la petición
+    const JSON = await dataRequest(filename, action);
+    // inicializar var. para después asignar datos
+    let list = '';
+    //verificar el estado
+    if (JSON.status) {
+        //si existen valores y todo ocurrio bien
+        list += `<option disabled selected>${option}</option>`;
+        console.log(JSON.dataset)
+        JSON.dataset.forEach(element => {
+            //obtener el valor del (id)
+            id = Object.values(element)[0];
+            //obtener el valor del texto perteneciente al id
+            value = Object.values(element)[1];
+
+
+            //verificar sí se quiere carga en el <select> el id
+            if (selected === 'id') {
+                //verificar si el id es igual del valor ingresado anteriormente (en caso de ser update)
+                //primer caso, si es para update : segundo para create
+                (id != selected) ? list += `<option value="${id}">${id}</option>` : list += `<option value="${id}" selected>${value}</option>`;
+            } else {
+                //verificar si el id es igual del valor ingresado anteriormente (en caso de ser update)
+                //primer caso, si es para update : segundo para create
+                (id != selected) ? list += `<option value="${id}">${value}</option>` : list += `<option value="${id}" selected>${value}</option>`;
+            }
+
+
+        });
+    } else {
+        //si no existen o ocurro algo erroneo
+        option = `<option>void options</option>`;
+    }
+    //Agregar las opciones al <select>
+    document.getElementById(select).innerHTML = list;
+    //Inicializar el <select> para así despligue las opciones
+    M.FormSelect.init(document.querySelectorAll('select'));
 }

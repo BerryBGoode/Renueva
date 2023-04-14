@@ -270,6 +270,9 @@ INNER JOIN clients c ON c.id_client = o.id_client
 WHERE c.id_client = 2
 ORDER BY o.date_order DESC
 
+--cuando un usuario agrege un producto al carrito va a crear la orden y después a la detalle con el producto
+--cuando agrege otro producto al carrito al detalle
+--cuando confirme la orden el state_order va a cambiar
 	
 -- --STORE PROCEDURE: CREAR UN DETALLE OBTENIENDO EL ID_PRODUCT, CUANTITIVE Y EL ID_CLIENT
 -- CREATE OR REPLACE PROCEDURE createDetail(
