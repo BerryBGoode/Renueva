@@ -75,9 +75,25 @@
 
     <!-- Modal Structure -->
     <div id="modal" class="modal modal-fixed-footer">
-        <form id="form-order" method="post">
-            <div class="modal-content">
+        <div class="modal-content">
 
+            <!--Document  -->
+            <form id="client" method="post">
+                <div class="row">
+                    <div class="input-field col s12 m12">
+                        <select name="document" id="documents" title="document" onclick="getClient()">
+                        </select>
+                        <label>Document</label>
+                    </div>
+                </div>
+            </form>
+
+            <form id="form-order" method="post">
+
+                <!-- id client -->
+                <input type="number" id="idclient" name="idclient" class="hide">
+                <label class="hide" for="idclient">ID client</label>
+                
                 <!-- No. Order -->
                 <div class="row">
                     <div class="input-field col s12 m12" id="Order-input">
@@ -88,32 +104,24 @@
                     </div>
                 </div>
 
-                <!--Document  -->
-                <div class="row">
-                    <div class="input-field col s12 m12">
-                        <select name="document" id="documents" title="document">
-                        </select>
-                        <label>Document</label>
-                    </div>
-                </div>
 
                 <!-- Names y Last names -->
                 <div class="row">
                     <div class="input-field col s12 m6">
-                        <input type="text" name="" id="names" readonly class="validate" required>
+                        <input type="text" name="names" id="names" readonly required>
                         <label for="names">Names</label>
                     </div>
                     <div class="input-field col s12 m6">
-                        <input type="text" name="" id="Lastnames" readonly class="validate" required>
-                        <label for="Lastnames">Last names</label>
+                        <input type="text" name="lastname" id="lastnames" readonly required>
+                        <label for="lastnames">Last names</label>
                     </div>
                 </div>
 
                 <!-- Address -->
                 <div class="row">
                     <div class="input-field col s12 m12">
-                        <input type="text" name="" id="Address" readonly class="validate" required>
-                        <label for="Address">Address</label>
+                        <input type="text" name="address" id="address" readonly required>
+                        <label for="address">Address</label>
                     </div>
                 </div>
 
@@ -151,12 +159,13 @@
                 </div>
                 <div class="modal-footer">
                     <button class="modal-close waves-effect waves-green btn-flat btn-danger">Cancel</button>
-                    <button type="submit" class="modal-close waves-effect waves-green btn-flat btn-succes"><div class="hide">a</div>
+                    <button type="submit" class="modal-close waves-effect waves-green btn-flat btn-succes">
+                        <div class="hide">a</div>
                         <span id="process"></span>
                     </button>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 
     <!--JavaScript at end of body for optimized loading-->

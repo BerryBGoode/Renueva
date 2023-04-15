@@ -71,4 +71,5 @@ class OrderQuery
 // /* Agregar un orden (id_client, date_order, id_state_order)
 // /* Agregar un detalle con esa orden
 // $query = new OrderQuery;
+// print_r($query->getClient('1'));
 // print_r( $query->getIdOrder());

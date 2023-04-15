@@ -56,12 +56,18 @@ if (isset($_GET['action'])) {
                 break;
 
             case 'loadClient':
+                if ($_POST) {
+                    
+                    //convertir a string el 'document' que viene front
+                    $document = implode(',', $_POST);
 
-                if ($response['client'] = $query->getClient($_POST['document'])) {
-                    $response['status'] = 1;
-                } else {
-                    $response['status'] = 0;
-                    $response['exception'] = Connection::getException();
+                    if ($response['client'] = $query->getClient($document)) {
+                        $response['status'] = 1;
+                    } else {
+                        $response['status'] = 0;
+                        $response['exception'] = Connection::getException();
+                    }
+
                 }
                 break;
 
