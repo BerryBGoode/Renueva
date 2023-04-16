@@ -89,7 +89,12 @@ if (isset($_GET['action'])) {
                 if ($_POST['orders'] != 0) {
 
                     //enviar los datos de la orden
+                    if ($order->setDOrder($_POST['orders'])) {
+                        $response['status'] = 3;
+                    } else {
 
+                        $response['exception'] = 'Order incorrect';
+                    }
                 } else {
                     //nueva orden
                     //validar datos para insertar order
@@ -131,6 +136,21 @@ if (isset($_GET['action'])) {
                         }
                     } else {
                         $response['exception'] = 'Error to get order';
+                    }
+                    //cuando se tiene un orden creada
+                } elseif ($response['status'] == 3) {
+                    //validar los datos a enviar
+                    if (!$order->setProduct($_POST['products'])) {
+
+                        $response['exception'] = 'Product incorrect';
+                    } elseif (!$order->setQuantity($_POST['quantity'])) {
+                        $response['exception'] = 'Quantity incorrect';
+                    } //ingresar datos
+                    elseif ($query->storeDetail()) {
+                        $response['status'] = 1;
+                        $response['message'] = 'Data was successfully registred';
+                    } else {
+                        $response['exception'] = 'Only order successfully registred';
                     }
                 }
 
