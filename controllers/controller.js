@@ -141,6 +141,9 @@ async function loadSelect(filename, action, select, option, selected = null) {
     if (JSON.status) {
         //si existen valores y todo ocurrio bien
         list += `<option disabled selected>${option}</option>`;
+        if (select === 'orders') {
+            list += `<option value="0">New Order</option>`;
+        }
         JSON.dataset.forEach(element => {
             //obtener el valor del (id)
             id = Object.values(element)[0];

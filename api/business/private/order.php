@@ -18,7 +18,7 @@ if (isset($_GET['action'])) {
     $query = new OrderQuery;
     //verificar el 'id_user' de la sesión
     if (isset($_SESSION['id_user'])) {
-        
+
         //validar las acciones de un switch
         switch ($_GET['action']) {
             case 'loadStates':
@@ -57,7 +57,7 @@ if (isset($_GET['action'])) {
 
             case 'loadClient':
                 if ($_POST) {
-                    
+
                     //convertir a string el 'document' que viene front
                     $document = implode(',', $_POST);
 
@@ -67,7 +67,6 @@ if (isset($_GET['action'])) {
                         $response['status'] = 0;
                         $response['exception'] = Connection::getException();
                     }
-
                 }
                 break;
 
@@ -81,7 +80,61 @@ if (isset($_GET['action'])) {
                 }
 
                 break;
+            case 'create':
+                //validar form
+                $_POST = Validate::form($_POST);
+                //verificar si es nueva orden
+                $response['session'] = $_POST['orders'];
+                //verificar si es nueva orden
+                if ($_POST['orders'] != 0) {
 
+                    //enviar los datos de la orden
+
+                } else {
+                    //nueva orden
+                    //validar datos para insertar order
+                    if (!$order->setClient($_POST['idclient'])) {
+                        $response['exception'] = 'Client incorrect';
+                    } else if (!$order->setDate($_POST['date'])) {
+                        $response['exception'] = 'Date incorrect';
+                    } else if (!$order->setState($_POST['state'])) {
+                        $response['exception'] = 'State incorrect';
+                    } elseif ($query->storeOrder()) {
+
+                        //se agrego la orden correctamente
+                        $response['status'] = 2;
+                    } else {
+
+                        $response['exception'] = 'Exception 1';
+                    }
+                }
+
+                if ($response['status'] == 2) {
+
+                    //cuando no existia la orden, recuperar la última (si no ha sido seleccionada alguna)
+                    $id = implode(', ', $query->getLastOrder());
+                    if ($id) {
+
+                        //verificar los datos para agregar detalle
+                        if (!$order->setDOrder($id)) {
+                            $response['exception'] = 'Order incorrect';
+                        } else if (!$order->setProduct($_POST['products'])) {
+                            $response['exception'] = 'Product incorrect';
+                        } elseif (!$order->setQuantity($_POST['quantity'])) {
+                            $response['exception'] = 'Quantity incorrect';
+                        } elseif ($query->storeDetail()) {
+                            $response['status'] = 1;
+                            $response['message'] = 'Data was successfully registred';
+                        } else {
+
+                            $response['exception'] = 'Only order successfully registred';
+                        }
+                    } else {
+                        $response['exception'] = 'Error to get order';
+                    }
+                }
+
+                break;
             default:
                 $response['exception'] = $_GET['action'] . ': This action is not defined';
         }

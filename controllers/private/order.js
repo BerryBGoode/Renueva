@@ -42,7 +42,7 @@ CLIENT.addEventListener('change', async () => {
     const DATA = new FormData(CLIENT);
     //verificar si el <select> no tiene el valor por defecto
     if (SELECT.value) {
-        
+
         //const. para guardar las respuesta del API
         const JSON = await dataRequest(ORDER, 'loadClient', DATA);
         if (JSON.status) {
@@ -56,6 +56,31 @@ CLIENT.addEventListener('change', async () => {
         } else {
             notificationRedirect('error', JSON.exception, false);
         }
-
     }
-})
+});
+
+/**
+ * async-awat método tipo event para enviar los datos del form al api
+ * trigger: submit 
+ */
+FORM.addEventListener('submit', async (event) => {
+    //evitar que el usuario recargue la página
+    event.preventDefault();
+    //verificar la acción
+    document.getElementById('iddetail').value ? action = 'update' : action = 'create';
+    //const. para la instancia de la clase FormData con los datos del form
+    const DATA = new FormData(FORM);
+    //const. para guardar el resultado de la petición 
+    const JSON = await dataRequest(ORDER, action, DATA);
+    if (JSON.status) {
+
+        //cargar tabla
+
+        //cerrar modal
+        MODAL.close();
+        notificationRedirect('success', JSON.message, true);
+    } else {
+        console.log(JSON)
+        notificationRedirect('error', JSON.exception + " " + JSON.session, false);
+    }
+});

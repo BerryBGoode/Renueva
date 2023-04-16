@@ -18,6 +18,7 @@ const MSG = document.getElementById('table-heade');
 const INPUT = document.getElementById('id_staff');
 //const. para agregar el texto al boton según el proceso
 const TXTBUTTON = document.getElementById('process');
+
 /**
  * async-awat método tipo event para enviar los datos del form al api
  * trigger: submit 
