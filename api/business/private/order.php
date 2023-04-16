@@ -155,6 +155,19 @@ if (isset($_GET['action'])) {
                 }
 
                 break;
+
+            case 'all':
+
+                if ($response['dataset'] = $query->all('details_orders')) {
+                    $response['status'] = 1;
+                } elseif (Connection::getException()) {
+                    $response['exception'] = Connection::getException();
+                } else {
+                    $response['exception'] = "Doesn't exist register";
+                }
+
+
+                break;
             default:
                 $response['exception'] = $_GET['action'] . ': This action is not defined';
         }

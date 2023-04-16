@@ -103,6 +103,17 @@ class OrderQuery
         $param = array($order->getDOrder(), $order->getProduct(), $order->getQuantity());
         return Connection::storeProcedure($sql, $param);
     }
+
+    /**
+     * Método para cargar todos los registros según el query
+     * $object es el nombre de la vista o tabla que selecciona todo
+     * retorna un arreglo con todos los registros recuperados
+     */
+    public function all($object)
+    {
+        $sql = 'SELECT * FROM '.$object;
+        return Connection::all($sql);
+    }
 }
 // /*cargar ordenes cuando agregue o actualize
 // /*cargar No.Orders
@@ -110,6 +121,7 @@ class OrderQuery
 // /* Agregar un orden (id_client, date_order, id_state_order)
 // /* Agregar un detalle con esa orden
 // $query = new OrderQuery;
+// print_r($query->all('details_orders'));
 // print_r($query->getLastOrder());
 // print_r($query->getClient('1'));
 // print_r( $query->getIdOrder());

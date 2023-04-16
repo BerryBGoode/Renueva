@@ -487,3 +487,27 @@ SELECT * FROM categories
 
 DELETE FROM reviews
 WHERE id_product IN (1, 3 ,6, 9 ,10)
+
+SELECT id_product, name FROM products WHERE id_state_product = 1 AND stock >= 1
+SELECT * FROM clients
+
+SELECT * FROM orders
+SELECT *  FROM detail_orders
+
+--SELECCIONAR LA ORDER, LA DIRECCIÓN EL PRODUCT (CONTAR CUANTAS VECES SE REPITE)
+CREATE OR REPLACE VIEW details_orders AS
+	SELECT o.id_order, c.address, c.id_client, c.document, p.name, d.id_product, d.id_detail_order , o.date_order, d.cuantitive, s.state_order
+	FROM detail_orders d
+	INNER JOIN orders o ON o.id_order = d.id_order
+	INNER JOIN states_orders s ON s.id_state_order = o.id_state_order
+	INNER JOIN clients c ON c.id_client = o.id_client
+	INNER JOIN products p ON p.id_product = d.id_product
+	ORDER BY o.id_order ASC
+	
+DROP VIEW details_orders
+SELECT * FROM details_orders
+
+SELECT id_detail_order, id_order, id_product, cuantitive, count(id_product)
+FROM detail_orders
+GROUP BY id_detail_order, id_order, id_product, cuantitive
+
