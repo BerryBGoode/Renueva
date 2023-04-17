@@ -63,7 +63,7 @@ function notificationRedirect(type, msg, time, url = null) {
  * Método para enviar mensaje de confirmación
  */
 
-function notificaciónConfirm(msg) {
+function notificationConfirm(msg) {
     return swal({
         title: 'Confirm',
         text: msg,
@@ -87,6 +87,38 @@ function notificaciónConfirm(msg) {
     });
 }
 
+/**
+ * Método para enviar mensaje de confirmación con 3 opciones
+ */
+function notificacionOptions(msg) {
+    return swal({
+        title: 'Confirm',
+        text: msg,
+        icon: 'info',
+        closeOnClickOutside: false,
+        closeOnEsc: false,
+        buttons: {
+            cancel: {
+                text: 'No',
+                value: 0,
+                visible: true,
+                className: 'read accent-1'
+            },
+            confirm1: {
+                text: 'Delete product of this order',
+                value: 1,
+                visible: true,
+                className: 'grey darken-1'
+            },
+            confirm2: {
+                text: 'Delete both',
+                value: 2,
+                visible: true,
+                className: 'grey darken-1'
+            }
+        }
+    });
+}
 /**
  *  Método async para enviar datos de los form's al backend y recibir datos del backend
  *  es un async await porque se espera la respues del backend
@@ -131,7 +163,7 @@ async function dataRequest(url, action, form = null) {
  * onlyid para verificar si se quieren cargar los id's (como en caso de ordenes)
  * selected si se seleccionará uno (para cargar el valor ingresado en ese registro).
  */
-async function loadSelect(filename, action, select, option, selected = null) {
+async function loadSelect(filename, action, select, selected = null) {
 
     //const. formato JSON, para guardar los datos de la petición
     const JSON = await dataRequest(filename, action);
@@ -140,8 +172,10 @@ async function loadSelect(filename, action, select, option, selected = null) {
     //verificar el estado
     if (JSON.status) {
         //si existen valores y todo ocurrio bien
-        list += `<option disabled selected>${option}</option>`;
-        console.log(JSON.dataset)
+        list += `<option disabled selected>Select option</option>`;
+        if (select === 'orders') {
+            list += `<option value="0">New Order</option>`;
+        }
         JSON.dataset.forEach(element => {
             //obtener el valor del (id)
             id = Object.values(element)[0];
@@ -150,10 +184,10 @@ async function loadSelect(filename, action, select, option, selected = null) {
 
 
             //verificar sí se quiere carga en el <select> el id
-            if (selected === 'id') {
+            if (select === 'orders') {
                 //verificar si el id es igual del valor ingresado anteriormente (en caso de ser update)
                 //primer caso, si es para update : segundo para create
-                (id != selected) ? list += `<option value="${id}">${id}</option>` : list += `<option value="${id}" selected>${value}</option>`;
+                (id != selected) ? list += `<option value="${id}">${id}</option>` : list += `<option value="${id}" selected>${id}</option>`;
             } else {
                 //verificar si el id es igual del valor ingresado anteriormente (en caso de ser update)
                 //primer caso, si es para update : segundo para create

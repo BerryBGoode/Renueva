@@ -18,6 +18,7 @@ const MSG = document.getElementById('table-heade');
 const INPUT = document.getElementById('id_staff');
 //const. para agregar el texto al boton según el proceso
 const TXTBUTTON = document.getElementById('process');
+
 /**
  * async-awat método tipo event para enviar los datos del form al api
  * trigger: submit 
@@ -184,7 +185,7 @@ async function onDestroy(user) {
     const DATA = new FormData();
     DATA.append('id_user', user);
     //confirmar la acción, especificando el usuario
-    let confirm = await notificaciónConfirm('Do you wanna delete this staff');
+    let confirm = await notificationConfirm('Do you wanna delete this staff');
     if (confirm) {
         //const. para obtener la respuesta a la petición de eliminar
         const JSON = await dataRequest(STAFF, 'delete', DATA);
