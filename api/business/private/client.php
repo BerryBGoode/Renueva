@@ -82,6 +82,18 @@ if (!isset($_GET['action'])) {
 
                 break;
 
+            case 'all':
+                
+                if ($response['dataset'] = $clientquery->all()) {
+                    $response['status'] = 1;                    
+                } elseif (Connection::getException()) {
+                    $response['exception'] = Connection::getException();
+                } else {
+                    $response['exception'] = "Doesn't exist regiter";
+                }
+                
+
+                break;
             default:
                 # code...
                 break;

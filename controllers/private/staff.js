@@ -130,7 +130,7 @@ async function getData(form = null) {
         MSG.textContent = JSON.message;
 
     } else {
-        //notificationRedirect('error', JSON.exception, false);
+        notificationRedirect('error', JSON.exception, false);
         console.log(JSON.status);
     }
 }
