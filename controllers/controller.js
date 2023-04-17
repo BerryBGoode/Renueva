@@ -63,7 +63,7 @@ function notificationRedirect(type, msg, time, url = null) {
  * Método para enviar mensaje de confirmación
  */
 
-function notificaciónConfirm(msg) {
+function notificationConfirm(msg) {
     return swal({
         title: 'Confirm',
         text: msg,
@@ -87,6 +87,38 @@ function notificaciónConfirm(msg) {
     });
 }
 
+/**
+ * Método para enviar mensaje de confirmación con 3 opciones
+ */
+function notificacionOptions(msg) {
+    return swal({
+        title: 'Confirm',
+        text: msg,
+        icon: 'info',
+        closeOnClickOutside: false,
+        closeOnEsc: false,
+        buttons: {
+            cancel: {
+                text: 'No',
+                value: 0,
+                visible: true,
+                className: 'read accent-1'
+            },
+            confirm1: {
+                text: 'Delete product of this order',
+                value: 1,
+                visible: true,
+                className: 'grey darken-1'
+            },
+            confirm2: {
+                text: 'Delete both',
+                value: 2,
+                visible: true,
+                className: 'grey darken-1'
+            }
+        }
+    });
+}
 /**
  *  Método async para enviar datos de los form's al backend y recibir datos del backend
  *  es un async await porque se espera la respues del backend

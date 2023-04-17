@@ -151,7 +151,7 @@ async function getData(
                     </svg>
 
                     <!-- boton para eliminar -->
-                    <svg width="22" height="25" viewBox="0 0 30 33" fill="none" onclick="onDestroy(${element.id_detail_order})"
+                    <svg width="22" height="25" viewBox="0 0 30 33" fill="none" onclick="onDestroy(${element.id_detail_order}, ${element.id_order})"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M28.4432 7.7208C23.4903 7.23955 18.5076 6.99164 13.5398 6.99164C10.5948 6.99164 7.64985 7.13747 4.70487 7.42914L1.67065 7.7208"
@@ -226,5 +226,45 @@ async function onModify(id) {
         M.updateTextFields();
     } else {
         notificationRedirect('error', JSON.exception, false);
+    }
+}
+
+//async-await method para eliminar los datos del detalle o de la orden seleccionada
+async function onDestroy(detail, order) {
+    //const. obj. para agregarle el 'idorder' y 'iddetail'
+    const DATA = new FormData();
+    DATA.append('idorder', order);
+    let confirm = await notificacionOptions('Do you wanna delete some?');
+    if (confirm == 1) {
+
+        //solo se quiere eliminar el detalle
+        //enviar el id
+        DATA.append('id_detail', detail);
+        //const. para guardar el response
+        const JSON = await dataRequest(ORDER, 'deleteDetail', DATA);
+        //verificar el estado de la acción
+        if (JSON.status) {
+            
+            getData();
+            notificationRedirect('success', JSON.message, true);
+        } else {
+            notificationRedirect('error', JSON.exception, false);
+        }
+
+    } else if(confirm == 2){
+
+        //solo se quiere eliminar la orden y sus dependientes
+        //enviar el id
+        DATA.append('id_order', order);
+        //const. para guardar el response
+        const JSON = await dataRequest(ORDER, 'deleteBoth', DATA);
+        //verificar el estado de la acción
+        if (JSON.status) {
+            
+            notificationRedirect('success', JSON.message, true);
+            getData();
+        } else {
+            notificationRedirect('error', JSON.exception, false);
+        }
     }
 }

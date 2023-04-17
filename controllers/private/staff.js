@@ -185,7 +185,7 @@ async function onDestroy(user) {
     const DATA = new FormData();
     DATA.append('id_user', user);
     //confirmar la acción, especificando el usuario
-    let confirm = await notificaciónConfirm('Do you wanna delete this staff');
+    let confirm = await notificationConfirm('Do you wanna delete this staff');
     if (confirm) {
         //const. para obtener la respuesta a la petición de eliminar
         const JSON = await dataRequest(STAFF, 'delete', DATA);

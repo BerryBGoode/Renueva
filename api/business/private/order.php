@@ -191,7 +191,7 @@ if (isset($_GET['action'])) {
                 $_POST = Validate::form($_POST);
                 //validar los datos para la actualización de 'order'
 
-                
+
                 if (!$order->setOrder($_POST['idorder'])) {
                     $response['exception'] = 'Order incorrect';
                 } elseif (!$order->setClient($_POST['idclient'])) {
@@ -225,8 +225,37 @@ if (isset($_GET['action'])) {
                 } else {
                     $response['exception'] = 'Error to modify order';
                 }
-                
 
+
+                break;
+
+            case 'deleteDetail':
+                //validar el form
+                $_POST = Validate::form($_POST);
+                //validar el 'iddetail' que exista o si es menor a 0
+                if (!$_POST['id_detail'] || $_POST['id_detail'] < 0) {
+                    $response['exception'] = 'Error to get detail';
+                } elseif ($query->destroyDetail($_POST['id_detail'])) {
+                    $response['status'] = 1;
+                    $response['message'] = 'Data was correctly delete';
+                } else {
+                    $response['exception'] = Connection::getException();
+                }
+
+                break;
+
+            case 'deleteBoth':
+                //validar el form
+                $_POST = Validate::form($_POST);
+                //validar el 'idorder' que exista o no sea menor a 0
+                if (!$_POST['id_order'] || $_POST['id_order'] < 0) {
+                    $response['exception'] = 1;
+                } elseif ($query->destroyOrder($_POST['id_order'])) {
+                    $response['status'] = 1;
+                    $response['message'] = 'Both data was correctly delete';
+                } else {
+                    $response['exception'] = Connection::getException();
+                }
                 break;
             default:
                 $response['exception'] = $_GET['action'] . ': This action is not defined';

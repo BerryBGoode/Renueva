@@ -3,7 +3,7 @@ const USER_LOGOUT = 'business/private/user.php';
 
 async function logOut() {
     //const para confirmar la acción del usuario
-    const CONFIRM = await notificaciónConfirm('Do you wanna close sesion?');
+    const CONFIRM = await notificationConfirm('Do you wanna close sesion?');
     if (CONFIRM) {
         //const para ejecutar la respuesta del servidor al cerrar sesión
         const JSON = await dataRequest(USER_LOGOUT, 'logOut');

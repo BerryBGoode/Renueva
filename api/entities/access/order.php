@@ -153,6 +153,30 @@ class OrderQuery
         $params = array($order->getDOrder(), $order->getProduct(), $order->getQuantity(), $order->getDetail());
         return Connection::storeProcedure($sql, $params);
     }
+
+    /**
+     * Método para eliminar una orden y se eliminan los detalles de esta orden
+     * $id, orden seleccionada
+     * retorna el resultado del procedimiento
+     */
+    public function destroyOrder($id)
+    {
+        $sql = 'DELETE FROM orders WHERE id_order = ?';
+        $param = array($id);
+        return Connection::storeProcedure($sql, $param);
+    }
+
+    /**
+     * Método para eliminar un detalle
+     * $id, detalle seleccionado
+     * retorna el resultado del procedimiento
+     */
+    public function destroyDetail($id)
+    {
+        $sql = 'DELETE FROM detail_orders WHERE id_detail_order = ?';
+        $param = array($id);
+        return Connection::storeProcedure($sql, $param);
+    }
 }
 // /*cargar ordenes cuando agregue o actualize
 // /*cargar No.Orders
