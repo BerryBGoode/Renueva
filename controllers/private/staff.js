@@ -45,8 +45,10 @@ FORM.addEventListener('submit', async (event) => {
         //notificación
         notificationRedirect('success', JSON.message, true);
     } else if (JSON.status == 2) {
+        MODAL.open();
         notificationRedirect('error', JSON.message + ". Error:" + JSON.exception, true);
     } else {
+        MODAL.open();
         notificationRedirect('error', JSON.exception, true);
     }
 })

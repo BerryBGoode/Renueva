@@ -62,7 +62,7 @@ if (isset($_GET['action'])) {
                         $response['status'] = 0;
                     }
                     //obtener el id del último usuario ingresado
-                    $iduser = $staffquery->getLastUser();
+                    $iduser = $userquery->getLastUser();
                     //validar los datos del ig recibido
                     if (!$staff->setUser($iduser)) {
                         $response['exception'] = 'User incorrect';

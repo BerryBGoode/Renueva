@@ -99,9 +99,9 @@ CREATE TABLE detail_orders(
 );
 
 INSERT INTO public.types_users(
-	 type_user)
-	VALUES 	( 'Admin'),
-			('Client');
+	 id_type_user, type_user)
+	VALUES 	(1, 'Admin'),
+			(2, 'Client');
 
 INSERT INTO public.states_orders(
 	 state_order)
@@ -508,9 +508,12 @@ CREATE OR REPLACE VIEW details_orders AS
 DROP VIEW details_orders
 SELECT * FROM details_orders;
 
+SELECT * FROM detail_orders
+SELECT * FROM orders
 SELECT * FROM products
 
 SELECT id_detail_order, id_order, id_product, cuantitive, count(id_product)
 FROM detail_orders
 GROUP BY id_detail_order, id_order, id_product, cuantitive
 
+SELECT * FROM clients
