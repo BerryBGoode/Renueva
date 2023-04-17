@@ -131,7 +131,7 @@ async function dataRequest(url, action, form = null) {
  * onlyid para verificar si se quieren cargar los id's (como en caso de ordenes)
  * selected si se seleccionará uno (para cargar el valor ingresado en ese registro).
  */
-async function loadSelect(filename, action, select, option, selected = null) {
+async function loadSelect(filename, action, select, selected = null) {
 
     //const. formato JSON, para guardar los datos de la petición
     const JSON = await dataRequest(filename, action);
@@ -140,7 +140,7 @@ async function loadSelect(filename, action, select, option, selected = null) {
     //verificar el estado
     if (JSON.status) {
         //si existen valores y todo ocurrio bien
-        list += `<option disabled selected>${option}</option>`;
+        list += `<option disabled selected>Select option</option>`;
         if (select === 'orders') {
             list += `<option value="0">New Order</option>`;
         }
@@ -152,10 +152,10 @@ async function loadSelect(filename, action, select, option, selected = null) {
 
 
             //verificar sí se quiere carga en el <select> el id
-            if (selected === 'id') {
+            if (select === 'orders') {
                 //verificar si el id es igual del valor ingresado anteriormente (en caso de ser update)
                 //primer caso, si es para update : segundo para create
-                (id != selected) ? list += `<option value="${id}">${id}</option>` : list += `<option value="${id}" selected>${value}</option>`;
+                (id != selected) ? list += `<option value="${id}">${id}</option>` : list += `<option value="${id}" selected>${id}</option>`;
             } else {
                 //verificar si el id es igual del valor ingresado anteriormente (en caso de ser update)
                 //primer caso, si es para update : segundo para create

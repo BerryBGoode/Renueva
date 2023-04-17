@@ -168,6 +168,66 @@ if (isset($_GET['action'])) {
 
 
                 break;
+
+            case 'one':
+
+                if (!$_POST['iddetail']) {
+                    $response['exception'] = 'Error to get detail';
+                } else {
+                    //recuperar los valores según el id detalle
+                    if ($response['dataset'] = $query->row($_POST['iddetail'], 'details_orders')) {
+                        $response['status'] = 1;
+                    } elseif (Connection::getException()) {
+                        $response['exception'] = Connection::getException();
+                    } else {
+                        $response['exception'] = "Error to get regist or this doesn't exist";
+                    }
+                }
+
+                break;
+
+            case 'update':
+                //validar form
+                $_POST = Validate::form($_POST);
+                //validar los datos para la actualización de 'order'
+
+                
+                if (!$order->setOrder($_POST['idorder'])) {
+                    $response['exception'] = 'Order incorrect';
+                } elseif (!$order->setClient($_POST['idclient'])) {
+                    $response['exception'] = 'Client incorrect';
+                } elseif (!$order->setDate($_POST['date'])) {
+                    $response['exception'] = 'Date format incorrect';
+                } elseif (!$order->setState($_POST['state'])) {
+                    $response['exception'] = 'State incorrect';
+                } elseif ($query->changeOrder()) {
+                    //actualización en 'order' correcta
+                    $response['status'] = 1;
+
+                    //validar los datos para la actualización de 'detail_orders'
+                    if (!$order->setDOrder($_POST['idorder'])) {
+                        $response['exception'] = 'Order incorrect';
+                        $response['status'] = 0;
+                    } elseif (!$order->setProduct($_POST['products'])) {
+                        $response['exception'] = 'Product incorrect';
+                        $response['status'] = 0;
+                    } elseif (!$order->setQuantity($_POST['quantity'])) {
+                        $response['exception'] = 'Quantity incorrect';
+                        $response['status'] = 0;
+                    } elseif ($query->changeDetail()) {
+                        $response['status'] = 2;
+                        $response['message'] = 'Data was successfully modified';
+                    } elseif (Connection::getException()) {
+                        $response['exception'] = Connection::getException();
+                    } else {
+                        $response['exception'] = 'Only order was successfully modified';
+                    }
+                } else {
+                    $response['exception'] = 'Error to modify order';
+                }
+                
+
+                break;
             default:
                 $response['exception'] = $_GET['action'] . ': This action is not defined';
         }

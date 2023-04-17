@@ -69,9 +69,10 @@ FORM.addEventListener('submit', async (event) => {
         //cerrar modal
         MODAL.close();
         notificationRedirect('success', JSON.message, true);
+        console.log(JSON)
     } else {
         console.log(JSON)
-        notificationRedirect('error', JSON.exception + " " + JSON.session, false);
+        notificationRedirect('error', JSON.exception, false);
     }
 });
 
@@ -92,13 +93,13 @@ function onCreate() {
     BUTTON.innerText = `Add`;
     /*  llenar select's*/
     //llenar el <select> de 'No.Orders'
-    loadSelect(ORDER, 'loadOrders', 'orders', 'Select order', 'id');
+    loadSelect(ORDER, 'loadOrders', 'orders');
     //llenar el <select> de 'documents'
-    loadSelect(ORDER, 'loadDocuments', 'documents', 'Select document');
+    loadSelect(ORDER, 'loadDocuments', 'documents');
     //llenar el <select> de 'states'
-    loadSelect(ORDER, 'loadStates', 'states', 'Select state of this order');
+    loadSelect(ORDER, 'loadStates', 'states');
     //llenar el <select> de 'products'
-    loadSelect(ORDER, 'loadProducts', 'products', 'Select product');
+    loadSelect(ORDER, 'loadProducts', 'products');
 }
 
 /**
@@ -186,3 +187,44 @@ document.addEventListener('DOMContentLoaded', () => {
     //cargar la tabla
     getData();
 })
+
+/**
+ * async-await function para preparar formulario y datos a enviar al back
+ * para podes actualizar los datos sí se desea
+ */
+async function onModify(id) {
+    //const. con el form para enviar los datos por el método post
+    const DATA = new FormData();
+    //agregar el id del detalle al form
+    //que es igual al param
+    DATA.append('iddetail', id);
+    //const. con las respuestas del api
+    const JSON = await dataRequest(ORDER, 'one', DATA);
+    //verificar la respuesta
+    console.log(JSON)
+    if (JSON.status) {
+        //abrir el modal
+        MODAL.open();
+        //asignar los valores recuperados, a los inputs
+        document.getElementById('address').value = JSON.dataset.address;
+        document.getElementById('quantity').value = JSON.dataset.cuantitive;
+        document.getElementById('date').value = JSON.dataset.date_order;
+        document.getElementById('idclient').value = JSON.dataset.id_client;
+        document.getElementById('iddetail').value = JSON.dataset.id_detail_order;
+        document.getElementById('idorder').value = JSON.dataset.id_order;
+
+        loadSelect(ORDER, 'loadDocuments', 'documents', JSON.dataset.document);
+        loadSelect(ORDER, 'loadOrders', 'orders', JSON.dataset.id_order);
+        loadSelect(ORDER, 'loadProducts', 'products', JSON.dataset.id_product);
+        loadSelect(ORDER, 'loadStates', 'states', JSON.dataset.id_state_order);
+
+        document.getElementById('names').value = JSON.dataset.names;
+        document.getElementById('lastnames').value = JSON.dataset.last_names;
+
+        BUTTON.innerText = `Modify`;
+        //ajustar los toolstip cuando tengan texto
+        M.updateTextFields();
+    } else {
+        notificationRedirect('error', JSON.exception, false);
+    }
+}

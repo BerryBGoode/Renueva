@@ -111,8 +111,47 @@ class OrderQuery
      */
     public function all($object)
     {
-        $sql = 'SELECT * FROM '.$object;
+        $sql = 'SELECT * FROM ' . $object;
         return Connection::all($sql);
+    }
+
+    /**
+     * Método para obtener los datos del detalle seleccionado
+     * $object, nombre de la vista o tabla a seleccionar
+     * $id, detalle seleccionado
+     * retorna un arreglo con los datos recuperados
+     */
+    public function row($id, $object)
+    {
+        $sql = 'SELECT * FROM ' . $object . ' WHERE id_detail_order = ?';
+        $param = array($id);
+        return Connection::row($sql, $param);
+    }
+
+    /**
+     * Método para actualizar los datos de la orden seleccionada
+     * retorna el resultado del procedimiento
+     */
+    public function changeOrder()
+    {
+        //var. = a la const. con la instancia de la clase 'order' con los datos de transferencia
+        $order = ORDER;
+        $sql = 'UPDATE orders SET id_client = ?, date_order = ?, id_state_order = ? WHERE id_order = ?';
+        $params = array($order->getClient(), $order->getDate(), $order->getState(), $order->getOrder());
+        return Connection::storeProcedure($sql, $params);
+    }
+
+    /**
+     * Método para actualizar datos del detalle
+     * retorna el resultado de procedimiento
+     */
+    public function changeDetail()
+    {
+        //var. = a la const. con la instancia de la clase 'order' con los datos de transferencia
+        $order = ORDER;
+        $sql = 'UPDATE detail_orders SET id_order = ?, id_product = ?, cuantitive = ? WHERE id_detail_order = ?';
+        $params = array($order->getDOrder(), $order->getProduct(), $order->getQuantity(), $order->getDetail());
+        return Connection::storeProcedure($sql, $params);
     }
 }
 // /*cargar ordenes cuando agregue o actualize
@@ -121,6 +160,13 @@ class OrderQuery
 // /* Agregar un orden (id_client, date_order, id_state_order)
 // /* Agregar un detalle con esa orden
 // $query = new OrderQuery;
+// $order = ORDER;
+// $order->setClient(8);
+// $order->setDate('2023-02-02');
+// $order->setState(2);
+// $order->setOrder(1);
+// echo $query->changeOrder();
+
 // print_r($query->all('details_orders'));
 // print_r($query->getLastOrder());
 // print_r($query->getClient('1'));
