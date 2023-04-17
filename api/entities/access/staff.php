@@ -71,7 +71,7 @@ class StaffQuery
      * retorna si la query fue exitoso o si hubo un error
      */
     public function change(){
-        //var. con la instancia de la clase stff con los attr
+        //var. con la instancia de la clase stf f con los attr
         $staff = STAFF;
         $sql = 'UPDATE staffs SET names = ?, last_names = ?, document = ?, phone = ? WHERE id_staff = ?';
         $params = array($staff->getNames(), $staff->getLastNames(), $staff->getDocument(), $staff->getPhone(), $staff->getId());
