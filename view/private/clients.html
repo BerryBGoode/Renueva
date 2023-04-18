@@ -42,8 +42,8 @@
                                 <thead class="thead-inverse">
                                     <tr id="table-heade"></tr>
                                     <tr>
-                                        <th class="hide">ID Client</th>
                                         <th class="hide">ID User</th>
+                                        <th class="hide">ID Client</th>
                                         <th>Username</th>
                                         <th>Names</th>
                                         <th>Lastnames</th>
@@ -70,12 +70,14 @@
             <div class="modal-content">
 
                 <!-- id client -->
+
                 <input type="number" name="idclient" id="idclient" class="hide">
-                <label class="hide" for="idclient"></label>
+                <label class="hide" for="idclient">ID Client</label>
 
                 <!-- id user -->
+
                 <input type="number" name="iduser" id="iduser" class="hide">
-                <label class="hide" for="iduser"></label>
+                <label class="hide" for="iduser">ID User</label>
                 <div class="row">
                     <div class="input-field col s6">
                         <input id="names" name="names" type="text" class="validate" required>
@@ -83,7 +85,7 @@
                     </div>
                     <div class="input-field col s6">
                         <input id="lastnames" name="lastnames" type="text" class="validate" required>
-                        <label for="lastname">Last Name</label>
+                        <label for="lastnames">Last Name</label>
                     </div>
                 </div>
 
@@ -125,6 +127,7 @@
                     <button type="reset" class="modal-close waves-effect waves-green btn-flat btn-danger">Cancel</button>
                     <button type="submit" class="modal-close waves-effect waves-green btn-flat btn-succes">
                         <!-- here change the process (add or modify) -->
+                        <div class="hide">texto para no ver error</div>
                         <span id="process"></span>
                     </button>
                 </div>

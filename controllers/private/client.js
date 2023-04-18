@@ -52,21 +52,24 @@ FORM.addEventListener('submit', async (evt) => {
     if (JSON.status) {
 
         //cargar tabla
-
+        loadTable();
         //mensaje 
         notificationRedirect('success', JSON.message, true);
+    
         MODAL.close();
     } else {
         MODAL.open();
-        console.log(JSON);
         notificationRedirect('error', JSON.exception, false);
     }
+    console.log(JSON);
 })
 
 /**
  * async-await para cargar la tabla
  */
 async function loadTable(form = null) {
+
+    ROWS.innerHTML = ``;
     //verificar si se van a cargar todos los ususarios o a buscar uno especifico
     (form) ? action = 'search' : action = 'all';
     //const JSON con el response
@@ -182,4 +185,28 @@ async function onModify(idclient, iduser) {
         notificationRedirect('error', JSON.exception, false);
     }
 
+}
+
+/**
+ * asycn-await, para eliminar el cliente seleccionado
+ */
+async function onDestroy(id_user) {
+    //mandar mensaje de confirmación
+    let confirm = await notificationConfirm('Do you wanna delete this user?');
+    if (confirm) {
+        //instancia de la clase FormData para enviar el id
+        const DATA = new FormData;
+        DATA.append('iduser', id_user);
+        //respuesta según la petición
+        const JSON = await dataRequest(CLIENT, 'delete', DATA);
+        if (JSON.status) {
+            MODAL.close();
+            notificationRedirect('success', JSON.message, true);
+            loadTable();
+        } else {
+            notificationRedirect('error', JSON.exception, false);
+            console.log(JSON)
+        }
+
+    }
 }

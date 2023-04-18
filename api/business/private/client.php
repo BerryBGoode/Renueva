@@ -8,7 +8,7 @@ require_once('../../entities/transfers/user.php');
 //var. con la const. de la instancia de la clase Client y User
 $client = CLIENT;
 $user = USER;
-//array que se convertira en JSON y se reenviará al front para verificar la respuesta del proceso solicitado
+//array que se convertira en JSON y se reenviará al front para verificar la respuesta del proceso solicitado        
 $response = array('status' => 0, 'session' => 0, 'message' => null, 'exception' => null, 'dataset' => null);
 
 //verificar si existe una action
@@ -72,6 +72,7 @@ if (!isset($_GET['action'])) {
 
                         $response['status'] = 2;
                         $response['message'] = 'Data was successfully registred';
+                        $response['dataset'] = $_POST;
                     } else {
                         $response['message'] = 'Only client successfully registred';
                         $response['exception'] = Connection::getException();
@@ -166,11 +167,28 @@ if (!isset($_GET['action'])) {
                     $response['exception'] = Connection::getException();
                 }
 
+                break;
+
+            case 'delete':
+                
+                //verificar que se obtubo obtuvo un id
+                if ($_POST['iduser']) {
+
+                    //verificar el proceso
+                    if ($userquery->destroy($_POST['iduser'])) {
+                        $response['status'] = 1;
+                        $response['message'] = 'Data was successfully delete';
+                    } else {
+                        $response['exception'] = 'Error to delete this client';
+                    }
+                } else {
+                    $response['exception'] = 'Error to get client';
+                }
 
 
                 break;
             default:
-                $response['exception'] = 'This action disableF';
+                $response['exception'] = 'This action disable';
                 break;
         }
     }

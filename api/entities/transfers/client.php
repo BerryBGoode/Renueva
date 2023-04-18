@@ -82,7 +82,7 @@ class Client
 
     public function getDocument()
     {
-        return $this->lastnames;
+        return $this->document;
     }
 
     public function setPhone($phone)
