@@ -13,6 +13,17 @@ class UserQuery
      */
 
     /**
+     * Método para obtener el último usuario
+     * retorna el id del usuario
+     */
+    public function getLastUser()
+    {
+        $sql = 'SELECT MAX(id_user) as id_user FROM users';
+        $result = Connection::row($sql);
+        return $result['id_user'];
+    }
+
+    /**
      * Método para agregar un nuevo registro
      */
     public function store()

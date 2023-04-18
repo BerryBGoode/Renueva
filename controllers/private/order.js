@@ -72,6 +72,7 @@ FORM.addEventListener('submit', async (event) => {
         console.log(JSON)
     } else {
         console.log(JSON)
+        MODAL.open();
         notificationRedirect('error', JSON.exception, false);
     }
 });

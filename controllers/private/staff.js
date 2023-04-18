@@ -45,8 +45,10 @@ FORM.addEventListener('submit', async (event) => {
         //notificación
         notificationRedirect('success', JSON.message, true);
     } else if (JSON.status == 2) {
+        MODAL.open();
         notificationRedirect('error', JSON.message + ". Error:" + JSON.exception, true);
     } else {
+        MODAL.open();
         notificationRedirect('error', JSON.exception, true);
     }
 })
@@ -128,7 +130,7 @@ async function getData(form = null) {
         MSG.textContent = JSON.message;
 
     } else {
-        //notificationRedirect('error', JSON.exception, false);
+        notificationRedirect('error', JSON.exception, false);
         console.log(JSON.status);
     }
 }
