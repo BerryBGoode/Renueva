@@ -57,11 +57,11 @@ FORM.addEventListener('submit', async (evt) => {
         notificationRedirect('success', JSON.message, true);
     
         MODAL.close();
+        FORM.reset();
     } else {
         MODAL.open();
         notificationRedirect('error', JSON.exception, false);
     }
-    console.log(JSON);
 })
 
 /**
@@ -201,8 +201,8 @@ async function onDestroy(id_user) {
         const JSON = await dataRequest(CLIENT, 'delete', DATA);
         if (JSON.status) {
             MODAL.close();
-            notificationRedirect('success', JSON.message, true);
             loadTable();
+            notificationRedirect('success', JSON.message, true);
         } else {
             notificationRedirect('error', JSON.exception, false);
             console.log(JSON)

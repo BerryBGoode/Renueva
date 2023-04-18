@@ -2,17 +2,17 @@
 const USER_LOGOUT = 'business/private/user.php';
 
 async function logOut() {
-    //const para confirmar la acción del usuario
-    const CONFIRM = await notificationConfirm('Do you wanna close sesion?');
-    if (CONFIRM) {
-        //const para ejecutar la respuesta del servidor al cerrar sesión
-        const JSON = await dataRequest(USER_LOGOUT, 'logOut');
-        if (JSON.status) {
-            notificationRedirect('success', JSON.message, true, 'index.html');
-        } else {
-            notificationRedirect('error', JSON.exception, false);
-        }
-    }
+//const para confirmar la acción del usuario
+const CONFIRM = await notificationConfirm('Do you wanna close sesion?');
+if (CONFIRM) {
+//const para ejecutar la respuesta del servidor al cerrar sesión
+const JSON = await dataRequest(USER_LOGOUT, 'logOut');
+if (JSON.status) {
+notificationRedirect('success', JSON.message, true, 'index.html');
+} else {
+notificationRedirect('error', JSON.exception, false);
+}
+}
 }
 
 //in this file use fun render, 'cause reduce code html, here render the components most important
@@ -53,25 +53,6 @@ sidebar.innerHTML = `<div class="side-bar hide-on-small-only">
                         </g>
                     </svg>
                     <a href="../../view/private/dashboard.html">Dashboard</a>
-                </li>
-                <li>
-                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" class="icon-sidebar"
-                        xmlns="../../resources/icons/user-octagon-svgrepo-com.svg">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                        <g id="SVGRepo_iconCarrier">
-                            <path
-                                d="M21.08 8.58003V15.42C21.08 16.54 20.48 17.58 19.51 18.15L13.57 21.58C12.6 22.14 11.4 22.14 10.42 21.58L4.48003 18.15C3.51003 17.59 2.91003 16.55 2.91003 15.42V8.58003C2.91003 7.46003 3.51003 6.41999 4.48003 5.84999L10.42 2.42C11.39 1.86 12.59 1.86 13.57 2.42L19.51 5.84999C20.48 6.41999 21.08 7.45003 21.08 8.58003Z"
-                                stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                            <path
-                                d="M12 11.0001C13.2869 11.0001 14.33 9.95687 14.33 8.67004C14.33 7.38322 13.2869 6.34009 12 6.34009C10.7132 6.34009 9.67004 7.38322 9.67004 8.67004C9.67004 9.95687 10.7132 11.0001 12 11.0001Z"
-                                stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                            <path d="M16 16.6601C16 14.8601 14.21 13.4001 12 13.4001C9.79 13.4001 8 14.8601 8 16.6601"
-                                stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </g>
-                    </svg>
-
-                    <a href="../../view/private/users.html">Users</a>
                 </li>
                 <li>
                     <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" class="icon-sidebar"
@@ -162,6 +143,25 @@ sidebar.innerHTML = `<div class="side-bar hide-on-small-only">
                 </li>
                 <li>
                     <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" class="icon-sidebar"
+                        xmlns="../../resources/icons/user-octagon-svgrepo-com.svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path
+                                d="M21.08 8.58003V15.42C21.08 16.54 20.48 17.58 19.51 18.15L13.57 21.58C12.6 22.14 11.4 22.14 10.42 21.58L4.48003 18.15C3.51003 17.59 2.91003 16.55 2.91003 15.42V8.58003C2.91003 7.46003 3.51003 6.41999 4.48003 5.84999L10.42 2.42C11.39 1.86 12.59 1.86 13.57 2.42L19.51 5.84999C20.48 6.41999 21.08 7.45003 21.08 8.58003Z"
+                                stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path
+                                d="M12 11.0001C13.2869 11.0001 14.33 9.95687 14.33 8.67004C14.33 7.38322 13.2869 6.34009 12 6.34009C10.7132 6.34009 9.67004 7.38322 9.67004 8.67004C9.67004 9.95687 10.7132 11.0001 12 11.0001Z"
+                                stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M16 16.6601C16 14.8601 14.21 13.4001 12 13.4001C9.79 13.4001 8 14.8601 8 16.6601"
+                                stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </g>
+                    </svg>
+
+                    <a href="../../view/private/reviews.html">Reviews</a>
+                </li>
+                <li>
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" class="icon-sidebar"
                         xmlns="../../resources/icons/categories-svgrepo-com.svg">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -242,6 +242,7 @@ search = document.getElementById('search-container'); search.innerHTML = `<svg w
 //render buttons print and add
 let buttons = document.getElementById('more-actions');
 if (buttons !== null) {
-buttons.innerHTML = `<a href="#modal" class="waves-effect waves-light btn modal-trigger" onclick="window.onCreate()">Add</a>
+buttons.innerHTML = `<a href="#modal" class="waves-effect waves-light btn modal-trigger"
+    onclick="window.onCreate()">Add</a>
 <a href="" class="waves-effect waves-light btn ">Print</a>`;
 }

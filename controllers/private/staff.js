@@ -44,6 +44,7 @@ FORM.addEventListener('submit', async (event) => {
         MODAL.close();
         //notificación
         notificationRedirect('success', JSON.message, true);
+        FORM.reset();
     } else if (JSON.status == 2) {
         MODAL.open();
         notificationRedirect('error', JSON.message + ". Error:" + JSON.exception, true);
@@ -65,6 +66,8 @@ FORM.addEventListener('reset', () => {
 });
 
 async function getData(form = null) {
+    // para recargar tabla y eliminar valores anteriores
+    ROWS.innerHTML = ``;
     //verificar la acción, sí es para buscar o carga toda la tabla
     (form) ? action = 'search' : action = 'all';
     //const con los valores de la petición en formato JSON

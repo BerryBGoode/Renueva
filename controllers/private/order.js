@@ -68,10 +68,9 @@ FORM.addEventListener('submit', async (event) => {
         getData();
         //cerrar modal
         MODAL.close();
+        FORM.reset();
         notificationRedirect('success', JSON.message, true);
-        console.log(JSON)
     } else {
-        console.log(JSON)
         MODAL.open();
         notificationRedirect('error', JSON.exception, false);
     }
@@ -110,6 +109,7 @@ function onCreate() {
 async function getData(
     form = null
 ) {
+    ROWS.innerHTML = '';
     //verificar si es para cargar todo o buscar
     (form) ? action = 'search' : action = 'all';
     //const. para guardar el response
@@ -262,8 +262,8 @@ async function onDestroy(detail, order) {
         //verificar el estado de la acción
         if (JSON.status) {
             
-            notificationRedirect('success', JSON.message, true);
             getData();
+            notificationRedirect('success', JSON.message, true);
         } else {
             notificationRedirect('error', JSON.exception, false);
         }
