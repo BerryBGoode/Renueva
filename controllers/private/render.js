@@ -2,17 +2,17 @@
 const USER_LOGOUT = 'business/private/user.php';
 
 async function logOut() {
-//const para confirmar la acción del usuario
-const CONFIRM = await notificationConfirm('Do you wanna close sesion?');
-if (CONFIRM) {
-//const para ejecutar la respuesta del servidor al cerrar sesión
-const JSON = await dataRequest(USER_LOGOUT, 'logOut');
-if (JSON.status) {
-notificationRedirect('success', JSON.message, true, 'index.html');
-} else {
-notificationRedirect('error', JSON.exception, false);
-}
-}
+    //const para confirmar la acción del usuario
+    const CONFIRM = await notificationConfirm('Do you wanna close sesion?');
+    if (CONFIRM) {
+        //const para ejecutar la respuesta del servidor al cerrar sesión
+        const JSON = await dataRequest(USER_LOGOUT, 'logOut');
+        if (JSON.status) {
+            notificationRedirect('success', JSON.message, true, 'index.html');
+        } else {
+            notificationRedirect('error', JSON.exception, false);
+        }
+    }
 }
 
 //in this file use fun render, 'cause reduce code html, here render the components most important
@@ -242,7 +242,7 @@ search = document.getElementById('search-container'); search.innerHTML = `<svg w
 //render buttons print and add
 let buttons = document.getElementById('more-actions');
 if (buttons !== null) {
-buttons.innerHTML = `<a href="#modal" class="waves-effect waves-light btn modal-trigger"
+    buttons.innerHTML = `<a href="#modal" class="waves-effect waves-light btn modal-trigger"
     onclick="window.onCreate()">Add</a>
 <a href="" class="waves-effect waves-light btn ">Print</a>`;
 }
