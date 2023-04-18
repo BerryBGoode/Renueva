@@ -69,7 +69,7 @@ if (!isset($_GET['action'])) {
                         $response['exception'] = 'incorrect user';
                         $response['status'] = 0;
                     } elseif ($clientquery->store()) {
-                        
+
                         $response['status'] = 2;
                         $response['message'] = 'Data was successfully registred';
                     } else {
@@ -83,19 +83,94 @@ if (!isset($_GET['action'])) {
                 break;
 
             case 'all':
-                
+                //verificar si la consulta o el método all() salio como esperaba
                 if ($response['dataset'] = $clientquery->all()) {
-                    $response['status'] = 1;                    
+                    $response['status'] = 1;
                 } elseif (Connection::getException()) {
                     $response['exception'] = Connection::getException();
                 } else {
                     $response['exception'] = "Doesn't exist regiter";
                 }
-                
+
+
+                break;
+
+
+            case 'one':
+                //verificar si enviaron algo por el método $_POST
+                //como no hay un evento post en el front
+                //el $_POST[''] en esta perte tiene que ser según se llama en el controller de esta entidad
+                if (($_POST['id_client'] && $_POST['id_client']) || ($_POST['id_client'] > 0 || $_POST['id_client'] > 0)) {
+
+                    if ($response['dataset'] = $clientquery->one($_POST['id_client'])) {
+                        $response['status'] = 1;
+                    } elseif (Connection::getException()) {
+                        $response['exception'] = Connection::getException();
+                    } else {
+                        $response['exception'] = 'Error to find this client';
+                    }
+                } else {
+                    $response['exception'] = 'Error to get user or client';
+                }
+
+
+                break;
+
+            case 'update':
+
+                //validar los datos a enviar
+                $_POST = Validate::form($_POST);
+                //validar los datos de usuario
+                // print_r($_POST);
+                if (!$user->setID($_POST['iduser'])) {
+                    $response['exception'] = 'User incorrect';
+                } elseif (!$user->setUsername($_POST['username'])) {
+                    $response['exception'] = 'Username incorrect';
+                } elseif (!$user->setEmail($_POST['email'])) {
+                    $response['exception'] = 'Format email incorrect';
+                } elseif ($userquery->change()) {
+
+                    $response['status'] = 1;
+
+                    //validar los datos del cliente
+                    if (!$client->setId($_POST['idclient'])) {
+
+                        $response['status'] = 0;
+                        $response['exception'] = 'Client incorrect';
+                    } elseif (!$client->setNames($_POST['names'])) {
+
+                        $response['status'] = 0;
+                        $response['exception'] = 'Names incorrect';
+                    } elseif (!$client->setLastNames($_POST['lastnames'])) {
+
+                        $response['status'] = 0;
+                        $response['exception'] = 'Lastnames incorrect';
+                    } elseif (!$client->setDocument($_POST['document'])) {
+
+                        $response['status'] = 0;
+                        $response['exception'] = 'Format document incorrect';
+                    } elseif (!$client->setPhone($_POST['phone'])) {
+                        $response['status'] = 0;
+                        $response['exception'] = 'Format phone incorrect';
+                    } elseif (!$client->setAddress($_POST['address'])) {
+                        $response['status'] = 0;
+                        $response['exception'] = 'Address incorrect max character(100)';
+                    } elseif ($clientquery->change()) {
+                        $response['status'] = 2;
+                        $response['message'] = 'Data was successfully modified';
+                    } else {
+                        $response['message'] = 'Only user was successfully modified';
+                        $response['exception'] = Connection::getException();
+                    }
+                } else {
+                    $response['exception'] = Connection::getException();
+                }
+
+
 
                 break;
             default:
-                # code...
+                $response['exception'] = 'This action disableF';
                 break;
         }
     }

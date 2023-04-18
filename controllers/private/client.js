@@ -88,7 +88,7 @@ async function loadTable(form = null) {
             <td class="action-col">
 
                     <!-- boton para actualizar -->
-                    <svg width="26" height="25" viewBox="0 0 34 33" fill="none" onclick="onModify(${element.id_client})"
+                    <svg width="26" height="25" viewBox="0 0 34 33" fill="none" onclick="onModify(${element.id_client}, ${element.id_user})"
                     xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M15.0215 1.91666H12.0468C4.60998 1.91666 1.63525 4.83332 1.63525 12.125V20.875C1.63525 28.1667 4.60998 31.0833 12.0468 31.0833H20.971C28.4078 31.0833 31.3825 28.1667 31.3825 20.875V17.9583"
@@ -143,3 +143,43 @@ async function loadTable(form = null) {
 document.addEventListener('DOMContentLoaded', () => {
     loadTable();
 })
+
+
+/**
+ * async-await para cargar los datos del registro seleccionado
+ */
+async function onModify(idclient, iduser) {
+    //obj. de la clase FormData, para enviar los datos al API
+    const DATA = new FormData;
+    //agregarle el id va modificar
+    //como no hay evento post se envía de está manera
+    // en la instancia de la clas
+    DATA.append('id_client', idclient);
+    DATA.append('id_user', iduser);
+    //const la respuesta según la petición
+    const JSON = await dataRequest(CLIENT, 'one', DATA);
+    if (JSON.status) {
+        MODAL.open();
+        //asignar los datos a los inputs
+        document.getElementById('idclient').value = JSON.dataset.id_client;
+        document.getElementById('iduser').value = JSON.dataset.id_user;
+        document.getElementById('names').value = JSON.dataset.names;
+        document.getElementById('lastnames').value = JSON.dataset.last_names;
+        document.getElementById('document').value = JSON.dataset.document;
+        document.getElementById('phone').value = JSON.dataset.phone;
+        document.getElementById('email').value = JSON.dataset.email;
+        document.getElementById('address').value = JSON.dataset.address;
+        document.getElementById('username').value = JSON.dataset.username;
+        //desabihilirar
+        document.getElementById('password').disabled = true;
+        document.getElementById('lblpassword').style.cursor = 'default';
+
+        //ordenar label del input arriba
+        M.updateTextFields();
+        //asignar el texto del boton
+        TXTBUTTON.innerText = `Modify`;
+    } else {
+        notificationRedirect('error', JSON.exception, false);
+    }
+
+}
