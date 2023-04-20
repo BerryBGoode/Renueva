@@ -51,6 +51,17 @@ body{
     border-radius: 15px; */
 }
 
+.button-comment{
+    background-color: transparent;
+    border: 0px solid transparent;
+}
+.button-comment:focus{
+    background-color: transparent;
+}
+.button-comment:hover{
+    cursor: pointer;
+}
+
 /* end table rules */
 /* buttons more actions rules */
 .btn-danger {

@@ -41,6 +41,15 @@ if (!isset($_GET['action'])) {
 
                 break;
 
+            case 'one':
+
+                if ($response['dataset'] = $query->one($_POST['id_product'])) {
+                    $response['status'] = 1;
+                } else {
+                    $response['exception'] = Connection::getException();
+                }
+
+                break;
             case 'loadTable':
 
                 if ($response['dataset'] = $query->all()) {
@@ -88,6 +97,65 @@ if (!isset($_GET['action'])) {
 
                 break;
 
+            case 'udpate':
+
+                // validar los datos del form
+                $_POST = Validate::form($_POST);
+                $response['dataset'] = $_POST;
+                // validar los datos y setear los datos 
+                if (!$product->setId($_POST['id_product'])) {
+                    $response['exception'] = 'Product incorrect';
+                } 
+                elseif (!$data = $query->one($_POST['id_product'])) {
+                    $response['exception'] = "This product doesn't exist";
+                }
+                elseif (!$product->setName($_POST['product'])) {
+                    $response['exception'] = 'Name incorrect';
+                }
+                elseif (!$product->setDescription($_POST['description'])) {
+                    $response['exception'] = 'Description incorrect';
+                }
+                elseif (!$product->setCategory($_POST['categories'])) {
+                    $response['exception'] = 'Categorie incorrect';
+                }
+                elseif (!$product->setState($_POST['states_products'])) {
+                    $response['exception'] = 'State incorrect';
+                }
+                elseif (!$product->setPrice($_POST['price'])) {
+                    $response['exception'] = 'Price format incorrect';
+                }
+                elseif (!$product->setStock($_POST['stock'])) {
+                    $response['exception'] = 'Stock incorrect';
+                }
+                elseif (!is_uploaded_file($_FILES['image']['tmp_name'])) {
+                    // cuando no se cambia la imagen
+                    if ($query->change($data['image'])) {
+                        $response['status'] = 1;
+                        $response['message'] = 'Data has successfully modified';
+                    } else {
+                        $response['exception'] = Connection::getException();
+                    }
+                    
+                }
+                elseif (!$product->setImage($_FILES['image'])) {
+                    $response['exception'] = Validate::getErrorFile();
+                }
+                elseif ($query->change($data['image'])) {
+                    // cuando es imagen nueva
+                    $response['status'] = 1;
+                    // guarda imagen
+                    if (Validate::storeFile($_FILES['image'], $product->getPath(), $product->getImage())) {
+                        $response['message'] = 'Data was successfully modified';
+                    } else {
+                        $response['message'] = "Data was successfully modified, but the file doesn't save";
+                    }
+                    
+                }
+                else {
+                    $response['exception'] = Connection::getException();
+                }
+            
+                break;
             default:
                 # code...
                 break;
