@@ -22,8 +22,8 @@ class ClientQuery
         //const. de la clase Client con los datos de transferencia
         $client = CLIENT;
         $sql = 'INSERT INTO clients (names, last_names, document, phone, address, id_user) VALUES (?, ?, ?, ?, ?, ?)';
-        $param = array($client->getNames(), $client->getLastNames(), $client->getDocument(), $client->getPhone(), $client->getAddress(), $client->getUser());
-        return Connection::storeProcedure($sql, $param);
+        $params = array($client->getNames(), $client->getLastNames(), $client->getDocument(), $client->getPhone(), $client->getAddress(), $client->getUser());
+        return Connection::storeProcedure($sql, $params);
     }
 
     /**
