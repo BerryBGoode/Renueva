@@ -21,6 +21,8 @@ const OPTIONS = {
  * invocado en render.js
  */
 function onCreate() {
+    //validar que no cargue un id product
+    document.getElementById('idproduct').value = null;
     FORM.reset();
     TXTBUTTON.innerText = 'Add';
     // llenar select's
@@ -34,7 +36,7 @@ function onCreate() {
  */
 FORM.addEventListener('reset', () => {
     FORM.reset();
-
+    MODAL.close();
 })
 
 /**
@@ -45,7 +47,8 @@ FORM.addEventListener('submit', async (evt) => {
     //evitar que el usuario recargue la página
     evt.preventDefault();
     //validar la acción
-    (document.getElementById('idproduct').value) ? action = 'udpate' : action = 'create';
+    console.log(document.getElementById('idproduct').value);
+    document.getElementById('idproduct').value ? action = 'udpate' : action = 'create';
     //obtener los datos del form
     const DATA = new FormData(FORM);
     //const. en formato JSON para obtener las respuestas del servidor
@@ -59,7 +62,7 @@ FORM.addEventListener('submit', async (evt) => {
         FORM.reset();
     } else {
         MODAL.open();
-        console.log(JSON.dataset);
+        console.log(JSON);
         notificationRedirect('error', JSON.exception, false);
     }
 })
@@ -87,18 +90,23 @@ async function loadTable(form = null) {
                 <td>${element.price}</td>
                 <td>${element.stock}</td>
                 <td>
-                    
+                    <form action="comments.html" method="get">
                     <!-- reviews button -->
-                    <svg width="28" height="28" viewBox="0 0 36 35" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="viewComments(${element.id_product})">
-                        <path d="M26.8719 27.5042H25.7373C24.543 27.5042 23.4084 27.9563 22.5724 28.7729L20.0195 31.2375C18.8551 32.3604 16.9591 32.3604 15.7946 31.2375L13.2418 28.7729C12.4058 27.9563 11.2562 27.5042 10.0769 27.5042H8.95719C6.47899 27.5042 4.47852 25.5646 4.47852 23.1729V7.26248C4.47852 4.87081 6.47899 2.93127 8.95719 2.93127H26.8719C29.3501 2.93127 31.3506 4.87081 31.3506 7.26248V23.1729C31.3506 25.55 29.3501 27.5042 26.8719 27.5042Z" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M17.9144 14.5834C19.8356 14.5834 21.393 13.0621 21.393 11.1854C21.393 9.30883 19.8356 7.7876 17.9144 7.7876C15.9934 7.7876 14.436 9.30883 14.436 11.1854C14.436 13.0621 15.9934 14.5834 17.9144 14.5834Z" stroke="#424242" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M23.886 22.8377C23.886 20.2127 21.2137 18.0835 17.9144 18.0835C14.6151 18.0835 11.9429 20.2127 11.9429 22.8377" stroke="#424242" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+                    <input type="number" name="productid" id="productid" class="hide" value="${element.id_product}">
+                    <label class="hide" for="productid">ID product</label>
+                    <button type="submit" class="button-comment">
+                        <svg width="28" height="28" viewBox="0 0 36 35" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="viewComments(${element.id_product})">
+                            <path d="M26.8719 27.5042H25.7373C24.543 27.5042 23.4084 27.9563 22.5724 28.7729L20.0195 31.2375C18.8551 32.3604 16.9591 32.3604 15.7946 31.2375L13.2418 28.7729C12.4058 27.9563 11.2562 27.5042 10.0769 27.5042H8.95719C6.47899 27.5042 4.47852 25.5646 4.47852 23.1729V7.26248C4.47852 4.87081 6.47899 2.93127 8.95719 2.93127H26.8719C29.3501 2.93127 31.3506 4.87081 31.3506 7.26248V23.1729C31.3506 25.55 29.3501 27.5042 26.8719 27.5042Z" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M17.9144 14.5834C19.8356 14.5834 21.393 13.0621 21.393 11.1854C21.393 9.30883 19.8356 7.7876 17.9144 7.7876C15.9934 7.7876 14.436 9.30883 14.436 11.1854C14.436 13.0621 15.9934 14.5834 17.9144 14.5834Z" stroke="#424242" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M23.886 22.8377C23.886 20.2127 21.2137 18.0835 17.9144 18.0835C14.6151 18.0835 11.9429 20.2127 11.9429 22.8377" stroke="#424242" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    </form>
                 </td>
                 <td class="action-col">
 
                 <!-- boton para actualizar -->
-                <svg width="26" height="25" viewBox="0 0 34 33" fill="none" onclick="onModify(${element.id_client}, ${element.id_user})"
+                <svg width="26" height="25" viewBox="0 0 34 33" fill="none" onclick="onModify(${element.id_product})"
                 xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M15.0215 1.91666H12.0468C4.60998 1.91666 1.63525 4.83332 1.63525 12.125V20.875C1.63525 28.1667 4.60998 31.0833 12.0468 31.0833H20.971C28.4078 31.0833 31.3825 28.1667 31.3825 20.875V17.9583"
@@ -115,7 +123,7 @@ async function loadTable(form = null) {
                 </svg>
 
                 <!-- boton para eliminar -->
-                <svg width="22" height="25" viewBox="0 0 30 33" fill="none" onclick="onDestroy(${element.id_user})"
+                <svg width="22" height="25" viewBox="0 0 30 33" fill="none" onclick="onDestroy(${element.id_product})"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M28.4432 7.7208C23.4903 7.23955 18.5076 6.99164 13.5398 6.99164C10.5948 6.99164 7.64985 7.13747 4.70487 7.42914L1.67065 7.7208"
@@ -153,3 +161,63 @@ async function loadTable(form = null) {
 document.addEventListener('DOMContentLoaded', () => {
     loadTable();
 });
+
+/**
+ * async-awat método para cargar inputs según los datos seleccionados
+ */
+async function onModify(id) {
+    // instancia de la clase FormDate
+    const DATA = new FormData;
+    // agregar el id, se llama en el backend con el método POST
+    DATA.append('idproduct', id);
+    // obtener la respuesta en formato JSON
+    const JSON = await dataRequest(PRODUCT, 'one', DATA);
+    if (JSON.status) {
+        // abrir el modal
+        MODAL.open();
+        console.log(JSON.dataset);
+        // asignar los datos a los inputs
+        document.getElementById('idproduct').value = JSON.dataset.id_product;
+        document.getElementById('idcategory').value = JSON.dataset.id_category;
+        document.getElementById('product').value = JSON.dataset.name;
+        document.getElementById('description').value = JSON.dataset.description;
+        document.getElementById('price').value = JSON.dataset.price;
+        document.getElementById('stock').value = JSON.dataset.stock;
+        // asignar a los select's
+        loadSelectAll(PRODUCT, 'categories', JSON.dataset.id_category);
+        loadSelectAll(PRODUCT, 'states_products', JSON.dataset.id_state_product);
+        // asignar al file
+        document.getElementById('image').required = false;
+        M.updateTextFields();
+        TXTBUTTON.innerHTML = `Modify`;
+        
+    } else {
+        notificationRedirect('error', JSON.exception, false);
+        console.log(JSON);
+    }
+}
+
+/**
+ * async-await método para eliminar el producto seleccionado
+ */
+async function onDestroy(id){
+    // enviar mensaje de confirmación
+    // el await funciona para esperar la respuesta del usuario
+    let confirm = await notificationConfirm('Do you wanna delete this product?');
+    if (confirm) {
+        // instancia de la clase FormData
+        const DATA = new FormData;
+        // adjuntar el id del product a eliminar
+        DATA.append('idproduct', id);
+        // esperar la respuesta y guardarla en const. llamada JSON
+        const JSON = await dataRequest(PRODUCT, 'delete', DATA);
+        
+        // verificar el estado de la petición
+        if (JSON.status) {
+            loadTable();
+            notificationRedirect('success', JSON.message, true);
+        } else {
+            notificationRedirect('error', JSON.exception, false);
+        }
+    }
+}
