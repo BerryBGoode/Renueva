@@ -81,4 +81,16 @@ class ProductQuery
         );
         return Connection::storeProcedure($sql, $params);
     }
+
+    /**
+     * Método para elimiar el producto seleccionado
+     * $id es el id del producto seleccionado
+     * retorna el resultado del proceso 
+     */
+    public function destroy($id)
+    {
+        $sql = 'DELETE FROM products WHERE id_product = ?';
+        $param = array($id);
+        return Connection::storeProcedure($sql, $param);
+    }
 }

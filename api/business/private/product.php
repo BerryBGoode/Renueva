@@ -43,7 +43,7 @@ if (!isset($_GET['action'])) {
 
             case 'one':
 
-                if ($response['dataset'] = $query->one($_POST['id_product'])) {
+                if ($response['dataset'] = $query->one($_POST['idproduct'])) {
                     $response['status'] = 1;
                 } else {
                     $response['exception'] = Connection::getException();
@@ -103,31 +103,23 @@ if (!isset($_GET['action'])) {
                 $_POST = Validate::form($_POST);
                 $response['dataset'] = $_POST;
                 // validar los datos y setear los datos 
-                if (!$product->setId($_POST['id_product'])) {
+                if (!$product->setId($_POST['idproduct'])) {
                     $response['exception'] = 'Product incorrect';
-                } 
-                elseif (!$data = $query->one($_POST['id_product'])) {
+                } elseif (!$data = $query->one($_POST['idproduct'])) {
                     $response['exception'] = "This product doesn't exist";
-                }
-                elseif (!$product->setName($_POST['product'])) {
+                } elseif (!$product->setName($_POST['product'])) {
                     $response['exception'] = 'Name incorrect';
-                }
-                elseif (!$product->setDescription($_POST['description'])) {
+                } elseif (!$product->setDescription($_POST['description'])) {
                     $response['exception'] = 'Description incorrect';
-                }
-                elseif (!$product->setCategory($_POST['categories'])) {
+                } elseif (!$product->setCategory($_POST['categories'])) {
                     $response['exception'] = 'Categorie incorrect';
-                }
-                elseif (!$product->setState($_POST['states_products'])) {
+                } elseif (!$product->setState($_POST['states_products'])) {
                     $response['exception'] = 'State incorrect';
-                }
-                elseif (!$product->setPrice($_POST['price'])) {
+                } elseif (!$product->setPrice($_POST['price'])) {
                     $response['exception'] = 'Price format incorrect';
-                }
-                elseif (!$product->setStock($_POST['stock'])) {
+                } elseif (!$product->setStock($_POST['stock'])) {
                     $response['exception'] = 'Stock incorrect';
-                }
-                elseif (!is_uploaded_file($_FILES['image']['tmp_name'])) {
+                } elseif (!is_uploaded_file($_FILES['image']['tmp_name'])) {
                     // cuando no se cambia la imagen
                     if ($query->change($data['image'])) {
                         $response['status'] = 1;
@@ -135,12 +127,9 @@ if (!isset($_GET['action'])) {
                     } else {
                         $response['exception'] = Connection::getException();
                     }
-                    
-                }
-                elseif (!$product->setImage($_FILES['image'])) {
+                } elseif (!$product->setImage($_FILES['image'])) {
                     $response['exception'] = Validate::getErrorFile();
-                }
-                elseif ($query->change($data['image'])) {
+                } elseif ($query->change($data['image'])) {
                     // cuando es imagen nueva
                     $response['status'] = 1;
                     // guarda imagen
@@ -149,15 +138,29 @@ if (!isset($_GET['action'])) {
                     } else {
                         $response['message'] = "Data was successfully modified, but the file doesn't save";
                     }
-                    
-                }
-                else {
+                } else {
                     $response['exception'] = Connection::getException();
                 }
-            
+
+                break;
+
+
+            case 'delete':
+                // verificar si obteniene datos del método $_POST
+                if (!$_POST) {
+                    $response['exception'] = 'Error to get data';
+                } else {
+                    if ($query->destroy($_POST['idproduct'])) {
+                        $response['status'] = 1;
+                        $response['message'] = 'Data was successfully delete';
+                    } else {
+                        $response['exception'] = 'Error to delete this product';
+                    }
+                }
+
                 break;
             default:
-                # code...
+                $response['exception'] = 'This action disabled';
                 break;
         }
     }

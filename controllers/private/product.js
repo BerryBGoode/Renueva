@@ -92,8 +92,8 @@ async function loadTable(form = null) {
                 <td>
                     <form action="comments.html" method="get">
                     <!-- reviews button -->
-                    <input type="number" name="idproduct" id="idproduct" class="hide" value="${element.id_product}">
-                    <label class="hide" for="idproduct">ID product</label>
+                    <input type="number" name="productid" id="productid" class="hide" value="${element.id_product}">
+                    <label class="hide" for="productid">ID product</label>
                     <button type="submit" class="button-comment">
                         <svg width="28" height="28" viewBox="0 0 36 35" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="viewComments(${element.id_product})">
                             <path d="M26.8719 27.5042H25.7373C24.543 27.5042 23.4084 27.9563 22.5724 28.7729L20.0195 31.2375C18.8551 32.3604 16.9591 32.3604 15.7946 31.2375L13.2418 28.7729C12.4058 27.9563 11.2562 27.5042 10.0769 27.5042H8.95719C6.47899 27.5042 4.47852 25.5646 4.47852 23.1729V7.26248C4.47852 4.87081 6.47899 2.93127 8.95719 2.93127H26.8719C29.3501 2.93127 31.3506 4.87081 31.3506 7.26248V23.1729C31.3506 25.55 29.3501 27.5042 26.8719 27.5042Z" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -169,7 +169,7 @@ async function onModify(id) {
     // instancia de la clase FormDate
     const DATA = new FormData;
     // agregar el id, se llama en el backend con el método POST
-    DATA.append('id_product', id);
+    DATA.append('idproduct', id);
     // obtener la respuesta en formato JSON
     const JSON = await dataRequest(PRODUCT, 'one', DATA);
     if (JSON.status) {
@@ -190,8 +190,34 @@ async function onModify(id) {
         document.getElementById('image').required = false;
         M.updateTextFields();
         TXTBUTTON.innerHTML = `Modify`;
+        
     } else {
         notificationRedirect('error', JSON.exception, false);
         console.log(JSON);
+    }
+}
+
+/**
+ * async-await método para eliminar el producto seleccionado
+ */
+async function onDestroy(id){
+    // enviar mensaje de confirmación
+    // el await funciona para esperar la respuesta del usuario
+    let confirm = await notificationConfirm('Do you wanna delete this product?');
+    if (confirm) {
+        // instancia de la clase FormData
+        const DATA = new FormData;
+        // adjuntar el id del product a eliminar
+        DATA.append('idproduct', id);
+        // esperar la respuesta y guardarla en const. llamada JSON
+        const JSON = await dataRequest(PRODUCT, 'delete', DATA);
+        
+        // verificar el estado de la petición
+        if (JSON.status) {
+            loadTable();
+            notificationRedirect('success', JSON.message, true);
+        } else {
+            notificationRedirect('error', JSON.exception, false);
+        }
     }
 }
