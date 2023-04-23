@@ -12,10 +12,10 @@ const BUTTON = document.getElementById('process')
 const SELECT = document.querySelector('#documents');
 //const. para el formulario de clients (donde selecciona el doc. del 'client')
 const CLIENT = document.getElementById('client');
-//obj. cons. con las prop de las opciones es del alert
-const OPTIONS = {
-    dismissible: false
-}
+// //obj. cons. con las prop de las opciones es del alert
+// const OPTIONS = {
+//     dismissible: false
+// }
 //const. para redenrizar el cargado de la tabla
 const ROWS = document.getElementById('table-body');
 //const. para mostrar el mensage cargado del backend, para avisar por sí no existen ningún registro

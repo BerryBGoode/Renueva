@@ -90,6 +90,7 @@ CREATE TABLE reviews(
 	id_review serial NOT NULL PRIMARY KEY,
 	comment character varying (100) NOT NULL,
 	id_detail_order INTEGER NOT NULL,
+	date_comment date default CURRENT_DATE,
 	CONSTRAINT fk_detail_order FOREIGN KEY (id_detail_order) REFERENCES detail_orders(id_detail_order) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -523,3 +524,44 @@ CREATE OR REPLACE VIEW clients_user AS
 	SELECT u.username, c.id_user, c.names, c.last_names, c.document, c.phone, u.email, c.address, c.id_client
 	FROM clients c
 	INNER JOIN users u ON u.id_user = c.id_user
+	
+
+--VISTA PARA TABLA PRODUCTS
+CREATE OR REPLACE VIEW products_states_categories AS
+	SELECT p.id_product, p.name, p.description, c.id_category, c.category, p.price, p.stock, s.id_state_product, s.state_product, p.image
+	FROM products p
+	INNER JOIN categories c ON c.id_category = p.id_category
+	INNER JOIN states_products s ON s.id_state_product = p.id_state_product
+	ORDER BY p.id_product ASC
+	
+	
+--VISTA PARA REVIEWS
+CREATE OR REPLACE VIEW reviews_details AS
+	SELECT
+	FROM reviews r
+	INNER JOIN detail_orders d ON d.id_detail_order = r.id_detail_order
+	INNER JOIN products p ON p.id_product = d.id_product
+	INNER JOIN orders o ON o.id_order = d.id_order
+	INNER JOIN clients c ON c.id_client = o.id_client
+	ORDER BY 
+SELECT * FROM products_states_categories
+
+SELECT * FROM clients
+SELECT * FROM orders
+SELECT * FROM detail_orders
+SELECT * FROM products
+
+SELECT * FROM reviews
+
+
+CREATE OR REPLACE VIEW all_reviews AS
+	SELECT u.username, p."name", r."comment", r.date_comment
+	FROM reviews r
+	INNER JOIN detail_orders d ON d.id_detail_order = r.id_detail_order
+	INNER JOIN orders o ON o.id_order = d.id_order
+	INNER JOIN products p ON p.id_product = d.id_product
+	INNER JOIN clients c ON c.id_client = o.id_client
+	INNER JOIN users u ON u.id_user = c.id_user
+-- después  	utilizar where
+
+SELECT * FROM clients_user WHERE document = '378'

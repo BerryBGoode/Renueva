@@ -62,6 +62,13 @@ body{
     cursor: pointer;
 }
 
+.comment-col{
+    white-space: nowrap;   
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 12vw;
+}
+
 /* end table rules */
 /* buttons more actions rules */
 .btn-danger {
@@ -87,6 +94,7 @@ body{
 .btn:focus {
     background-color: #BEBEB8;
 }
+
 
 /* end buttons more actions rules */
 /* modal rules */
@@ -436,6 +444,13 @@ input[placeholder="Search"]:not(.browser-default):focus:not([readonly]) {
     border-radius: 15px;
     gap: 5px;
     box-shadow: 0px 1px 3px rgb(0 0 0 / 25%);
+}
+
+.form-search{
+    width: 98%;
+    display: flex;
+    align-items: center;
+    gap: 1vw;
 }
 
 .search-icon {
