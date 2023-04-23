@@ -33,6 +33,18 @@ if (isset($_GET['action'])) {
                 }
 
                 break;
+            case 'update':
+                 //enviar los datos a los attrs y así validarlos
+                 $_POST = Validate::form($_POST);
+                 if (!$category->setid_category($_POST['id_category'])) {
+                    $response['exception'] = 'Category incorrect' ;
+                } else if (!$category->setcategory($_POST['category'])) {
+                    $response['exception'] = 'Category incorrect';
+                } elseif ($query->change()) {
+                    //cuando se actualizo el usuario correctamente
+                    //asignar estado 
+                    $response['status'] = 1;
+                }
 
             default:
                 # code...

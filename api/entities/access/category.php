@@ -27,4 +27,13 @@ class CategoryQuery
         $params = array($category->getCategory());
         return Connection::storeProcedure($sql, $params);
     }
+
+    public function change()
+    {
+        //instancia de la clase con los attr de users
+        $category = CATEGORY;
+        $sql = 'UPDATE categories SET category = ? WHERE id_category = ?';
+        $params = array($category->getcategory(), $category->getid_category());
+        return Connection::storeProcedure($sql, $params);
+    }
 }
