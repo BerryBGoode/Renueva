@@ -73,15 +73,15 @@ class StaffQuery
      * $staff valor recibido
      * retorna en un array los resultados de la consulta
      */
-    // public function search($staff)
-    // {
-    //     $sql = 'SELECT u.id_user, u.username, s.names, s.last_names, s.document, s.phone, u.email
-    //     FROM staffs s
-    //     INNER JOIN users u ON u.id_user = s.id_user
-    //     WHERE u.username = ? OR s.names = ? OR s.last_names = ? OR s.document = ? OR s.phone = ? OR u.email = ?';
-    //     $param = array("%$staff%", "%$staff%", "%$staff%", "%$staff%", "%$staff%", "%$staff%");
-    //     return Connection::all($sql, $param);
-    // }
+    public function search($staff)
+    {
+        $sql = 'SELECT u.id_user, u.username, s.names, s.last_names, s.document, s.phone, u.email
+        FROM staffs s
+        INNER JOIN users u ON u.id_user = s.id_user
+        WHERE u.username ILIKE ? OR s.names ILIKE ? OR s.last_names ILIKE ?';
+        $param = array("%$staff%", "%$staff%", "%$staff%");
+        return Connection::all($sql, $param);
+    }
 }
 // $query = new StaffQuery;
 // print_r(json_encode($query->all()));

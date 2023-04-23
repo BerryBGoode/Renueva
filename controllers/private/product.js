@@ -94,7 +94,7 @@ async function loadTable(form = null) {
                     <!-- reviews button -->
                     <input type="number" name="productid" id="productid" class="hide" value="${element.id_product}">
                     <label class="hide" for="productid">ID product</label>
-                    <button type="submit" class="button-comment">
+                    <button type="submit" class="button-transparent">
                         <svg width="28" height="28" viewBox="0 0 36 35" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="viewComments(${element.id_product})">
                             <path d="M26.8719 27.5042H25.7373C24.543 27.5042 23.4084 27.9563 22.5724 28.7729L20.0195 31.2375C18.8551 32.3604 16.9591 32.3604 15.7946 31.2375L13.2418 28.7729C12.4058 27.9563 11.2562 27.5042 10.0769 27.5042H8.95719C6.47899 27.5042 4.47852 25.5646 4.47852 23.1729V7.26248C4.47852 4.87081 6.47899 2.93127 8.95719 2.93127H26.8719C29.3501 2.93127 31.3506 4.87081 31.3506 7.26248V23.1729C31.3506 25.55 29.3501 27.5042 26.8719 27.5042Z" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M17.9144 14.5834C19.8356 14.5834 21.393 13.0621 21.393 11.1854C21.393 9.30883 19.8356 7.7876 17.9144 7.7876C15.9934 7.7876 14.436 9.30883 14.436 11.1854C14.436 13.0621 15.9934 14.5834 17.9144 14.5834Z" stroke="#424242" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>

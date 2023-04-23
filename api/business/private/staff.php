@@ -138,38 +138,14 @@ if (isset($_GET['action'])) {
                 break;
 
             case 'search':
-
-                // // verficar el método de envio
-                // if ($_POST) {
-
-                //     // validar los datos recibidos del formulario
-                //     $_POST = Validate::form($_POST);
-
-                    
-                //     if ($_POST['search'] == '') {
-                //         $response['dataset'] = $staffquery->all();
-                //     } elseif ($response['dataset'] = $staffquery->search($_POST['search'])) {
-                //         $response['status'] = 1;
-                //     } elseif (Connection::getException()) {
-                //         $response['exception'] = Connection::getException();
-                //     } else {
-                //         $response['exception'] = 'Data was not found';
-                //     }
-                // } elseif ($_GET) {
-
-                //     if ($_GET['search'] == '') {
-                //         $response['dataset'] = $staffquery->all();
-                //     } elseif ($response['dataset'] = $staffquery->search($_GET['search'])) {
-                //         $response['status'] = 1;
-                //     } elseif (Connection::getException()) {
-                //         $response['exception'] = Connection::getException();
-                //     } else {
-                //         $response['exception'] = 'Data was not found';                        
-                //     }
-                // } else {
-                //     $response['exception'] = 'Error to get data to find';
-                // }
-
+                
+                if ($response['dataset'] = $staffquery->search($_POST['search'])) {
+                    $response['status'] = 1;
+                } elseif (Connection::getException()) {
+                    $response['exception'] = Connection::getException();
+                } else {
+                    $response['exception'] = 'Data was not found';
+                }
 
                 break;
 

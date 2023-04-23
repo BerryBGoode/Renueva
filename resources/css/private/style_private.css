@@ -51,14 +51,14 @@ body{
     border-radius: 15px; */
 }
 
-.button-comment{
+.button-transparent{
     background-color: transparent;
     border: 0px solid transparent;
 }
-.button-comment:focus{
+.button-transparent:focus{
     background-color: transparent;
 }
-.button-comment:hover{
+.button-transparent:hover{
     cursor: pointer;
 }
 
@@ -69,6 +69,19 @@ body{
     max-width: 12vw;
 }
 
+.email-col{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 9vw;
+}
+
+.address-col{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 7vw;
+}
 /* end table rules */
 /* buttons more actions rules */
 .btn-danger {

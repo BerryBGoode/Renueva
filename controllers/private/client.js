@@ -86,8 +86,8 @@ async function loadTable(form = null) {
             <td>${element.last_names}</td>
             <td>${element.document}</td>
             <td>${element.phone}</td>
-            <td>${element.email}</td>
-            <td>${element.address}</td>
+            <td class="email-col">${element.email}</td>
+            <td class="address-col">${element.address}</td>
             <td class="action-col">
 
                     <!-- boton para actualizar -->
