@@ -45,9 +45,26 @@ if (isset($_GET['action'])) {
                     //asignar estado 
                     $response['status'] = 1;
                 }
+                
+                break;
+
+            case 'delete':
+
+                //solo se ejecuta el método para eliminar 'category' porque la clave
+                //externa está en cascada
+                if (!$_POST['id_category'] || $_POST['id_category'] <= 0) {
+                    $response['exception'] = 'Error to get category';
+                } elseif ($query->destroy($_POST['id_category'])) {
+                    $response['status'] = 1;
+                    $response['message'] = 'Category was correctly delete';
+                } else {
+                    $response['exception'] = Connection::getException();
+                }
+
+                break;
 
             default:
-                # code...
+                
                 break;
         }
     } else {

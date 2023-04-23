@@ -36,4 +36,11 @@ class CategoryQuery
         $params = array($category->getcategory(), $category->getid_category());
         return Connection::storeProcedure($sql, $params);
     }
+
+    public function destroy($id)
+    {
+        $sql = 'DELETE FROM categories WHERE id_category = ?';
+        $param = array($id);
+        return Connection::storeProcedure($sql, $param);
+    }
 }
