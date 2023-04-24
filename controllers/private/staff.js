@@ -19,7 +19,6 @@ const FORMSEARCH = document.getElementById('form-search');
 // obtener el input para buscar
 const SEARCH = document.getElementById('search');
 
-let obj = {};
 
 /**
  * async-awat método tipo event para enviar los datos del form al api
@@ -222,18 +221,17 @@ FORMSEARCH.addEventListener('keyup', async (evt) => {
     // obtener la respuesta del servidor
     const RESPONSE = await dataRequest(STAFF, 'all', DATA);
     if (RESPONSE.status) {
+        // reiniciar los datos de la tabla
+        ROWS.innerHTML = ``;
         // convertir el texto del input a minusculas para buscar de manera efectiva
         let search = SEARCH.value.toLowerCase();
         // sí el input no tiene nada cargar los datos normalmente en la tabla
         if (search === '') {
-            // reiniciar los datos de la tabla
-            ROWS.innerHTML = ``;
+
             getData();
         } else {
             // buscador
 
-            // reiniciar los datos de la tabla
-            ROWS.innerHTML = ``;
             // recorrer todos los datos recuperados que también son los que se cargan en la tabla
             for (let staffs of RESPONSE.dataset) {
                 // convertir a minusculas todos los datos del objeto
@@ -319,6 +317,8 @@ FORMSEARCH.addEventListener('submit', async (evt) => {
     // obtener respuesta del servidor
     const JSON = await dataRequest(STAFF, 'search', DATA);
     if (JSON.status) {
+        // reiniciar los datos de la tabla
+        ROWS.innerHTML = ``;
         // loop para recuperar todos los registros
         JSON.dataset.forEach(element => {
             // el '+=' se utilizar para agregar el valor recorrido más el anterior
