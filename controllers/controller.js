@@ -225,10 +225,6 @@ async function loadSelectAll(filename, select, selected = null, idselect = false
         //si existen valores
         //agregar a la lista
         list += `<option disabled selected>Select option</option>`;
-        if (select === 'orders') {
-            list += `<option value="0">New Order</option>`;
-        }
-
         //recorrer los datos obtenidos
         JSON.dataset.forEach(element => {
             //obtener el valor del id

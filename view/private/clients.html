@@ -38,7 +38,7 @@
                         <div id="more-actions"></div>
                         <!--table structure-->
                         <div class="table-container">
-                            <table class="table table-striped table-inverse table-responsive">
+                            <table class="table highlight table-striped table-inverse table-responsive">
                                 <thead class="thead-inverse">
                                     <tr id="table-heade"></tr>
                                     <tr>
@@ -49,8 +49,8 @@
                                         <th>Lastnames</th>
                                         <th>Document</th>
                                         <th>Phone</th>
-                                        <th>Email</th>
-                                        <th>Address</th>
+                                        <th class="email-col">Email</th>
+                                        <th class="address-col">Address</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -143,6 +143,8 @@
     <script src="../../resources/general/js/sweetalert.min.js"></script>
     <!-- general controller -->
     <script src="../../controllers/controller.js"></script>
+    <!-- search input -->
+    <script src="../../controllers/private/form-search.js"></script>
     <!-- clients controller -->
     <script src="../../controllers/private/client.js"></script>
     <!--JavaScript to render some content-->

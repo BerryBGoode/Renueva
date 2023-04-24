@@ -54,15 +54,6 @@ if (isset($_GET['action'])) {
 
 
                 break;
-            case 'readAll':
-
-
-                break;
-
-            case 'search':
-
-
-                break;
 
                 //para insertar
             case 'create':
@@ -88,14 +79,6 @@ if (isset($_GET['action'])) {
                 }
 
                 break;
-            case 'readOne':
-
-
-                break;
-            case 'delete':
-
-
-                break;
             default:
                 $response['exception'] = 'This Action is disable in session';
         }
@@ -103,18 +86,21 @@ if (isset($_GET['action'])) {
         //acciones cuando no sé a iniciado sesión
         switch ($_GET['action']) {
             case 'login':
+
                 //validar que el $_POST no traiga espacio demás
                 $_POST = Validate::form($_POST);
-                if ($userquery->validateUser($_POST['username'], $_POST['password']) == -1) {
+                
+                if (!$userquery->validateUser($_POST['username'])) {
                     $response['exception'] = 'User no registred';
-                } elseif ($userquery->validateUser($_POST['username'], $_POST['password'] == 0)) {
-                    $response['exception'] = 'Incorrect password';
-                } else {
+                }  elseif ($userquery->validatePassword($_POST['password'])) {
                     $response['status'] = 1;
                     $response['message'] = 'Authenticate Correct';
                     //crear  una sesión con el id usuario recuperado
                     $_SESSION['id_user'] = $user->getID();
                     $_SESSION['username'] = $user->getUsername();
+                    
+                } else {
+                    $response['exception'] = 'Password incorrect';
                 }
                 break;
 

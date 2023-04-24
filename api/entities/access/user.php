@@ -42,38 +42,45 @@ class UserQuery
     }
 
     /**
-     * Métodos para verificar que los datos ingresados (login)
-     * $username nombre de usuario a loggearse, $password contraseña del usuario
-     * retorna -1 si usuario no existe, 0 si a contraseña es incorrecta
-     * 1 si todo es correcto
+     * Método para verificar que los datos ingresados (login)
+     * $username nombre de usuario a loggearse
+     * retorna retorna el id del usuario
      */
-    public function validateUser($username, $password)
+    public function validateUser($username)
     {
         //$user igual a la constante con la instancia de la clase
         $user = USER;
+        $admin = 1;
         //query para validar sí existe un registro con el nombre de ese usuario
-        $sql1 = 'SELECT id_user
+        $sql = 'SELECT id_user
         FROM users 
-        WHERE username  = ?';
-        $param1 = array($username);
+        WHERE username  = ? AND id_type_user = ?';
+        $param = array($username, $admin);
         //resulta es igual a los datos que retorne ese query
-        $result1 = Connection::row($sql1, $param1);
-        if ($result1) {
-            $user->setID($result1['id_user']); //enviar id para sesion
+        $result = Connection::row($sql, $param);
+        if ($result) {
+            $user->setID($result['id_user']); //enviar id para sesion
+            return true;
+        }
+    }
 
-            $sql2 = 'SELECT password FROM users WHERE id_user = ?';
-            $param2 = array($result1['id_user']);
-            $result2 = Connection::row($sql2, $param2);
-            if (password_verify($password, $result2['password'])) {
-                //autenticación correcta
-                return 1;
-            } else {
-                // existe usuario pero no contraseña // contraseña incorrecta
-                return 0;
-            }
-        } else {
-            //no existe usuario ni contraseña
-            return -1;
+    /**
+     * Método para verificar que la contraseña del usuario que se recupero sea igual a la que 
+     * la que trae el front-end
+     * $password texto plano traido de login
+     * retorna el resultado del proceso
+     */
+    public function validatePassword($password)
+    {
+        //$user igual a la constante con la instancia de la clase
+        $user = USER;
+        $sql = 'SELECT password FROM users WHERE id_user = ?';
+        $param = array($user->getID());
+        $result = Connection::row($sql, $param);
+
+        if (password_verify($password, $result['password'])) {
+            //autenticación correcta
+            return true;
         }
     }
 
