@@ -83,12 +83,3 @@ class StaffQuery
         return Connection::all($sql, $param);
     }
 }
-// $query = new StaffQuery;
-// print_r(json_encode($query->all()));
-// $staff = STAFF;
-// $staff->setNames('Cristian');
-// $staff->setLastNames('Mena');
-// $staff->setDocument('12345678-9');
-// $staff->setPhone('7836-0066');
-// $staff->setUser($query->getLastUser());
-// echo $query->store();
