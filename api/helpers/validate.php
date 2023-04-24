@@ -291,6 +291,14 @@ class Validate
     }
 
     /**
+     * Método para recuperar el error al verificar un archivo 
+     */
+    public static function getErrorFile()
+    {
+        return self::$errorFile;
+    }
+
+    /**
      * Método para verificar el formato de una fecha
      * $date fecha a verificar
      * retorna true si el formato yyyy-mm-dd

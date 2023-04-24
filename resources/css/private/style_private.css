@@ -36,6 +36,7 @@ body{
     border-radius: 15px;
 }
 
+
 .table {
     background-color: #F7EFE5;
     border-radius: 15px;
@@ -48,6 +49,17 @@ body{
     /* margin: 0 25px 0 25px;
     border: 1px solid #42424242;
     border-radius: 15px; */
+}
+
+.button-comment{
+    background-color: transparent;
+    border: 0px solid transparent;
+}
+.button-comment:focus{
+    background-color: transparent;
+}
+.button-comment:hover{
+    cursor: pointer;
 }
 
 /* end table rules */
@@ -652,7 +664,7 @@ td>svg {
         flex-direction: column;
     }
 
-    #slidebar-main-container {}
+    /* #slidebar-main-container {} */
 
     /*table*/
     /* table{
