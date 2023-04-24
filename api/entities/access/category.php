@@ -43,4 +43,6 @@ class CategoryQuery
         $param = array($id);
         return Connection::storeProcedure($sql, $param);
     }
+
+
 }

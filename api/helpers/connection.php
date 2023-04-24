@@ -10,7 +10,7 @@ define('DATABASE', 'renueva');
 define('USERNAME', 'postgres');
 //contraseña del usuario de postgre
 //la contraseña debe ser cambiada según establecida en postgresql
-define('PASSWORD', 'alvaradolira');
+define('PASSWORD', '123');
 //definir la constante con define, texto es mayus. es el nombre de la constante
 //y después el valor
 
