@@ -10,7 +10,7 @@ define('DATABASE', 'renueva');
 define('USERNAME', 'postgres');
 //contraseña del usuario de postgre
 //la contraseña debe ser cambiada según establecida en postgresql
-define('PASSWORD', '123');
+define('PASSWORD', 'alvaradolira');
 //definir la constante con define, texto es mayus. es el nombre de la constante
 //y después el valor
 
@@ -46,10 +46,8 @@ class Connection
             //ejecutar el query con los datos y retornar el resultado
             return self::$sql->execute($data);
         } catch (PDOException $exep) {
-            self::formatError($exep->getCode(), $exep->getMessage());
             //si algo está mal dentro del catch retornará 0
-            echo $exep;
-            return 0;
+            return self::formatError($exep->getCode(), $exep->getMessage());;
         }
     }
 

@@ -160,7 +160,6 @@ async function dataRequest(url, action, form = null) {
  * action acción a realizar,
  * select id de la etiqueta <select> a llenar,
  * option primer valor o opción del <option> de la etiqueta <select>,
- * onlyid para verificar si se quieren cargar los id's (como en caso de ordenes)
  * selected si se seleccionará uno (para cargar el valor ingresado en ese registro).
  */
 async function loadSelect(filename, action, select, selected = null) {
@@ -201,6 +200,51 @@ async function loadSelect(filename, action, select, selected = null) {
         option = `<option>void options</option>`;
     }
     //Agregar las opciones al <select>
+    document.getElementById(select).innerHTML = list;
+    //Inicializar el <select> para así despligue las opciones
+    M.FormSelect.init(document.querySelectorAll('select'));
+}
+
+/**
+ * Método para cargar select's en productos
+ * filename donde ira a evaluar la acción
+ * select tabla a cargar también tiene que ser el id del select
+ * selected si se seleccionará uno (para cargar el valor ingresado en ese registro)
+ * idselect sí se quieren cargar id's
+ */
+async function loadSelectAll(filename, select, selected = null, idselect = false) {
+    //definir instancia de la clase FormData
+    const DATA = new FormData;
+    //agregar dato al post
+    DATA.append('object', select);
+    //obtener los datos de la petición
+    const JSON = await dataRequest(filename, 'load', DATA);
+    //inicializar o reiniciar lista para después asignar datos
+    let list = '';
+    if (JSON.status) {
+        //si existen valores
+        //agregar a la lista
+        list += `<option disabled selected>Select option</option>`;
+        //recorrer los datos obtenidos
+        JSON.dataset.forEach(element => {
+            //obtener el valor del id
+            id = Object.values(element)[0];
+            // obtener la otra columna con datos 
+            value = Object.values(element)[1];
+
+            if (idselect) {
+                // verificar si el id es del valor ingresado anteriormente (update)
+                (id != selected) ? list += `<option value="${id}">${id}</option>` : list += `<option value="${id}" selected>${id}</option>`;
+            } else {
+                (id != selected) ? list += `<option value="${id}">${value}</option>` : list += `<option value="${id}" selected>${value}</option>`;
+            }
+
+        });
+    } else {
+        // si no existen datos u ocurre algún error
+        option = `<option> void options </option>`;
+    }
+    //agregar las opciones
     document.getElementById(select).innerHTML = list;
     //Inicializar el <select> para así despligue las opciones
     M.FormSelect.init(document.querySelectorAll('select'));

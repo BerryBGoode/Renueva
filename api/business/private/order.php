@@ -267,9 +267,10 @@ if (isset($_GET['action'])) {
         print(json_encode($response));
     } else {
         //mensaje de error
-        print('Action denied');
+        $response['exception'] = 'Action denied';
     }
 } else {
     //acción no disponible
     print(json_encode('Action dissable'));
 }
+?>

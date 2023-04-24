@@ -77,18 +77,6 @@ CREATE TABLE products(
 	CONSTRAINT fk_state_product FOREIGN KEY (id_state_product) REFERENCES states_products(id_state_product) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE reviews(
-	id_review serial NOT NULL PRIMARY KEY,
-	comment character varying (100) NOT NULL,
-	id_client integer NOT NULL,
-	id_order integer NOT NULL,
-	id_product integer NOT NULL,
-	CONSTRAINT fk_client_review FOREIGN KEY (id_client) REFERENCES clients(id_client) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT fk_order_review FOREIGN KEY (id_order) REFERENCES orders(id_order) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT fk_product_review FOREIGN KEY (id_product) REFERENCES products(id_product) ON DELETE CASCADE ON UPDATE CASCADE
-					 
-);
-
 CREATE TABLE detail_orders(
 	id_detail_order serial NOT NULL PRIMARY KEY,
 	id_order integer NOT NULL,
@@ -98,10 +86,18 @@ CREATE TABLE detail_orders(
 	CONSTRAINT fk_product FOREIGN KEY (id_product) REFERENCES products(id_product) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE reviews(
+	id_review serial NOT NULL PRIMARY KEY,
+	comment character varying (100) NOT NULL,
+	id_detail_order INTEGER NOT NULL,
+	date_comment date default CURRENT_DATE,
+	CONSTRAINT fk_detail_order FOREIGN KEY (id_detail_order) REFERENCES detail_orders(id_detail_order) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 INSERT INTO public.types_users(
-	 type_user)
-	VALUES 	( 'Admin'),
-			('Client');
+	 id_type_user, type_user)
+	VALUES 	(1, 'Admin'),
+			(2, 'Client');
 
 INSERT INTO public.states_orders(
 	 state_order)
@@ -199,20 +195,6 @@ INSERT INTO public.products(
 			('Sunscreen', 'Product ready to take care of the sun in the summer', 7.99, 8,90, 1, 1),
 			('body butter', 'butter that illuminates your skin', 3.99, 9, 100, 2, 3),
 			('massage bar', 'we will give you the best massages',2.99,10,120,2,2);
-
-INSERT INTO public.reviews(
-	 comment, id_client, id_order, id_product)
-	VALUES 	('I like that', 1, 10 , 9),
-			('Very nice product, I love it', 2, 1, 6),
-			('beautiful product', 3, 3, 1),
-			('nice product', 4, 5, 2),
-			('I expected more from the product', 6, 4, 3),
-			('Very nice product, I love it', 5, 10, 4),
-			('nice product', 8, 7, 7),
-			('I expected more from the product', 10, 6, 5),
-			('Very nice product, I love it', 7, 9, 10),
-			('nice product', 9, 8, 9),
-			('I expected more from the product', 1, 2, 8);
 			
 INSERT INTO public.detail_orders(
 	 id_order, id_product, cuantitive)
@@ -236,9 +218,25 @@ INSERT INTO public.detail_orders(
 			(2, 8, 1),
 			(10, 10, 6),
 			(1,1,9);
+		
+SELECT* FROM detail_orders
+INSERT INTO public.reviews(
+	 comment, id_detail_order)
+	VALUES 	('I like that', 3),
+			('Very nice product, I love it', 4),
+			('beautiful product', 6),
+			('nice product', 9),
+			('I expected more from the product',10),
+			('Very nice product, I love it', 11),
+			('nice product', 29),
+			('I expected more from the product', 30),
+			('Very nice product, I love it', 19),
+			('nice product', 32),
+			('I expected more from the product', 39);
 			
 	--ORDER BY, GROUP BY, INNER JOIN
-			
+	
+
 --MOSTRAR LOS PRODUCTOS MÁS COMPRADOS, DEL MÁß COMPRADO AL MENOS
 SELECT p."name", P.price, p.description, count(d.id_product) AS Consumption
 FROM products p
@@ -381,11 +379,14 @@ GROUP BY DISTINCT p.name, p.price, o.id_order, d.id_detail_order
 ORDER BY p.price DESC, p.name;
 
 --MOSTRAR LOS COMENTARIOS DE UN PRODUCTO
-SELECT reviews.comment
-FROM reviews
-INNER JOIN products
-ON reviews.id_product = products.id_product
-WHERE products.name = 'body butter'
+	SELECT r."comment"
+	FROM reviews r
+	INNER JOIN detail_orders d ON d.id_detail_order = r.id_detail_order
+	INNER JOIN products p ON p.id_product = d.id_product
+	WHERE p."name" = 'Hair care shampoo';
+
+SELECT * FROM products
+SELECT * FROM reviews
 
 --MOSTRAR LOS SUBTOTALES DE UNA ORDEN
 SELECT c."names", c.last_names, c."document", o.id_order, o.date_order, d.id_detail_order,
@@ -508,9 +509,59 @@ CREATE OR REPLACE VIEW details_orders AS
 DROP VIEW details_orders
 SELECT * FROM details_orders;
 
+SELECT * FROM detail_orders
+SELECT * FROM orders
 SELECT * FROM products
 
 SELECT id_detail_order, id_order, id_product, cuantitive, count(id_product)
 FROM detail_orders
 GROUP BY id_detail_order, id_order, id_product, cuantitive
 
+SELECT * FROM clients
+
+--VISTA PARA TABLA CLIENTES
+CREATE OR REPLACE VIEW clients_user AS
+	SELECT u.username, c.id_user, c.names, c.last_names, c.document, c.phone, u.email, c.address, c.id_client
+	FROM clients c
+	INNER JOIN users u ON u.id_user = c.id_user
+	
+
+--VISTA PARA TABLA PRODUCTS
+CREATE OR REPLACE VIEW products_states_categories AS
+	SELECT p.id_product, p.name, p.description, c.id_category, c.category, p.price, p.stock, s.id_state_product, s.state_product, p.image
+	FROM products p
+	INNER JOIN categories c ON c.id_category = p.id_category
+	INNER JOIN states_products s ON s.id_state_product = p.id_state_product
+	ORDER BY p.id_product ASC
+	
+	
+--VISTA PARA REVIEWS
+CREATE OR REPLACE VIEW reviews_details AS
+	SELECT
+	FROM reviews r
+	INNER JOIN detail_orders d ON d.id_detail_order = r.id_detail_order
+	INNER JOIN products p ON p.id_product = d.id_product
+	INNER JOIN orders o ON o.id_order = d.id_order
+	INNER JOIN clients c ON c.id_client = o.id_client
+	ORDER BY 
+SELECT * FROM products_states_categories
+
+SELECT * FROM clients
+SELECT * FROM orders
+SELECT * FROM detail_orders
+SELECT * FROM products
+
+SELECT * FROM reviews
+
+
+CREATE OR REPLACE VIEW all_reviews AS
+	SELECT u.username, p."name", r."comment", r.date_comment
+	FROM reviews r
+	INNER JOIN detail_orders d ON d.id_detail_order = r.id_detail_order
+	INNER JOIN orders o ON o.id_order = d.id_order
+	INNER JOIN products p ON p.id_product = d.id_product
+	INNER JOIN clients c ON c.id_client = o.id_client
+	INNER JOIN users u ON u.id_user = c.id_user
+-- después  	utilizar where
+
+SELECT * FROM clients_user WHERE document = '378'
