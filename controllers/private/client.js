@@ -212,14 +212,11 @@ async function onDestroy(id_user) {
  * buscador tipo filtrado
  * evento descencadenado por cuando suben la 'key' del teclado
  */
-
 async function onSearch(evt) {
     // evitar que se recargue la página
     evt.preventDefault();
-    // instancia de la clase FormData
-    const DATA = new FormData(FORMSEARCH);
     // obtener la respuesta del API
-    const JSON = await dataRequest(CLIENT, 'all', DATA);
+    const JSON = await dataRequest(CLIENT, 'all');
     if (!JSON.status) {
         notificationRedirect('error', JSON.exception, false);
     } else {
@@ -230,6 +227,8 @@ async function onSearch(evt) {
         let search = SEARCH.value.toLowerCase();
         // verificar si el input no tiene nada de texto para recargar toda la tabla
         if (search === '') {
+            // reinciar los valores de la tabla
+            ROWS.innerHTML = ``;
             loadTable();
         } else {
             // recorrer todos los datos recuperados que viene
