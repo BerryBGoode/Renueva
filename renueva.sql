@@ -555,13 +555,22 @@ SELECT * FROM reviews
 
 
 CREATE OR REPLACE VIEW all_reviews AS
-	SELECT u.username, p."name", r."comment", r.date_comment
+	SELECT u.username, p.id_product, p."name", r."comment", r.date_comment
 	FROM reviews r
 	INNER JOIN detail_orders d ON d.id_detail_order = r.id_detail_order
 	INNER JOIN orders o ON o.id_order = d.id_order
 	INNER JOIN products p ON p.id_product = d.id_product
 	INNER JOIN clients c ON c.id_client = o.id_client
 	INNER JOIN users u ON u.id_user = c.id_user
+	ORDER BY r.id_review ASC
 -- después  	utilizar where
 
+SELECT * FROM all_reviews WHERE id_product = 1
 SELECT * FROM clients_user WHERE document = '378'
+
+CREATE OR REPLACE VIEW all_categories AS
+	SELECT c.id_category, c.category, COUNT(*) as Amount
+	FROM categories c
+	INNER JOIN products p ON c.id_category = p.id_category
+	GROUP BY c.id_category, c.category
+	ORDER BY c.id_category ASC

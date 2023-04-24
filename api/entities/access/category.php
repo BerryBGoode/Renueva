@@ -1,5 +1,8 @@
 <?php
 //archivo con los attr de transferencia 
+
+use JetBrains\PhpStorm\Internal\ReturnTypeContract;
+
 require_once('../../entities/transfers/category.php');
 //archivo con los procedmientos cercanos a la base
 require_once('../../helpers/connection.php');
@@ -44,5 +47,22 @@ class CategoryQuery
         return Connection::storeProcedure($sql, $param);
     }
 
+    /**
+     * Método para cargar datos en la tabla
+     */
+    public function all()
+    {
+        $sql = 'SELECT * FROM all_categories';
+        return Connection::all($sql);
+    }
 
+    /**
+     * Método para cargar los datos de una categoria seleccionada
+     */
+    public function one($id)
+    {
+        $sql = 'SELECT * FROM all_categories WHERE id_category = ?';
+        $param = array($id);
+        return Connection::row($sql, $param);
+    }
 }
