@@ -133,7 +133,6 @@ async function loadTable() {
         MSG.textContent = JSON.message;
     } else {
         notificationRedirect('error', JSON.exception, false);
-        console.log(JSON);
     }
 }
 
