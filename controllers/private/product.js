@@ -80,6 +80,7 @@ async function loadTable(form = null) {
     ROWS.innerHTML = ``;
     if (JSON.status) {
         JSON.dataset.forEach(element => {
+            // el '+=' se utilizar para agregar el valor recorrido más el anterior
             ROWS.innerHTML += `<tr>
                 <td class="hide">${element.id_product}</td>
                 <td class="hide">${element.id_category}</td>

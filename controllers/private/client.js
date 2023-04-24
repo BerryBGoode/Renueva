@@ -77,7 +77,7 @@ async function loadTable(form = null) {
     if (JSON.status) {
         //cargar a agregar al html los datos recuperados
         JSON.dataset.forEach(element => {
-            //agregar + el valor anterior
+            //agregar += el valor anterior, más el recorrido
             ROWS.innerHTML += `<tr>
             <td class="hide">${element.id_user}</td>
             <td class="hide">${element.id_client}</td>

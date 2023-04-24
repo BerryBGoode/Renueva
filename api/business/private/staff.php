@@ -232,30 +232,7 @@ if (isset($_GET['action'])) {
                 $response['exception'] = 'This action is disable in session';
         }
     } else {
-        //acciones que puede realizar cuando no ha iniciado sesión
-        switch ($_GET['action']) {
-            case 'login':
-
-                //validar que el $_POST no traiga espacio demás
-                $_POST = Validate::form($_POST);
-                if ($userquery->validateUser($_POST['username'], $_POST['password']) == -1) {
-                    $response['exception'] = 'User no registred';
-                } elseif ($userquery->validateUser($_POST['username'], $_POST['password'] == 0)) {
-                    $response['exception'] = 'Incorrect password';
-                } else {
-                    $response['status'] = 1;
-                    $response['message'] = 'Authenticate Correct';
-                    //crear  una sesión con el id usuario recuperado
-                    $_SESSION['id_user'] = $user->getID();
-                    $_SESSION['username'] = $user->getUsername();
-                }
-
-                break;
-
-            default:
-                # code...
-                break;
-        }
+        $response['exception']= 'Action denied';
     }
     //formato para mostrar el contenido
     header('content-type: application/json; charset=utf-8');

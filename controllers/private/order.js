@@ -120,6 +120,7 @@ async function getData(
         //+= se utiliza para ir almacenando el valor, y como aquí se recorre un ciclo
         //se guarda o algo así el valor del anterior
         JSON.dataset.forEach(element => {
+            // el '+=' se utilizar para agregar el valor recorrido más el anterior
             ROWS.innerHTML += `<tr>
                 <td class="hide">${element.id_detail_order}</td>
                 <td class="hide">${element.id_product}</td>

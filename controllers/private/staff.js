@@ -79,6 +79,7 @@ async function getData() {
         JSON.dataset.forEach(data => {
 
             //inyectar el código hmtl + js con los datos recolectados de la db
+            // el '+=' se utilizar para agregar el valor recorrido más el anterior
             ROWS.innerHTML += `<tr>
                 <td class="hide">${data.id_staff}</td>
                 <td class="hide">${data.id_user}</td>
@@ -244,6 +245,7 @@ FORMSEARCH.addEventListener('keyup', async (evt) => {
                 if (username.indexOf(search) !== -1 || name.indexOf(search) !== -1 || lastname.indexOf(search) !== -1) {
 
                     // cargar tabla
+                    // el '+=' se utilizar para agregar el valor recorrido más el anterior
                     ROWS.innerHTML += `<tr>
                     <td class="hide">${staffs.id_staff}</td>
                     <td class="hide">${staffs.id_user}</td>
@@ -319,6 +321,7 @@ FORMSEARCH.addEventListener('submit', async (evt) => {
     if (JSON.status) {
         // loop para recuperar todos los registros
         JSON.dataset.forEach(element => {
+            // el '+=' se utilizar para agregar el valor recorrido más el anterior
             ROWS.innerHTML += `<tr>
             <td class="hide">${element.id_staff}</td>
             <td class="hide">${element.id_user}</td>
