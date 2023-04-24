@@ -23,7 +23,7 @@ if (isset($_GET['action'])) {
             case 'create':
                 //validar los datos que trae el formulario por medio del método $_POST con todos los datos
                 $_POST = Validate::form($_POST);
-                if (!$category->setCategory($_POST['category_name'])) {
+                if (!$category->setCategory($_POST['category'])) {
                     $response['exception'] = 'action denegate';
                 } elseif ($query->store()) {
                     $response['status'] = 1;
@@ -34,10 +34,10 @@ if (isset($_GET['action'])) {
 
                 break;
             case 'update':
-                 //enviar los datos a los attrs y así validarlos
-                 $_POST = Validate::form($_POST);
-                 if (!$category->setid_category($_POST['id_category'])) {
-                    $response['exception'] = 'Category incorrect' ;
+                //enviar los datos a los attrs y así validarlos
+                $_POST = Validate::form($_POST);
+                if (!$category->setid_category($_POST['idcategory'])) {
+                    $response['exception'] = 'Category incorrect';
                 } else if (!$category->setcategory($_POST['category'])) {
                     $response['exception'] = 'Category incorrect';
                 } elseif ($query->change()) {
@@ -45,7 +45,7 @@ if (isset($_GET['action'])) {
                     //asignar estado 
                     $response['status'] = 1;
                 }
-                
+
                 break;
 
             case 'delete':
@@ -63,8 +63,32 @@ if (isset($_GET['action'])) {
 
                 break;
 
+            case 'all':
+
+                if ($response['dataset'] = $query->all()) {
+                    $response['status'] = 1;
+                } elseif (Connection::getException()) {
+                    $response['exception'] = Connection::getException();
+                } else {
+                    $response['exception'] = "Doesn't exist registred";
+                }
+
+                break;
+
+            case 'one':
+
+                if ($response['dataset'] = $query->one($_POST['id_category'])) {
+                    $response['status'] = 1;
+                } elseif (Connection::getException()) {
+                    $response['exception'] = Connection::getException();
+                } else {
+                    $response['exception'] = "Doesn't exist registred";
+                }
+
+
+                break;
             default:
-                
+
                 break;
         }
     } else {

@@ -40,27 +40,14 @@
                         <div class="table-container">
                             <table class="table highlight table-striped table-inverse table-responsive">
                                 <thead class="thead-inverse">
+                                    <tr id="table-heade"></tr>
                                     <tr>
                                         <th>Category</th>
-                                        <th>Description</th>
                                         <th>Amount of products</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td scope="row"></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row"></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
+                                <tbody id="tb-body"></tbody>
                             </table>
                         </div>
                     </div>
@@ -71,24 +58,26 @@
 
     <!-- Modal Structure -->
     <div id="modal" class="modal modal-fixed-footer">
-        <form id="" method="post">
+        <form method="post" id="form-category">
+
+            <input type="number" name="idcategory" id="idcategory" class="hide">
+            <label for="idcategory" class="hide">ID Category</label>
+
             <div class="modal-content">
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="product_name" type="text" class="validate" required>
-                        <label for="product_name">Name of product</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input id="description_product" type="text" class="validate" required>
-                        <label for="description_product">Description</label>
+                        <input id="category" name="category" type="text" class="validate" required>
+                        <label for="category">Category</label>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit"
-                        class="modal-close waves-effect waves-green btn-flat btn-danger">Cancel</button>
-                    <button type="submit" class="modal-close waves-effect waves-green btn-flat btn-succes">Add</button>
+                    <button type="reset" onclick="window.reset()"
+                        class="waves-effect waves-green btn-flat btn-danger">Cancel</button>
+                    <button type="submit" class="modal-close waves-effect waves-green btn-flat btn-succes">
+                        <!-- here change the process (add or modify) -->
+                        <div class="hide">texto para no ver error</div>
+                        <span id="process"></span>
+                    </button>
                 </div>
             </div>
         </form>
@@ -102,6 +91,10 @@
     <script src="../../resources/general/js/sweetalert.min.js"></script>
     <!-- general controller -->
     <script src="../../controllers/controller.js"></script>
+    <!-- search input -->
+    <script src="../../controllers/private/form-search.js"></script>
+    <!-- category controller -->
+    <script src="../../controllers/private/category.js"></script>
     <!--JavaScript to render some content-->
     <script type="text/javascript" src="../../controllers/private/render.js"></script>
 
