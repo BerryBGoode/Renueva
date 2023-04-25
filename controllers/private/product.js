@@ -71,7 +71,7 @@ FORM.addEventListener('submit', async (evt) => {
  * async-awat método para cargar la tabla
  * form: posibles datos que se pueden enviar como paramétros de la consulta
  */
-async function loadTable(form = null) {
+async function loadTable() {
     // obtener las respuestas del servidor
     const JSON = await dataRequest(PRODUCT, 'loadTable');
     // inicializar los valores de la filas o reiniciarlos

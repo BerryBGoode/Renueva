@@ -58,7 +58,7 @@ FORM.addEventListener('submit', async (event) => {
     //evitar que el usuario recargue la página
     event.preventDefault();
     //verificar la acción
-    document.getElementById('iddetail').value ? action = 'update' : action = 'create';
+    document.getElementById('idorder').value ? action = 'update' : action = 'create';
     //const. para la instancia de la clase FormData con los datos del form
     const DATA = new FormData(FORM);
     //const. para guardar el resultado de la petición 
@@ -122,22 +122,31 @@ async function getData(
         //se guarda o algo así el valor del anterior
         JSON.dataset.forEach(element => {
             // el '+=' se utilizar para agregar el valor recorrido más el anterior
-            ROWS.innerHTML += `<tr>
-                <td class="hide">${element.id_detail_order}</td>
-                <td class="hide">${element.id_product}</td>
-                <td class="hide">${element.id_client}</td>
+            ROWS.innerHTML += `<tr>            
                 <td>${element.id_order}</td>
-                <td class="address-col">${element.address}</td>
                 <td>${element.document}</td>
-                <td>${element.name}</td>
-                <td>${element.cuantitive}</td>
+                <td>${element.names}</td>
+                <td>${element.last_names}</td>
                 <td>${element.date_order}</td>
-                <td>${element.total}</td>
+                <td class="address-col">${element.address}</td>
                 <td>${element.state_order}</td>
                 <td class="action-col">
-
+                    
+                <form action="detail_order.html" method="get">
+                    <input type="number" name="orderid" id="orderid" class="hide" value="${element.id_order}">
+                    <button type="submit" class="button-transparent">
+                        <svg width="27" height="27" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11.667 17.7917H21.8753" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M11.667 23.625H18.0545" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14.5837 8.74999H20.417C23.3337 8.74999 23.3337 7.29166 23.3337 5.83332C23.3337 2.91666 21.8753 2.91666 20.417 2.91666H14.5837C13.1253 2.91666 11.667 2.91666 11.667 5.83332C11.667 8.74999 13.1253 8.74999 14.5837 8.74999Z" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M23.3333 5.86252C28.1896 6.12502 30.625 7.91877 30.625 14.5833V23.3333C30.625 29.1667 29.1667 32.0833 21.875 32.0833H13.125C5.83333 32.0833 4.375 29.1667 4.375 23.3333V14.5833C4.375 7.93335 6.81042 6.12502 11.6667 5.86252" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>                
+                        </svg>
+                    </button>
+                </form>
+                
+                
                     <!-- boton para actualizar -->
-                    <svg width="26" height="25" viewBox="0 0 34 33" fill="none" onclick="onModify(${element.id_detail_order})"
+                    <svg width="26" height="25" viewBox="0 0 34 33" fill="none" onclick="onModify(${element.id_order})"
                     xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M15.0215 1.91666H12.0468C4.60998 1.91666 1.63525 4.83332 1.63525 12.125V20.875C1.63525 28.1667 4.60998 31.0833 12.0468 31.0833H20.971C28.4078 31.0833 31.3825 28.1667 31.3825 20.875V17.9583"
@@ -154,7 +163,7 @@ async function getData(
                     </svg>
 
                     <!-- boton para eliminar -->
-                    <svg width="22" height="25" viewBox="0 0 30 33" fill="none" onclick="onDestroy(${element.id_detail_order}, ${element.id_order})"
+                    <svg width="22" height="25" viewBox="0 0 30 33" fill="none" onclick="onDestroy(${element.id_order})"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M28.4432 7.7208C23.4903 7.23955 18.5076 6.99164 13.5398 6.99164C10.5948 6.99164 7.64985 7.13747 4.70487 7.42914L1.67065 7.7208"
@@ -306,22 +315,26 @@ async function onSearch(evt) {
                     state.indexOf(search) !== -1) {
                     // cargar los datos que coicidan
                     // se usa el '+=' para añadir a ese elemento el valor recorrido más el anterior
-                    ROWS.innerHTML += `<tr>
-                    <td class="hide">${orders.id_detail_order}</td>
-                    <td class="hide">${orders.id_product}</td>
-                    <td class="hide">${orders.id_client}</td>
+                    ROWS.innerHTML += `<tr>            
                     <td>${orders.id_order}</td>
-                    <td class="address-col">${orders.address}</td>
                     <td>${orders.document}</td>
-                    <td>${orders.name}</td>
-                    <td>${orders.cuantitive}</td>
+                    <td>${orders.names}</td>
+                    <td>${orders.last_names}</td>
                     <td>${orders.date_order}</td>
-                    <td>${orders.total}</td>
+                    <td class="address-col">${orders.address}</td>
                     <td>${orders.state_order}</td>
                     <td class="action-col">
-    
+                        
+                        <svg width="27" height="27" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11.667 17.7917H21.8753" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M11.667 23.625H18.0545" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14.5837 8.74999H20.417C23.3337 8.74999 23.3337 7.29166 23.3337 5.83332C23.3337 2.91666 21.8753 2.91666 20.417 2.91666H14.5837C13.1253 2.91666 11.667 2.91666 11.667 5.83332C11.667 8.74999 13.1253 8.74999 14.5837 8.74999Z" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M23.3333 5.86252C28.1896 6.12502 30.625 7.91877 30.625 14.5833V23.3333C30.625 29.1667 29.1667 32.0833 21.875 32.0833H13.125C5.83333 32.0833 4.375 29.1667 4.375 23.3333V14.5833C4.375 7.93335 6.81042 6.12502 11.6667 5.86252" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>                
+                        </svg>
+                    
+                    
                         <!-- boton para actualizar -->
-                        <svg width="26" height="25" viewBox="0 0 34 33" fill="none" onclick="onModify(${orders.id_detail_order})"
+                        <svg width="26" height="25" viewBox="0 0 34 33" fill="none" onclick="onModify(${orders.id_order})"
                         xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M15.0215 1.91666H12.0468C4.60998 1.91666 1.63525 4.83332 1.63525 12.125V20.875C1.63525 28.1667 4.60998 31.0833 12.0468 31.0833H20.971C28.4078 31.0833 31.3825 28.1667 31.3825 20.875V17.9583"
@@ -338,7 +351,7 @@ async function onSearch(evt) {
                         </svg>
     
                         <!-- boton para eliminar -->
-                        <svg width="22" height="25" viewBox="0 0 30 33" fill="none" onclick="onDestroy(${orders.id_detail_order}, ${orders.id_order})"
+                        <svg width="22" height="25" viewBox="0 0 30 33" fill="none" onclick="onDestroy(${orders.id_order})"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M28.4432 7.7208C23.4903 7.23955 18.5076 6.99164 13.5398 6.99164C10.5948 6.99164 7.64985 7.13747 4.70487 7.42914L1.67065 7.7208"

@@ -157,6 +157,7 @@ if (!isset($_GET['action'])) {
                     } elseif (Connection::getException()) {
                         $response['exception'] = Connection::getException();
                     } else {
+                        $response['status'] = -1;
                         $response['exception'] = "Doesn't exist comments for this product";
                     }
                     

@@ -77,9 +77,12 @@ async function loadTable() {
             </tr>`;
         });
         MSG.textContent = JSON.message;
+    } else if (JSON.status === -1) {
+        notificationRedirect('info', JSON.exception, false);
     } else {
-        notificationRedirect('error', JSON.exception, false);
+        notificationRedirect('error', JSON.exception, false)
     }
+
 }
 
 /**
@@ -124,7 +127,7 @@ async function onSearch(evt) {
     if (!JSON.status) {
         notificationRedirect('error', JSON.exception, false);
     } else {
-        
+
         let search = document.getElementById('search').value.toLowerCase();
         if (search === '') {
             ROWS.innerHTML = ``;

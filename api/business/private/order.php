@@ -32,18 +32,6 @@ if (isset($_GET['action'])) {
 
                 break;
 
-            case 'loadOrders':
-
-                if ($response['dataset'] = $query->getIdOrder()) {
-                    $response['status'] = 1;
-                } else {
-                    $response['status'] = 0;
-                    $response['exception'] = Connection::getException();
-                }
-
-
-                break;
-
             case 'loadDocuments':
 
                 if ($response['dataset'] = $query->getDocuments()) {
@@ -83,82 +71,28 @@ if (isset($_GET['action'])) {
             case 'create':
                 //validar form
                 $_POST = Validate::form($_POST);
-                //verificar si es nueva orden
-                $response['session'] = $_POST['orders'];
-                //verificar si es nueva orden
-                if ($_POST['orders'] != 0) {
 
-                    //enviar los datos de la orden
-                    if ($order->setDOrder($_POST['orders'])) {
-                        $response['status'] = 3;
-                    } else {
-
-                        $response['exception'] = 'Order incorrect';
-                    }
+                //nueva orden
+                //validar datos para insertar order
+                if (!$order->setClient($_POST['idclient'])) {
+                    $response['exception'] = 'Client incorrect';
+                } else if (!$order->setDate($_POST['date'])) {
+                    $response['exception'] = 'Date incorrect';
+                } else if (!$order->setState($_POST['state'])) {
+                    $response['exception'] = 'State incorrect';
+                } elseif ($query->storeOrder()) {
+                    //se agrego la orden correctamente
+                    $response['status'] = 1;
                 } else {
-                    //nueva orden
-                    //validar datos para insertar order
-                    if (!$order->setClient($_POST['idclient'])) {
-                        $response['exception'] = 'Client incorrect';
-                    } else if (!$order->setDate($_POST['date'])) {
-                        $response['exception'] = 'Date incorrect';
-                    } else if (!$order->setState($_POST['state'])) {
-                        $response['exception'] = 'State incorrect';
-                    } elseif ($query->storeOrder()) {
 
-                        //se agrego la orden correctamente
-                        $response['status'] = 2;
-                    } else {
-
-                        $response['exception'] = 'Exception 1';
-                    }
-                }
-
-                if ($response['status'] == 2) {
-
-                    //cuando no existia la orden, recuperar la última (si no ha sido seleccionada alguna)
-                    $id = implode(', ', $query->getLastOrder());
-                    if ($id) {
-
-                        //verificar los datos para agregar detalle
-                        if (!$order->setDOrder($id)) {
-                            $response['exception'] = 'Order incorrect';
-                        } else if (!$order->setProduct($_POST['products'])) {
-                            $response['exception'] = 'Product incorrect';
-                        } elseif (!$order->setQuantity($_POST['quantity'])) {
-                            $response['exception'] = 'Quantity incorrect';
-                        } elseif ($query->storeDetail()) {
-                            $response['status'] = 1;
-                            $response['message'] = 'Data was successfully registred';
-                        } else {
-
-                            $response['exception'] = 'Only order successfully registred';
-                        }
-                    } else {
-                        $response['exception'] = 'Error to get order';
-                    }
-                    //cuando se tiene un orden creada
-                } elseif ($response['status'] == 3) {
-                    //validar los datos a enviar
-                    if (!$order->setProduct($_POST['products'])) {
-
-                        $response['exception'] = 'Product incorrect';
-                    } elseif (!$order->setQuantity($_POST['quantity'])) {
-                        $response['exception'] = 'Quantity incorrect';
-                    } //ingresar datos
-                    elseif ($query->storeDetail()) {
-                        $response['status'] = 1;
-                        $response['message'] = 'Data was successfully registred';
-                    } else {
-                        $response['exception'] = 'Only order successfully registred';
-                    }
+                    $response['exception'] = Connection::getException();
                 }
 
                 break;
 
             case 'all':
 
-                if ($response['dataset'] = $query->all('details_orders')) {
+                if ($response['dataset'] = $query->all('all_orders')) {
                     $response['status'] = 1;
                 } elseif (Connection::getException()) {
                     $response['exception'] = Connection::getException();
@@ -257,6 +191,38 @@ if (isset($_GET['action'])) {
                     $response['exception'] = Connection::getException();
                 }
                 break;
+
+            case 'loadDetails':
+
+                if ($response['dataset'] = $query->details($_POST['idorder'])) {
+                    $response['status'] = 1;
+                } elseif (Connection::getException()) {
+                    $response['exception'] = Connection::getException();
+                } else {
+                    $response['status'] = -1;
+                    $response['exception'] = "Doesn't exist detail of this order";
+                }
+
+                break;
+
+            case 'addDetail':
+
+                $_POST = Validate::form($_POST);
+                // validar los datos recibidos en el $_POST
+                if (!$order->setDOrder($_POST['idorder'])) {
+                    $response['exception'] = 'Error to get order';
+                } elseif (!$order->setProduct($_POST['products'])) {
+                    $response['exception'] = 'Product incorrect';
+                } elseif (!$order->setQuantity($_POST['quantity'])) {
+                    $response['exception'] = 'Quantity incorrect';
+                } elseif ($query->storeDetail()) {
+                    $response['status'] = 1;
+                    $response['message'] = 'Data was successfully registred';
+                } else {
+                    $response['exception'] = "Data wasn't registred";
+                }
+
+                break;
             default:
                 $response['exception'] = $_GET['action'] . ': This action is not defined';
         }
@@ -273,4 +239,3 @@ if (isset($_GET['action'])) {
     //acción no disponible
     print(json_encode('Action dissable'));
 }
-?>
