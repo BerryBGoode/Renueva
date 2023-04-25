@@ -16,14 +16,16 @@ function getProductURL() {
 
 document.addEventListener('DOMContentLoaded', () => {
     loadTable();
+
 })
 
 async function loadTable() {
     ROWS.innerHTML = ``;
+    
     const DATA = new FormData;
     DATA.append('idorder', getProductURL());
     const JSON = await dataRequest(DETAIL, 'loadDetails', DATA);
-    if (JSON.status) {
+    if (JSON.status === 1) {
 
 
         JSON.dataset.forEach(element => {
@@ -31,7 +33,8 @@ async function loadTable() {
             ROWS.innerHTML += `<tr>
                 <td>${element.name}</td>
                 <td>${element.cuantitive}</td>
-                <td>${element.total}</td>
+                <td>$${element.price}</td>
+                <td>$${element.total}</td>
                 <td>
 
                     <!-- boton para actualizar -->
@@ -75,16 +78,33 @@ async function loadTable() {
                 </td>
             </tr>`;
 
-            SUBTOTAL.push(element.total)
+            console.log(SUBTOTAL.push(element.total))
 
         });
         
-        const TOTAL = SUBTOTAL.reduce((prev, actually) => {
-            return parseFloat(prev) + parseFloat(actually);
-        }, 0);
+        // for (let index = 0; index < SUBTOTAL.length; index++) {
+        //     const element = SUBTOTAL[index];
+        //     console.log(element)
+        // }
+        // const TOTAL = SUBTOTAL.reduce((prev, actually) => {
+        //     let result = parseFloat(prev) + parseFloat(actually);
+        //     return result.toLocaleString(4);
+            
+        // }, 0);
+        
+        // console.log(TOTAL)
+        // ROWTOTAL.innerText = TOTAL+'$';
 
-        ROWTOTAL.innerText = TOTAL;
+        console.log('Subtotales: '+SUBTOTAL)
 
+        let total = 0;
+        let index = 0;
+        for(const UNIT of SUBTOTAL){
+            console.log('unidad: ' + UNIT + ' index: '+index);
+            total += parseFloat(UNIT + ' index: '+index);
+            console.log('total: '+total.toLocaleString(4))
+            index++;
+        }
 
     } else if (JSON.status === -1) {
         notificationRedirect('info', JSON.exception, false);
