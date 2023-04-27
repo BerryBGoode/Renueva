@@ -36,12 +36,30 @@ class OrderQuery
 
     /**
      * Método para recuperar los datos necesarios del cliente según el documento seleccionado
+     * recupera los datos según el id del document seleccionado
      * retorna en un array los datos recuperados
      */
-    public function getClient($document)
+    public function getClientDocument($idclient)
     {
-        $sql = 'SELECT id_client, names, last_names, address FROM clients WHERE id_client = ?';
-        $param = array($document);
+        $sql = 'SELECT id_client, names, last_names, address 
+        FROM clients 
+        WHERE id_client = ?';
+        $param = array($idclient);
+        return Connection::row($sql, $param);
+    }
+
+    /**
+     * Método para recuperar los datos necesarios del cliente según el documento seleccionado
+     * recupera los datos según el id del document seleccionado
+     * retorna en un array los datos recuperados
+     */
+    public function getClientOrder($order)
+    {
+        $sql = 'SELECT c.id_client, c.names, c.last_names, c.address 
+        FROM orders o
+        INNER JOIN clients c ON c.id_client = o.id_client
+        WHERE o.id_order = ?';
+        $param = array($order);
         return Connection::row($sql, $param);
     }
 
@@ -51,7 +69,7 @@ class OrderQuery
      */
     public function getProductAvailable()
     {
-        $sql = 'SELECT id_product, name FROM products WHERE id_state_product = 1 AND stock >= 1';
+        $sql = 'SELECT id_product, name FROM products WHERE stock >= 1';
         return Connection::all($sql);
     }
 

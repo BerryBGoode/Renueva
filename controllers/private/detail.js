@@ -1,4 +1,4 @@
-const DETAIL = '/business/private/order.php';
+const DETAIL = 'business/private/order.php';
 const FORM = document.getElementById('form-detail')
 const TXTBUTTON = document.getElementById('process')
 const ORDER = window.location.search;
@@ -7,8 +7,10 @@ const MSG = document.getElementById('');
 const FORMSEARCH = document.getElementById('');
 const ROWTOTAL = document.getElementById('total');
 const SUBTOTAL = [];
+M.Modal.init(document.querySelectorAll('.modal'));
+const MODAL = M.Modal.getInstance(document.getElementById('modal'));
 
-function getProductURL() {
+function getOrderURL() {
     const URL = new URLSearchParams(ORDER);
     const VALUE = URL.get('orderid');
     return VALUE;
@@ -23,16 +25,36 @@ async function loadTable() {
     ROWS.innerHTML = ``;
     
     const DATA = new FormData;
-    DATA.append('idorder', getProductURL());
+    DATA.append('idorder', getOrderURL());
     const JSON = await dataRequest(DETAIL, 'loadDetails', DATA);
     if (JSON.status === 1) {
-
+        // reinciar los valores del array
+        SUBTOTAL.splice(0, SUBTOTAL.length);
 
         JSON.dataset.forEach(element => {
 
             ROWS.innerHTML += `<tr>
                 <td>${element.name}</td>
-                <td>${element.cuantitive}</td>
+                <td>
+                
+                <!-- input para agregar cuantitve -->
+                    <svg width="19" height="19" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12.5 22.9168C18.2292 22.9168 22.9167 18.2293 22.9167 12.5002C22.9167 6.771 18.2292 2.0835 12.5 2.0835C6.77084 2.0835 2.08334 6.771 2.08334 12.5002C2.08334 18.2293 6.77084 22.9168 12.5 22.9168Z" stroke="#424242" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8.33334 12.5H16.6667" stroke="#424242" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12.5 16.6668V8.3335" stroke="#424242" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                
+                ${element.cuantitive}
+
+                <!-- input para restar quantive -->
+                    <svg width="19" height="19" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12.5 22.9168C18.2291 22.9168 22.9166 18.2293 22.9166 12.5002C22.9166 6.771 18.2291 2.0835 12.5 2.0835C6.77081 2.0835 2.08331 6.771 2.08331 12.5002C2.08331 18.2293 6.77081 22.9168 12.5 22.9168Z" stroke="#424242" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8.33331 12.5H16.6666" stroke="#424242" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                                
+                
+                
+                </td>
                 <td>$${element.price}</td>
                 <td>$${element.total}</td>
                 <td>
@@ -78,33 +100,23 @@ async function loadTable() {
                 </td>
             </tr>`;
 
-            console.log(SUBTOTAL.push(element.total))
+            // asignar al array los valores recuperados de los subtotales
+        SUBTOTAL.push(element.total)
 
         });
-        
-        // for (let index = 0; index < SUBTOTAL.length; index++) {
-        //     const element = SUBTOTAL[index];
-        //     console.log(element)
-        // }
-        // const TOTAL = SUBTOTAL.reduce((prev, actually) => {
-        //     let result = parseFloat(prev) + parseFloat(actually);
-        //     return result.toLocaleString(4);
-            
-        // }, 0);
-        
-        // console.log(TOTAL)
-        // ROWTOTAL.innerText = TOTAL+'$';
+    
 
-        console.log('Subtotales: '+SUBTOTAL)
-
+        // almacenar la suma de los sutototales (total)
         let total = 0;
+        
         let index = 0;
+        // crear una variante del array con los SUBTOTALES
         for(const UNIT of SUBTOTAL){
-            console.log('unidad: ' + UNIT + ' index: '+index);
+            // al valor anterior sumarle el número
             total += parseFloat(UNIT + ' index: '+index);
-            console.log('total: '+total.toLocaleString(4))
-            index++;
+            
         }
+        ROWTOTAL.innerHTML = `$` +total.toLocaleString(5)
 
     } else if (JSON.status === -1) {
         notificationRedirect('info', JSON.exception, false);
@@ -113,15 +125,27 @@ async function loadTable() {
     }
 }
 
+/**
+ * evento para limpiar todo campos cuando pase en evento reset
+*/
+FORM.addEventListener('reset', () => {
+    //limipiar el form
+    FORM.reset();
+    //cerrar modal
+    MODAL.close();
+});
+
+
 FORM.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     document.getElementById('iddetail').value ? action = 'changeDetail' : action = 'addDetail';
     const DATA = new FormData(FORM);
-    DATA.append('idorder', getProductURL());
+    DATA.append('idorder', getOrderURL());
     const JSON = await dataRequest(DETAIL, action, DATA);
     if (JSON.status) {
         loadTable();
         notificationRedirect('success', JSON.message, true);
+        MODAL.close();
     } else {
         notificationRedirect('error', JSON.exception, false);
     }
@@ -130,5 +154,55 @@ FORM.addEventListener('submit', async (evt) => {
 async function onCreate(){
     FORM.reset();
     TXTBUTTON.innerHTML = `Add`;
+    const DATA = new FormData;
+    DATA.append('idorder', getOrderURL())
+    const JSON = await dataRequest(DETAIL, 'loadClientOrder', DATA);
     loadSelect(DETAIL, 'loadProducts', 'products');
+    
+    if (JSON.status === 1) {
+        
+        document.getElementById('names').value = JSON.client.names;
+        document.getElementById('lastnames').value = JSON.client.last_names;
+        document.getElementById('address').value = JSON.client.address;
+        M.updateTextFields();
+    } else if (JSON.status === -1){
+        notificationRedirect('info', JSON.exception, false)
+    }
+    else {
+        notificationRedirect('error', JSON.exception, false);
+    }
+}
+
+async function onModify(id){
+    FORM.reset();
+    TXTBUTTON.innerHTML = `Modify`;
+    const DATA = new FormData;
+    DATA.append('iddetail', id);
+    const JSON = await dataRequest(DETAIL, 'one', DATA);
+    if (JSON.status) {
+        MODAL.open();    
+        loadSelect(DETAIL, 'loadProducts', 'products', JSON.dataset.id_product);
+
+        document.getElementById('names').value = JSON.dataset.names;
+        document.getElementById('lastnames').value = JSON.dataset.last_names;
+        document.getElementById('address').value = JSON.dataset.address;
+        M.updateTextFields();
+    } else {
+        notificationRedirect('error', JSON.exception, false);
+    }
+}
+
+async function onDestroy(id){
+    let confirm = await notificationConfirm('Do you wanna delete this detail?');
+    if (confirm) {
+        const DATA = new FormData;
+        DATA.append('id_detail', id);
+        const JSON = await dataRequest(DETAIL, 'deleteDetail', DATA);
+        if (JSON.status) {
+            loadTable();
+            notificationRedirect('success', JSON.message, true);
+        } else {
+            notificationRedirect('error', JSON.exception, false);
+        }
+    }
 }

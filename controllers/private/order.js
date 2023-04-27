@@ -93,14 +93,10 @@ function onCreate() {
     FORM.reset();
     BUTTON.innerText = `Add`;
     /*  llenar select's*/
-    //llenar el <select> de 'No.Orders'
-    loadSelect(ORDER, 'loadOrders', 'orders');
     //llenar el <select> de 'documents'
     loadSelect(ORDER, 'loadDocuments', 'documents');
     //llenar el <select> de 'states'
     loadSelect(ORDER, 'loadStates', 'states');
-    //llenar el <select> de 'products'
-    loadSelect(ORDER, 'loadProducts', 'products');
 }
 
 /**
@@ -130,20 +126,23 @@ async function getData(
                 <td>${element.date_order}</td>
                 <td class="address-col">${element.address}</td>
                 <td>${element.state_order}</td>
-                <td class="action-col">
-                    
-                <form action="detail_order.html" method="get">
-                    <input type="number" name="orderid" id="orderid" class="hide" value="${element.id_order}">
-                    <button type="submit" class="button-transparent">
-                        <svg width="27" height="27" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M11.667 17.7917H21.8753" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M11.667 23.625H18.0545" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M14.5837 8.74999H20.417C23.3337 8.74999 23.3337 7.29166 23.3337 5.83332C23.3337 2.91666 21.8753 2.91666 20.417 2.91666H14.5837C13.1253 2.91666 11.667 2.91666 11.667 5.83332C11.667 8.74999 13.1253 8.74999 14.5837 8.74999Z" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M23.3333 5.86252C28.1896 6.12502 30.625 7.91877 30.625 14.5833V23.3333C30.625 29.1667 29.1667 32.0833 21.875 32.0833H13.125C5.83333 32.0833 4.375 29.1667 4.375 23.3333V14.5833C4.375 7.93335 6.81042 6.12502 11.6667 5.86252" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>                
-                        </svg>
-                    </button>
-                </form>
-                
+                <td>
+
+                    <!-- boton para ver detalle-->
+                    <form action="detail_order.html" method="get">
+                        <input type="number" name="orderid" id="orderid" class="hide" value="${element.id_order}">
+                        <button type="submit" class="button-transparent">
+                            <svg width="27" height="27" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M11.667 17.7917H21.8753" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M11.667 23.625H18.0545" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14.5837 8.74999H20.417C23.3337 8.74999 23.3337 7.29166 23.3337 5.83332C23.3337 2.91666 21.8753 2.91666 20.417 2.91666H14.5837C13.1253 2.91666 11.667 2.91666 11.667 5.83332C11.667 8.74999 13.1253 8.74999 14.5837 8.74999Z" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M23.3333 5.86252C28.1896 6.12502 30.625 7.91877 30.625 14.5833V23.3333C30.625 29.1667 29.1667 32.0833 21.875 32.0833H13.125C5.83333 32.0833 4.375 29.1667 4.375 23.3333V14.5833C4.375 7.93335 6.81042 6.12502 11.6667 5.86252" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>                
+                            </svg>
+                        </button>
+                    </form>
+                                    
+                </td>
+                <td class="action-col">                                    
                 
                     <!-- boton para actualizar -->
                     <svg width="26" height="25" viewBox="0 0 34 33" fill="none" onclick="onModify(${element.id_order})"
@@ -219,15 +218,11 @@ async function onModify(id) {
         MODAL.open();
         //asignar los valores recuperados, a los inputs
         document.getElementById('address').value = JSON.dataset.address;
-        document.getElementById('quantity').value = JSON.dataset.cuantitive;
         document.getElementById('date').value = JSON.dataset.date_order;
         document.getElementById('idclient').value = JSON.dataset.id_client;
-        document.getElementById('iddetail').value = JSON.dataset.id_detail_order;
         document.getElementById('idorder').value = JSON.dataset.id_order;
 
-        loadSelect(ORDER, 'loadDocuments', 'documents', JSON.dataset.document);
-        loadSelect(ORDER, 'loadOrders', 'orders', JSON.dataset.id_order);
-        loadSelect(ORDER, 'loadProducts', 'products', JSON.dataset.id_product);
+        loadSelect(ORDER, 'loadDocuments', 'documents', JSON.dataset.id_client);
         loadSelect(ORDER, 'loadStates', 'states', JSON.dataset.id_state_order);
 
         document.getElementById('names').value = JSON.dataset.names;

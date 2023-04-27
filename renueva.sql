@@ -591,4 +591,8 @@ SELECT * FROM all_categories
 -- CORRECCIONES EN LA BASE DESPUÉS DE LA DEFENSA (24/4/2023)
 
 ALTER TABLE users ADD CONSTRAINT u_username UNIQUE (username);
-ALTER TABLE users ADD CONSTRAINT u_emial UNIQUE (email)
+ALTER TABLE users ADD CONSTRAINT u_emial UNIQUE (email);
+ALTER TABLE products ADD CONSTRAINT u_product_name UNIQUE(name);
+ALTER TABLE categories ADD CONSTRAINT u_category_name UNIQUE(category);
+
+SELECT id_product, name FROM products WHERE id_state_product = 1 AND stock >= 1

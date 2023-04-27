@@ -44,28 +44,40 @@ if (isset($_GET['action'])) {
                 break;
 
             case 'loadClient':
-                if ($_POST) {
 
-                    //convertir a string el 'document' que viene front
-                    $document = implode(',', $_POST);
+                if ($response['client'] = $query->getClientDocument($_POST['document'])) {
+                    $response['status'] = 1;
+                } else {
 
-                    if ($response['client'] = $query->getClient($document)) {
-                        $response['status'] = 1;
-                    } else {
-                        $response['status'] = 0;
-                        $response['exception'] = Connection::getException();
-                    }
+                    $response['exception'] = Connection::getException();
                 }
+
                 break;
 
+            case 'loadClientOrder':
+
+                if ($response['client'] = $query->getClientOrder($_POST['idorder'])) {
+                    $response['status'] = 1;
+                } else {
+
+                    $response['exception'] = Connection::getException();
+                }
+                break;
             case 'loadProducts':
 
                 if ($response['dataset'] = $query->getProductAvailable()) {
                     $response['status'] = 1;
-                } else {
+                    $response['message'] = 'a';
+                } elseif (Connection::getException()) {
                     $response['status'] = 0;
+                    $response['message'] = 'b';
                     $response['exception'] = Connection::getException();
+                } else {
+                    $response['status'] = -1;
+                    $response['message'] = 'Void products';
+                    $response['exception'] = "Doesn't exist products registred";
                 }
+
 
                 break;
             case 'create':

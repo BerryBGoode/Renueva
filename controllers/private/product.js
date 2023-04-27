@@ -174,7 +174,6 @@ async function onModify(id) {
     if (JSON.status) {
         // abrir el modal
         MODAL.open();
-        console.log(JSON.dataset);
         // asignar los datos a los inputs
         document.getElementById('idproduct').value = JSON.dataset.id_product;
         document.getElementById('idcategory').value = JSON.dataset.id_category;

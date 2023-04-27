@@ -44,9 +44,10 @@
                                         <th>Document</th>
                                         <th>Names</th>
                                         <th>Lastnames</th>
-                                        <th>Date</th>                                    
+                                        <th>Date</th>
                                         <th class="address-col">Address</th>
                                         <th>State</th>
+                                        <th>Detail</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -79,7 +80,7 @@
                 <!-- id client -->
                 <input type="number" id="idclient" name="idclient" class="hide">
                 <label class="hide" for="idclient">ID client</label>
-                
+
                 <!-- id detail -->
                 <input type="number" id="iddetail" name="iddetail" class="hide">
                 <label class="hide" for="iddetail">ID Detail</label>
@@ -87,16 +88,6 @@
                 <!-- id order -->
                 <input type="number" id="idorder" name="idorder" class="hide">
                 <label class="hide" for="idorder">ID Order</label>
-                
-                <!-- No. Order -->
-                <div class="row">
-                    <div class="input-field col s12 m12" id="Order-input">
-                        <select type="text" name="orders" id="orders" class="select-dropdown dropdown-trigger validate"
-                            required>
-                        </select>
-                        <label for="orders">No. Order</label>
-                    </div>
-                </div>
 
 
                 <!-- Names y Last names -->
@@ -119,31 +110,14 @@
                     </div>
                 </div>
 
-                <!-- Product -->
-                <div class="row">
-                    <div class="input-field col s12 m12">
-                        <select name="products" id="products" title="products">
-                        </select>
-                        <label>Product</label>
-                    </div>
-                </div>
-
                 <!-- Quantity y state -->
                 <div class="row">
-                    <div class="input-field col s6 m6">
-                        <input type="number" name="quantity" id="quantity" class="validate" required>
-                        <label for="quantity">Quantity</label>
-                    </div>
                     <div class="input-field col s6 m6">
                         <select name="state" id="states" title="state">
                         </select>
                         <label>State</label>
                     </div>
-                </div>
-
-                <!-- Date order -->
-                <div class="row">
-                    <div class="input-field col s12 m12">
+                    <div class="input-field col s6 m6">
                         <div class="select-wrapper">
                             <input type="date" name="date" id="date" class="select-dropdown dropdown-trigger validate"
                                 required>
@@ -151,8 +125,10 @@
                         <label for="date">Date order</label>
                     </div>
                 </div>
+
                 <div class="modal-footer">
-                    <button type="reset" class="modal-close waves-effect waves-green btn-flat btn-danger">Cancel</button>
+                    <button type="reset"
+                        class="modal-close waves-effect waves-green btn-flat btn-danger">Cancel</button>
                     <button type="submit" class="modal-close waves-effect waves-green btn-flat btn-succes">
                         <div class="hide">a</div>
                         <span id="process"></span>
