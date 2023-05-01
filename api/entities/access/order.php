@@ -36,12 +36,30 @@ class OrderQuery
 
     /**
      * Método para recuperar los datos necesarios del cliente según el documento seleccionado
+     * recupera los datos según el id del document seleccionado
      * retorna en un array los datos recuperados
      */
-    public function getClient($document)
+    public function getClientDocument($idclient)
     {
-        $sql = 'SELECT id_client, names, last_names, address FROM clients WHERE id_client = ?';
-        $param = array($document);
+        $sql = 'SELECT id_client, names, last_names, address 
+        FROM clients 
+        WHERE id_client = ?';
+        $param = array($idclient);
+        return Connection::row($sql, $param);
+    }
+
+    /**
+     * Método para recuperar los datos necesarios del cliente según el documento seleccionado
+     * recupera los datos según el id del document seleccionado
+     * retorna en un array los datos recuperados
+     */
+    public function getClientOrder($order)
+    {
+        $sql = 'SELECT c.id_client, c.names, c.last_names, c.address 
+        FROM orders o
+        INNER JOIN clients c ON c.id_client = o.id_client
+        WHERE o.id_order = ?';
+        $param = array($order);
         return Connection::row($sql, $param);
     }
 
@@ -51,19 +69,10 @@ class OrderQuery
      */
     public function getProductAvailable()
     {
-        $sql = 'SELECT id_product, name FROM products WHERE id_state_product = 1 AND stock >= 1';
+        $sql = 'SELECT id_product, name FROM products WHERE stock >= 1';
         return Connection::all($sql);
     }
 
-    /**
-     * Método para recuperar el id de las ordenes
-     * retorna los id recuperados
-     */
-    public function getIdOrder()
-    {
-        $sql  = 'SELECT id_order FROM orders';
-        return Connection::all($sql);
-    }
 
     /**
      * Método para agregar una orden
@@ -76,18 +85,6 @@ class OrderQuery
         $sql = 'INSERT INTO orders(id_client, date_order, id_state_order) VALUES (?, ?, ?)';
         $param = array($order->getClient(), $order->getDate(), $order->getState());
         return Connection::storeProcedure($sql, $param);
-    }
-
-    /**
-     * Método para obtener el ID del último registro de la tabla orders 
-     */
-    public function getLastOrder()
-    {
-        //obtener la última orden
-        //seleccionar el 'id_order' de la tabla orders y ordenar de manera descendente y seleccionar solamente
-        //primer registro
-        $sql = 'SELECT id_order FROM orders ORDER BY id_order DESC LIMIT 1';
-        return Connection::row($sql);
     }
 
     /**
@@ -176,6 +173,18 @@ class OrderQuery
         $sql = 'DELETE FROM detail_orders WHERE id_detail_order = ?';
         $param = array($id);
         return Connection::storeProcedure($sql, $param);
+    }
+
+    /**
+     * Método para obtener los detalles de una orden
+     * $order, orden seleccionada que viene de la URL
+     * retorna un arreglo con los datos según la consulta
+     */
+    public function details($order)
+    {
+        $sql = 'SELECT * FROM details_orders WHERE id_order = ?';
+        $param = array($order);
+        return Connection::all($sql, $param);
     }
 }
 // /*cargar ordenes cuando agregue o actualize

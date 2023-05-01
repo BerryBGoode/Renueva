@@ -496,6 +496,13 @@ SELECT * FROM orders
 SELECT *  FROM detail_orders
 
 --SELECCIONAR LA ORDER, LA DIRECCIÓN EL PRODUCT (CONTAR CUANTAS VECES SE REPITE)
+CREATE OR REPLACE VIEW all_orders AS
+	SELECT o.id_order, c.id_client, c.names, c.last_names, c.document, c.address, o.date_order, s.id_state_order, s.state_order
+	FROM orders o
+	INNER JOIN states_orders s ON s.id_state_order = o.id_state_order
+	INNER JOIN clients c ON c.id_client = o.id_client
+	ORDER BY o.id_order ASC
+
 CREATE OR REPLACE VIEW details_orders AS
 	SELECT o.id_order, c.address, c.id_client, c.document, p.name,c.names ,c.last_names, d.id_product, d.id_detail_order , o.date_order, d.cuantitive, s.id_state_order, s.state_order, p.price * d.cuantitive as total
 	FROM detail_orders d
@@ -555,7 +562,9 @@ SELECT * FROM reviews
 
 
 CREATE OR REPLACE VIEW all_reviews AS
-	SELECT u.username, p.id_product, p."name", r."comment", r.date_comment
+	SELECT u.username, p.id_product, p."name", r."comment", r.date_comment, 
+	r.id_review, r.id_detail_order, o.id_order,
+	c.document, c.names, c.last_names, c.id_client
 	FROM reviews r
 	INNER JOIN detail_orders d ON d.id_detail_order = r.id_detail_order
 	INNER JOIN orders o ON o.id_order = d.id_order
@@ -569,8 +578,21 @@ SELECT * FROM all_reviews WHERE id_product = 1
 SELECT * FROM clients_user WHERE document = '378'
 
 CREATE OR REPLACE VIEW all_categories AS
-	SELECT c.id_category, c.category, COUNT(*) as Amount
+	SELECT c.id_category, c.category, COUNT(P.id_product) as Amount 
 	FROM categories c
-	INNER JOIN products p ON c.id_category = p.id_category
+	LEFT JOIN products p ON c.id_category = p.id_category
 	GROUP BY c.id_category, c.category
 	ORDER BY c.id_category ASC
+	
+SELECT * FROM all_reviews
+SELECT * FROM all_categories
+
+
+-- CORRECCIONES EN LA BASE DESPUÉS DE LA DEFENSA (24/4/2023)
+
+ALTER TABLE users ADD CONSTRAINT u_username UNIQUE (username);
+ALTER TABLE users ADD CONSTRAINT u_emial UNIQUE (email);
+ALTER TABLE products ADD CONSTRAINT u_product_name UNIQUE(name);
+ALTER TABLE categories ADD CONSTRAINT u_category_name UNIQUE(category);
+
+SELECT id_product, name FROM products WHERE id_state_product = 1 AND stock >= 1

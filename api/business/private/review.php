@@ -30,8 +30,15 @@ if (!isset($_GET['action'])) {
 
                 if ($response['dataset'] = $query->getDocumentClient()) {
                     $response['status'] = 1;
-                } else {
+                } elseif (Connection::getException()) {
+                    # code...
+                    $response['status'] = 0;
                     $response['exception'] = Connection::getException();
+                    print_r($_POST);
+                } else {
+                    print_r($_POST);
+                    $response['status'] = -1;   
+                    $response['exception'] = 'Error to get document';
                 }
 
                 break;
@@ -40,9 +47,13 @@ if (!isset($_GET['action'])) {
 
                 if ($response['client'] = $query->getClient($_POST['documents'])) {
                     $response['status'] = 1;
-                } else {
-                    print_r($_POST);
+                } elseif (Connection::getException()) {
+                    # code...
+                    $response['status'] = 0;
                     $response['exception'] = Connection::getException();
+                } else {
+                    // print_r($_POST);
+                    $response['exception'] = 'Error to get client';
                 }
 
 
@@ -157,9 +168,9 @@ if (!isset($_GET['action'])) {
                     } elseif (Connection::getException()) {
                         $response['exception'] = Connection::getException();
                     } else {
+                        $response['status'] = -1;
                         $response['exception'] = "Doesn't exist comments for this product";
                     }
-                    
                 }
 
                 break;

@@ -78,6 +78,11 @@ body {
     max-width: 9vw;
 }
 
+#total{
+    width: 15%;
+    font-weight: bold;
+}
+
 .address-col {
     white-space: nowrap;
     overflow: hidden;

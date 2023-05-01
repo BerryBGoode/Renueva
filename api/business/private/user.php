@@ -85,6 +85,7 @@ if (isset($_GET['action'])) {
     } else {
         //acciones cuando no sé a iniciado sesión
         switch ($_GET['action']) {
+            
             case 'login':
 
                 //validar que el $_POST no traiga espacio demás
