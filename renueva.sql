@@ -557,9 +557,14 @@ SELECT * FROM clients
 SELECT * FROM orders
 SELECT * FROM detail_orders
 SELECT * FROM products
-
 SELECT * FROM reviews
+SELECT * FROM products_states_categories
 
+SELECT * FROM products_states_categories WHERE id_state_product = 1 AND stock >= 1 AND image ILIKE '%.%'
+
+
+UPDATE products SET stock = 50 WHERE stock <= 1
+UPDATE products SET price = price + .00 
 
 CREATE OR REPLACE VIEW all_reviews AS
 	SELECT u.username, p.id_product, p."name", r."comment", r.date_comment, 
@@ -587,6 +592,7 @@ CREATE OR REPLACE VIEW all_categories AS
 SELECT * FROM all_reviews
 SELECT * FROM all_categories
 
+	select * from users
 
 -- CORRECCIONES EN LA BASE DESPUÉS DE LA DEFENSA (24/4/2023)
 

@@ -6,12 +6,12 @@ HEADER.innerHTML = `
 
 <nav class="nav-extended navbar-home">
                 <div class="nav-wrapper">
-                    <img src="/resources/img/Logo/LogoRenueva_Login.png" alt="" class="header-img">
+                    <img src="../../resources/img/Logo/LogoRenueva_Login.png" alt="" class="header-img">
                 </div>
                 <div class="nav-content">
                   <ul class="right hide-on-med-and-down">
                   <li><a href="home.html" ></i>Home</a></li>
-                  <li><a href="product.html"></i>Products</a></li>
+                  <li><a href="products.html"></i>Products</a></li>
                   <li><a href="featured.html"></i>Featured</a></li>
                   <li><a href="promotions.html"></i>Promotions</a></li>
               </ul>

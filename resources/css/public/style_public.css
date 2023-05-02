@@ -44,6 +44,20 @@ header {
 
 }
 
+.main-products{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+}
+
+.product{
+    background: var(--body-color);
+    border-radius: 5px;
+    width: 45%;
+}
+
 .navbar-home {
     display: flex;
     flex-direction: row;
