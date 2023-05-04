@@ -10,7 +10,7 @@ HEADER.innerHTML = `
                 </div>
                 <div class="nav-content">
                   <ul class="right hide-on-med-and-down">
-                  <li><a href="home.html" ></i>Home</a></li>
+                  <li><a href="index.html" ></i>Home</a></li>
                   <li><a href="product.html"></i>Products</a></li>
                   <li><a href="featured.html"></i>Featured</a></li>
                   <li><a href="promotions.html"></i>Promotions</a></li>
