@@ -44,15 +44,49 @@ header {
 
 }
 
-.main-products{
+.buttons-form-product{
+    display: flex;
+    gap: 2%;
+}
+
+.product-btn{
+    font-weight: 600;
+    color: #424242;
+    background-color: var(--primary-color);
+}
+
+.view-icon{
+    display: flex;
+    align-items: center;
+}
+
+.product-image {
+    width: 100%;
+    height: 80%;
+    border-radius: 5px;
+}
+
+.product-image,
+.detail_product {
+    padding: 5%;
+}
+
+.detail_product{
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.main-products {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 15px;
     justify-content: center;
 }
 
-.product{
+.product {
     background: var(--body-color);
     border-radius: 5px;
     width: 45%;
