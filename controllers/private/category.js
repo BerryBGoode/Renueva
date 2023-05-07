@@ -40,7 +40,6 @@ FORM.addEventListener('submit', async (evt) => {
     //const. con la respuesta 
     const JSON = await dataRequest(CATEGORY, action, DATA);
     if (JSON.status) {
-
         //cargar tabla
         loadTable();
         //mensaje 

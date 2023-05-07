@@ -10,6 +10,9 @@
     --letra-azul: #0044C7;
 }
 
+.body-article{
+    overflow: hidden;
+}
 /* rules for change color of inputs text and email */
 input[type=text]:not(.browser-default):focus:not([readonly]),
 input[type=email]:not(.browser-default):focus:not([readonly]) {
@@ -53,6 +56,17 @@ header {
     font-weight: 600;
     color: #424242;
     background-color: var(--primary-color);
+}
+
+.container-article{
+    height: 100vh;
+}
+.product-detail{
+    background-color: var(--bg-color);
+}
+
+.detail{
+    margin: 0 15%;
 }
 
 .view-icon{
@@ -339,6 +353,7 @@ body {
     box-shadow: none;
 
 }
+
 
 .identify-products {
     display: flex;

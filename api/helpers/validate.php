@@ -130,8 +130,7 @@ class Validate
     public static function checkBool($data)
     {
         //verificar el param se booleano
-        if ($data == 1 || 0 || true || false) {
-            echo 'true';
+        if ($data == 1 || $data ==  0 || $data ==  true || $data ==  false) {            
             return true;
         }
     }
@@ -312,3 +311,4 @@ class Validate
         }
     }
 }
+?>

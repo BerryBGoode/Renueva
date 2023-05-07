@@ -18,7 +18,8 @@ if ($_GET['action']) {
             if ($response['dataset'] = $product->loadProductsClient()) {
                 $response['status'] = 1;
                 $response['count'] = count($response['dataset']);
-                $response['path'] = PRODUCT->getPath();                
+                $response['path'] = PRODUCT->getPath();
+                
             } elseif (Connection::getException()) {
                 $response['exception'] = Connection::getException();
             } else {

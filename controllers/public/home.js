@@ -1,10 +1,8 @@
 const HEADER = document.querySelector('header');
 const SECTION = document.querySelector('section');
 
-
-HEADER.innerHTML = `
-
-<nav class="nav-extended navbar-home">
+if (HEADER) {
+    HEADER.innerHTML = `<nav class="nav-extended navbar-home">
                 <div class="nav-wrapper">
                     <img src="../../resources/img/Logo/LogoRenueva_Login.png" alt="" class="header-img">
                 </div>
@@ -33,6 +31,8 @@ HEADER.innerHTML = `
                 
 </nav>
 `;
+
+}
 
 
 
