@@ -8,7 +8,7 @@ async function logOut() {
         //const para ejecutar la respuesta del servidor al cerrar sesión
         const JSON = await dataRequest(USER_LOGOUT, 'logOut');
         if (JSON.status) {
-            notificationRedirect('success', JSON.message, true, 'index.html');
+            notificationRedirect('success', JSON.message, true, '../../view/private');
         } else {
             notificationRedirect('error', JSON.exception, false);
         }

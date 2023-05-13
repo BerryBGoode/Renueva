@@ -93,4 +93,17 @@ class ProductQuery
         $param = array($id);
         return Connection::storeProcedure($sql, $param);
     }
+
+    /**
+     * Método para obtener los productos a mostrar al cliente (disponibles, con existencias, con imagen)
+     * retorna un array con los datos recuperados
+     */
+    public function loadProductsClient()
+    {
+        $sql = 'SELECT * FROM products_states_categories
+                WHERE id_state_product = 1 AND stock >= 1 AND image ILIKE ?';
+        $param = array("%.%");
+        return Connection::all($sql, $param);
+
+    }
 }

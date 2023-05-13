@@ -53,13 +53,20 @@ FORM.addEventListener('submit', async (evt) => {
     const DATA = new FormData(FORM);
     //const. en formato JSON para obtener las respuestas del servidor
     const JSON = await dataRequest(PRODUCT, action, DATA);
-    if (JSON.status) {
-
+    if (JSON.status === 1) {
 
         loadTable();
         notificationRedirect('success', JSON.message, true);
         MODAL.close();
         FORM.reset();
+    } else if (JSON.status === -1) {
+        // verificar sí hubo un error al enviar la imagen debido al formato de la imagen        
+        let confirm = await notificationConfirm('Format imagen incorrect, do you wanna format (600px * 600px)?');
+        if (confirm) {
+            // sí se deseé formatear la imagen 
+            notificationRedirect('info', 'You will be redirected to an external page', true, 'https://www.befunky.com/es/opciones/cambiar-tamanos-de-imagenes/');
+            // se redireccionará a una página externa
+        }
     } else {
         MODAL.open();
         console.log(JSON);

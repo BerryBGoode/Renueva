@@ -24,6 +24,17 @@ class UserQuery
     }
 
     /**
+     * método para obtener el id del tipo usuario a obtener
+     * retorna un arreglo con los datos recuperados de la consulta
+     */
+    public function getTypeUser($type)
+    {
+        $sql = 'SELECT id_type_user FROM types_users WHERE type_user = ?';
+        $param = array($type);
+        return Connection::row($sql, $param);
+    }
+
+    /**
      * Método para agregar un nuevo registro
      */
     public function store()
