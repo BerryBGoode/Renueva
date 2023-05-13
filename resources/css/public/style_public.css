@@ -512,7 +512,7 @@ h4 {
 
 .contact-cards {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     background-color: var(--card-color);
@@ -886,7 +886,9 @@ img.logo-login {
 .main-form {
     height: 100%;
 }
-
+.social-media{
+    display: flex;
+}
 .logo-container {
     height: 100%;
     margin: 0%;
