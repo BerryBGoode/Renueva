@@ -2,46 +2,67 @@ const HEADER = document.querySelector('header');
 const SECTION = document.querySelector('section');
 
 if (HEADER) {
-    
-    HEADER.innerHTML = `<nav class="nav-extended navbar-home">
-                <div class="nav-wrapper">
-                    <img src="../../resources/img/Logo/LogoRenueva_Login.png" alt="" class="header-img">
-                </div>
-                <div class="nav-content">
-                  <ul class="right hide-on-med-and-down">
-                  <li><a href="../public/" ></i>Home</a></li>
-                  <li><a href="products.html"></i>Products</a></li>
-                  <li><a href="featured.html"></i>Featured</a></li>
-                  <li><a href="promotions.html"></i>Promotions</a></li>
-              </ul>
-                </div>
-                <div id="wrap">
-                    <form action="" autocomplete="on">
-                        <input id="search" name="search" type="text" 
-                        placeholder="What're we looking for?" autocomplete="off">
-                        <svg width="25" height="25" viewBox="0 0 27 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M11.5264 24.1588C17.34 24.1588 22.0528 18.9745 22.0528 12.5794C22.0528 6.18426 17.34 1 11.5264 1C5.71283 1 1 6.18426 1 12.5794C1 18.9745 5.71283 24.1588 11.5264 24.1588Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M26 30.6719L20.7368 24.8822" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+
+HEADER.innerHTML = `<nav class="nav-extended navbar-home">
+            <div class="nav-wrapper">
+                <img src="../../resources/img/Logo/LogoRenueva_Login.png" alt="" class="header-img">
+            </div>
+            <div class="nav-content">
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="../public/"></i>Home</a></li>
+                    <li><a href="products.html"></i>Products</a></li>
+                    <li><a href="featured.html"></i>Featured</a></li>
+                </ul>
+            </div>
+            <div id="wrap">
+                <form action="" autocomplete="on">
+                    <input id="search" name="search" type="text" placeholder="What're we looking for?" autocomplete="off">
+                    <svg width="25" height="25" viewBox="0 0 27 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M11.5264 24.1588C17.34 24.1588 22.0528 18.9745 22.0528 12.5794C22.0528 6.18426 17.34 1 11.5264 1C5.71283 1 1 6.18426 1 12.5794C1 18.9745 5.71283 24.1588 11.5264 24.1588Z"
+                            stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M26 30.6719L20.7368 24.8822" stroke="black" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
 
                     </from>
-                </div>
-                <div class="icons-nav">
-                <svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M2 2H3.74001C4.82001 2 5.67 2.93 5.58 4L4.75 13.96C4.61 15.59 5.89999 16.99 7.53999 16.99H18.19C19.63 16.99 20.89 15.81 21 14.38L21.54 6.88C21.66 5.22 20.4 3.87 18.73 3.87H5.82001" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M16.25 22C16.9404 22 17.5 21.4404 17.5 20.75C17.5 20.0596 16.9404 19.5 16.25 19.5C15.5596 19.5 15 20.0596 15 20.75C15 21.4404 15.5596 22 16.25 22Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8.25 22C8.94036 22 9.5 21.4404 9.5 20.75C9.5 20.0596 8.94036 19.5 8.25 19.5C7.55964 19.5 7 20.0596 7 20.75C7 21.4404 7.55964 22 8.25 22Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9 8H21" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-                </div>
-                
-</nav>
-`;
+            </div>
+            <div class="icons-nav">                
+                <svg id="cart" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path
+                                d="M2 2H3.74001C4.82001 2 5.67 2.93 5.58 4L4.75 13.96C4.61 15.59 5.89999 16.99 7.53999 16.99H18.19C19.63 16.99 20.89 15.81 21 14.38L21.54 6.88C21.66 5.22 20.4 3.87 18.73 3.87H5.82001"
+                                stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                            <path
+                                    d="M16.25 22C16.9404 22 17.5 21.4404 17.5 20.75C17.5 20.0596 16.9404 19.5 16.25 19.5C15.5596 19.5 15 20.0596 15 20.75C15 21.4404 15.5596 22 16.25 22Z"
+                                    stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                            <path
+                                d="M8.25 22C8.94036 22 9.5 21.4404 9.5 20.75C9.5 20.0596 8.94036 19.5 8.25 19.5C7.55964 19.5 7 20.0596 7 20.75C7 21.4404 7.55964 22 8.25 22Z"
+                                stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                            <path d="M9 8H21" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                        </g>
+                </svg>                
+            </div>
+
+        </nav>
+        `;
 
 }
 
+const CARTBTN = document.getElementById('cart');
 
-
+CARTBTN.addEventListener('click', () => {
+    // verificar sesión
+    // dependiendo de la sesión enviar a login
+    // enviar a cart.html
+})
 
 document.addEventListener('DOMContentLoaded', function () {
-    M.AutoInit();
+M.AutoInit();
 });
-
-
-
-

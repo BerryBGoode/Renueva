@@ -141,7 +141,7 @@ nav ul li a {
 
 nav ul li a::before {
     content: '';
-    border-bottom: 2px solid red;
+    border-bottom: 2px solid var(--yellow-color);
     position: absolute;
     bottom: -5px;
     width: 40%;
@@ -153,7 +153,7 @@ nav ul li a::before {
 
 nav ul li a::after {
     content: '';
-    border-bottom: 2px solid red;
+    border-bottom: 2px solid var(--yellow-color);
     position: absolute;
     bottom: -10px;
     width: 30%;
@@ -518,6 +518,14 @@ h4 {
     background-color: var(--card-color);
 }
 
+#cart{
+    cursor: pointer;
+}
+
+.title-cart{
+    font-size: xx-large;
+    font-weight: bold;
+}
 .card-contact {
     padding: 40px;
     margin: 40px;
