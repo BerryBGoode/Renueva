@@ -65,6 +65,7 @@ const LOADCLIENT = () => {
         // obtener del obj promise la respuesta y guardarla en un objeto
         .then(data => {
             
+            
             // reiniciar los valores 
             PRODUCTS.splice(0, PRODUCTS.length);
             // definiar un var. para identificar la vez que se ha recorrido el objeto JSON
@@ -82,6 +83,7 @@ const LOADCLIENT = () => {
 
                     <div class="detail_product">
                         <span>${element.name}</span>
+                        <span>${element.category}</span>
                         <span>$${element.price}</span>                        
                     <div>             
                     
@@ -101,7 +103,7 @@ const LOADCLIENT = () => {
                         <form method="post" id="product">
                             <input type="number" name="idproduct" id="idproduct" class="hide" value="${PRODUCTS[index]}">
                             <button type="submit" class="btn product-btn">
-                                Add to card
+                                Buy
                             </button>
                         </form>
                     </div>

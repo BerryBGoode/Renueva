@@ -97,17 +97,20 @@ header {
 }
 
 .main-products {
-    width: 100%;
+    /* width: 100%; */
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
     justify-content: center;
+    
 }
 
 .product {
     background: var(--body-color);
     border-radius: 5px;
     width: 45%;
+    flex: 1 0 30%;
+    height: 30%;
 }
 
 .navbar-home {
