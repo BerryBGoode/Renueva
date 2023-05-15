@@ -35,7 +35,7 @@ input.valid[type=text]:not(.browser-default) {
 }
 
 /* home html rules */
-/*header*/
+/* /header/ */
 header {
     background-color: var(--yellow-color);
     top: 0px;
@@ -236,14 +236,10 @@ nav ul li a:hover::after {
 
 }
 
-/*space*/
+/* /space/ */
 
 .space {
     padding-top: 20%;
-}
-
-.space2{
-    padding-top: 3%;
 }
 
 /*search*/
@@ -313,7 +309,7 @@ input[type="submit"] {
 
 /* end home hmtl rules */
 /* welcome html rules */
-/*nav*/
+/* /nav/ */
 body {
     background-color: var(--body-color);
     height: 100%;
@@ -390,7 +386,7 @@ body {
     background-color: var(--body-color)
 }
 
-/*cards*/
+/* /cards/ */
 
 
 
@@ -452,7 +448,7 @@ h4 {
     place-content: center;
 }
 
-/*Minicards*/
+/* /Minicards/ */
 
 .minicards {
 
@@ -499,7 +495,7 @@ h4 {
 }
 
 
-/*text post minicards*/
+/* /text post minicards/ */
 
 
 .text-minicards {
@@ -517,7 +513,7 @@ h4 {
     justify-content: center;
 }
 
-/*image*/
+/* /image/ */
 
 .sing {
     display: flex;
@@ -561,7 +557,7 @@ h4 {
     background-color: var(--card-color)
 }
 
-/*Contact us*/
+/* /Contact us/ */
 
 .contact-us {
     background-color: var(--card-color);
@@ -616,7 +612,7 @@ h4 {
     color: black;
 }
 
-/*form*/
+/* /form/ */
 
 .form {
     margin-top: 50px;
@@ -645,7 +641,7 @@ h4 {
     background-color: var(--card-color);
 }
 
-/*slider*/
+/* /slider/ */
 
 .container-slider {
     width: 90%;
@@ -715,9 +711,9 @@ footer {
     flex: 1 0 200px;
 }
 
-
-/*home*/
-/*Galery*/
+/* 
+/home/
+/Galery/ */
 
 .galery {
     background: var(--card-color);
@@ -749,7 +745,7 @@ footer {
     filter: contrast(120%);
 }
 
-/*galery cards*/
+/* /galery cards/ */
 
 .galerycard-img {
     display: flex;
@@ -791,7 +787,7 @@ footer {
 }
 
 
-/*comment*/
+/* /comment/ */
 .comment {
     background: var(--card-color);
     display: flex;
@@ -800,14 +796,14 @@ footer {
     justify-content: center;
 }
 
-/*products*/
+/* /products/ */
 
 .card-products {
     background: var(--card-color);
 }
 
 /* end welcome html rules */
-/*login html rules*/
+/* /login html rules/ */
 .form-init {
     background-attachment: fixed;
     background-color: var(--bg-color);
@@ -826,7 +822,7 @@ footer {
     height: 450px;
     background-color: var(--sec-color);
     border-radius: 20px;
-    /*box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.5);*/
+    /* /box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.5);/ */
     box-shadow: -1px 2px 7px rgba(0, 0, 0, 0.5);
 }
 
@@ -913,9 +909,9 @@ input[classs='login-input']:not(.browser-default) {
     width: 300px;
 }
 
-/*end login html rule*/
+/* /end login html rule/ */
 
-/*register html rules*/
+/* /register html rules/ */
 .form-init {
     background-attachment: fixed;
     background-color: var(--bg-color);
@@ -934,7 +930,7 @@ input[classs='login-input']:not(.browser-default) {
     height: 450px;
     background-color: var(--sec-color);
     border-radius: 20px;
-    /*box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.5);*/
+    /* /box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.5);/ */
     box-shadow: -1px 2px 7px rgba(0, 0, 0, 0.5);
 }
 
@@ -1024,9 +1020,9 @@ input[class='login-input']:not(.browser-default) {
     width: 300px;
 }
 
-/*end register html rules*/
+/* /end register html rules/ */
 
-/*style article*/
+/* /style article/ */
 .container-article{
     padding: 2%;
     background-color: var(--sec-color);
@@ -1083,7 +1079,7 @@ input[class='login-input']:not(.browser-default) {
     padding-right: 34%;
 }
 
-/*card comments*/
+/* /card comments/ */
 .card2-article{
     background-color: var(--card-color);
     box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.25);
@@ -1100,7 +1096,7 @@ input[class='login-input']:not(.browser-default) {
     border-radius: 50%;
 }
 
-/*Button + - article*/
+/* /Button + - article/ */
 .button-article {
     border: none;
     color: white;
@@ -1137,7 +1133,7 @@ input[class='login-input']:not(.browser-default) {
     color: black;
   }
   
-  /*Buton add to car, article*/
+  /* /Buton add to car, article/ */
   
   .buutton-article {
     border: none;
@@ -1156,7 +1152,7 @@ input[class='login-input']:not(.browser-default) {
     border: 2px solid var(--color-gris);
   }
 
-  /*Comments articles*/
+  /* /Comments articles/ */
 
   .coments{
     padding: 1vw;
@@ -1179,10 +1175,10 @@ input[class='login-input']:not(.browser-default) {
         padding: 3vw;
     }
 
-/*responsive design*/
+/* /responsive design/ */
 @media screen and (max-width: 840px) {
 
-    /*index*/
+    /* /index/ */
     .container {
         display: flex;
         flex-wrap: wrap;
