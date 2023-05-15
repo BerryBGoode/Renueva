@@ -58,4 +58,64 @@ class ReviewQuery
         $params = array($review->getComment(), $review->getIdDetailOrder());
         return Connection::storeProcedure($sql, $params);
     }
+
+    /**
+     * Método para carga todas las reviews registradas
+     * retorna en un array los datos recuperados
+     */
+    public function all()
+    {
+        $sql = 'SELECT * FROM all_reviews';
+        return Connection::all($sql);
+    }
+
+    /**
+     * Método para cargar los datos de la review según el registro seleccionado
+     * $id id de la review seleccionada
+     * retorna en un arreglo los datos recuperados
+     */
+    public function oneReview($id)
+    {
+        $sql = 'SELECT * FROM all_reviews WHERE id_review = ?';
+        $param = array($id);
+        return Connection::row($sql, $param);
+    }
+
+    /**
+     * Método para actualizar los datos de la 'review' seleccionada
+     * retorna el resultado del proces
+     */
+    public function change()
+    {
+
+        // instancia de la clase Review
+        $review = REVIEW;
+        $sql = 'UPDATE reviews SET comment = ?, id_detail_order = ? WHERE id_review = ?';
+        $param = array($review->getComment(), $review->getIdDetailOrder(), $review->getIdReview());
+        return Connection::storeProcedure($sql, $param);
+    }
+
+    /**
+     * Método para eliminar una 'review'
+     * $id id de la 'review' seleccionada
+     * retorna el resultado del proceso
+     */
+    public function destroy($id)
+    {
+        $sql = 'DELETE FROM reviews WHERE id_review = ?';
+        $param = array($id);
+        return Connection::storeProcedure($sql, $param);
+    }
+
+    /**
+     * Método para obtener las reviews de un producto
+     * $product, producto seleccionado
+     * retornar en un array los datos recuperados
+     */
+    public function comments($product)
+    {
+        $sql = 'SELECT * FROM all_reviews WHERE id_product = ?';
+        $param = array($product);
+        return Connection::all($sql, $param);
+    }
 }

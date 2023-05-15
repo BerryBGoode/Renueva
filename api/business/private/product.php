@@ -83,6 +83,7 @@ if (!isset($_GET['action'])) {
                     $response['exception'] = 'Select one image';
                 } elseif (!$product->setImage($_FILES['image'])) {
                     $response['exception'] = Validate::getErrorFile();
+                    $response['status'] = -1;
                 } elseif ($query->store()) {
                     $response['status'] = 1;
                     // guardar archivo en la api

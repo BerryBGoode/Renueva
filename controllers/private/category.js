@@ -1,7 +1,6 @@
+const CATEGORY = 'business/private/category.php';
 //const. con el form
-const FORM = document.getElementById('form-client');
-//const con la ruta donde hacer los request
-const CLIENT = 'business/private/client.php';
+const FORM = document.getElementById('form-category');
 //const con el texto del boton según proceso
 const TXTBUTTON = document.getElementById('process');
 //inicialización de Modal con Materialize
@@ -14,17 +13,8 @@ const ROWS = document.getElementById('tb-body');
 const MSG = document.getElementById('table-heade');
 // formulario para el buscador
 const FORMSEARCH = document.getElementById('form-search');
-// input para buscar
-const SEARCH = document.getElementById('search');
 
-/**
- * Método para limpiar form
- * evento desencadenado por 'reset'
- */
-FORM.addEventListener('reset', () => {
-    FORM.reset();
-    MODAL.close();
-})
+
 
 /**
  * Método para preparar visualmente cuando se va agregar
@@ -43,14 +33,13 @@ FORM.addEventListener('submit', async (evt) => {
     //validar que no se pueda recargar la página
     evt.preventDefault();
     //verificar la acción
-    document.getElementById('idclient').value ? action = 'update' : action = 'create';
+    document.getElementById('idcategory').value ? action = 'update' : action = 'create';
     //filtrar los datos del form
     //instanciando la clas FormData y enviandole el form a validar
     const DATA = new FormData(FORM);
     //const. con la respuesta 
-    const JSON = await dataRequest(CLIENT, action, DATA);
+    const JSON = await dataRequest(CATEGORY, action, DATA);
     if (JSON.status) {
-
         //cargar tabla
         loadTable();
         //mensaje 
@@ -64,6 +53,7 @@ FORM.addEventListener('submit', async (evt) => {
     }
 })
 
+
 /**
  * async-await para cargar la tabla
  */
@@ -71,25 +61,18 @@ async function loadTable() {
 
     ROWS.innerHTML = ``;
     //const JSON con el response
-    const JSON = await dataRequest(CLIENT, 'all');
+    const JSON = await dataRequest(CATEGORY, 'all');
     if (JSON.status) {
         //cargar a agregar al html los datos recuperados
         JSON.dataset.forEach(element => {
             //agregar += el valor anterior, más el recorrido
             ROWS.innerHTML += `<tr>
-            <td class="hide">${element.id_user}</td>
-            <td class="hide">${element.id_client}</td>
-            <td>${element.username}</td>
-            <td>${element.names}</td>
-            <td>${element.last_names}</td>
-            <td>${element.document}</td>
-            <td>${element.phone}</td>
-            <td class="email-col">${element.email}</td>
-            <td class="address-col">${element.address}</td>
+            <td>${element.category}</td>
+            <td>${element.amount}</td>
             <td class="action-col">
 
                     <!-- boton para actualizar -->
-                    <svg width="26" height="25" viewBox="0 0 34 33" fill="none" onclick="onModify(${element.id_client}, ${element.id_user})"
+                    <svg width="26" height="25" viewBox="0 0 34 33" fill="none" onclick="onModify(${element.id_category})"
                     xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M15.0215 1.91666H12.0468C4.60998 1.91666 1.63525 4.83332 1.63525 12.125V20.875C1.63525 28.1667 4.60998 31.0833 12.0468 31.0833H20.971C28.4078 31.0833 31.3825 28.1667 31.3825 20.875V17.9583"
@@ -106,7 +89,7 @@ async function loadTable() {
                     </svg>
 
                     <!-- boton para eliminar -->
-                    <svg width="22" height="25" viewBox="0 0 30 33" fill="none" onclick="onDestroy(${element.id_user})"
+                    <svg width="22" height="25" viewBox="0 0 30 33" fill="none" onclick="onDestroy(${element.id_category})"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M28.4432 7.7208C23.4903 7.23955 18.5076 6.99164 13.5398 6.99164C10.5948 6.99164 7.64985 7.13747 4.70487 7.42914L1.67065 7.7208"
@@ -144,35 +127,23 @@ document.addEventListener('DOMContentLoaded', () => {
     loadTable();
 })
 
-
 /**
  * async-await para cargar los datos del registro seleccionado
  */
-async function onModify(idclient, iduser) {
+async function onModify(idcategory) {
     //obj. de la clase FormData, para enviar los datos al API
     const DATA = new FormData;
     //agregarle el id va modificar
     //como no hay evento post se envía de está manera
-    // en la instancia de la clas
-    DATA.append('id_client', idclient);
-    DATA.append('id_user', iduser);
+    // en la instancia de la clase
+    DATA.append('id_category', idcategory);
     //const la respuesta según la petición
-    const JSON = await dataRequest(CLIENT, 'one', DATA);
+    const JSON = await dataRequest(CATEGORY, 'one', DATA);
     if (JSON.status) {
         MODAL.open();
         //asignar los datos a los inputs
-        document.getElementById('idclient').value = JSON.dataset.id_client;
-        document.getElementById('iduser').value = JSON.dataset.id_user;
-        document.getElementById('names').value = JSON.dataset.names;
-        document.getElementById('lastnames').value = JSON.dataset.last_names;
-        document.getElementById('document').value = JSON.dataset.document;
-        document.getElementById('phone').value = JSON.dataset.phone;
-        document.getElementById('email').value = JSON.dataset.email;
-        document.getElementById('address').value = JSON.dataset.address;
-        document.getElementById('username').value = JSON.dataset.username;
-        //desabihilirar
-        document.getElementById('password').disabled = true;
-        document.getElementById('lblpassword').style.cursor = 'default';
+        document.getElementById('idcategory').value = JSON.dataset.id_category;
+        document.getElementById('category').value = JSON.dataset.category;
 
         //ordenar label del input arriba
         M.updateTextFields();
@@ -187,15 +158,15 @@ async function onModify(idclient, iduser) {
 /**
  * asycn-await, para eliminar el cliente seleccionado
  */
-async function onDestroy(id_user) {
+async function onDestroy(idcategory) {
     //mandar mensaje de confirmación
-    let confirm = await notificationConfirm('Do you wanna delete this user?');
+    let confirm = await notificationConfirm('Do you wanna delete this category, remeber all products beloging on this category also delete!!!?');
     if (confirm) {
         //instancia de la clase FormData para enviar el id
         const DATA = new FormData;
-        DATA.append('iduser', id_user);
+        DATA.append('id_category', idcategory);
         //respuesta según la petición
-        const JSON = await dataRequest(CLIENT, 'delete', DATA);
+        const JSON = await dataRequest(CATEGORY, 'delete', DATA);
         if (JSON.status) {
             MODAL.close();
             loadTable();
@@ -207,61 +178,42 @@ async function onDestroy(id_user) {
 }
 
 /**
+ * Método para limpiar form
+ * evento desencadenado por 'reset'
+ */
+FORM.addEventListener('reset', () => {
+    FORM.reset();
+    MODAL.close();
+})
+
+/**
  * async-await method para cargar los datos en la tabla según lo que vaya
  * teclando el usuario en el input
  * buscador tipo filtrado
  * evento descencadenado por cuando suben la 'key' del teclado
  */
 async function onSearch(evt) {
-    // evitar que se recargue la página
     evt.preventDefault();
-    // obtener la respuesta del API
-    const JSON = await dataRequest(CLIENT, 'all');
+    const JSON = await dataRequest(CATEGORY, 'all');
     if (!JSON.status) {
         notificationRedirect('error', JSON.exception, false);
     } else {
-        // reinciar los valores de la tabla
         ROWS.innerHTML = ``;
-        // convertir a minusculas lo que tiene el input 
-        // para hacer efectiva la busqueda
-        let search = SEARCH.value.toLowerCase();
-        // verificar si el input no tiene nada de texto para recargar toda la tabla
+        let search = document.getElementById('search').value.toLowerCase();
         if (search === '') {
-            // reinciar los valores de la tabla
             ROWS.innerHTML = ``;
             loadTable();
         } else {
-            // recorrer todos los datos recuperados que viene
-            for (let clients of JSON.dataset) {
-                // convertir a minusculas los datos recorridos por los cuales se buscará
-                // (username, names, lastname o document)
-                // el document no sé convertirar a minusculas pero sí se hará la busqueda con el indexOf
-                let username = clients.username.toLowerCase();
-                let names = clients.names.toLowerCase();
-                let lastname = clients.last_names.toLowerCase();
-                let document = clients.document;
-                // sí se encuntra algún caracter que coincida con el valor de alguno de ellos
-                // entonces el 'indexOf' retornará no -1, para así poder difereciar el resultado
-                // y poder cargarlo en la tabla
-                // en el if se establece porque se puede buscar
-                if (username.indexOf(search) !== -1 || names.indexOf(search) !== -1 ||
-                    lastname.indexOf(search) !== -1 || document.indexOf(search) !== -1) {
-                    // cargar la tabla
-                    // se usa el '+=' para añadir a ese elemento el valor recorrido más el anterior
+            for (let categories of JSON.dataset) {
+                let category = categories.category.toLowerCase();
+                if (category.indexOf(search) !== -1) {
                     ROWS.innerHTML += `<tr>
-                    <td class="hide">${clients.id_user}</td>
-                    <td class="hide">${clients.id_client}</td>
-                    <td>${clients.username}</td>
-                    <td>${clients.names}</td>
-                    <td>${clients.last_names}</td>
-                    <td>${clients.document}</td>
-                    <td>${clients.phone}</td>
-                    <td class="email-col">${clients.email}</td>
-                    <td class="address-col">${clients.address}</td>
+                    <td>${categories.category}</td>
+                    <td>${categories.amount}</td>
                     <td class="action-col">
-        
+
                             <!-- boton para actualizar -->
-                            <svg width="26" height="25" viewBox="0 0 34 33" fill="none" onclick="onModify(${clients.id_client}, ${clients.id_user})"
+                            <svg width="26" height="25" viewBox="0 0 34 33" fill="none" onclick="onModify(${categories.id_category})"
                             xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M15.0215 1.91666H12.0468C4.60998 1.91666 1.63525 4.83332 1.63525 12.125V20.875C1.63525 28.1667 4.60998 31.0833 12.0468 31.0833H20.971C28.4078 31.0833 31.3825 28.1667 31.3825 20.875V17.9583"
@@ -276,9 +228,9 @@ async function onSearch(evt) {
                                     stroke="#424242" stroke-width="3" stroke-miterlimit="10"
                                     stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
-        
+
                             <!-- boton para eliminar -->
-                            <svg width="22" height="25" viewBox="0 0 30 33" fill="none" onclick="onDestroy(${clients.id_user})"
+                            <svg width="22" height="25" viewBox="0 0 30 33" fill="none" onclick="onDestroy(${categories.id_category})"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M28.4432 7.7208C23.4903 7.23955 18.5076 6.99164 13.5398 6.99164C10.5948 6.99164 7.64985 7.13747 4.70487 7.42914L1.67065 7.7208"
@@ -297,7 +249,7 @@ async function onSearch(evt) {
                                 <path d="M11.3386 17.2292H18.7754" stroke="#424242" stroke-width="3"
                                     stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
-        
+
                         </td>
                     </tr>`;
                 }
@@ -306,14 +258,5 @@ async function onSearch(evt) {
     }
 }
 
-/**
- * async-await event para filtrando en la tabla los datos según la 'key' tipieado
- * desencadenador 'keyup'
- */
 FORMSEARCH.addEventListener('keyup', async (evt) => onSearch(evt));
-
-/**
- * async-await event para cargar los datos en la tabla según el valor del input
- * descencadendor 'submit'
- */
 FORMSEARCH.addEventListener('submit', async (evt) => onSearch(evt));

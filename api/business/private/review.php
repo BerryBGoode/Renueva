@@ -30,8 +30,15 @@ if (!isset($_GET['action'])) {
 
                 if ($response['dataset'] = $query->getDocumentClient()) {
                     $response['status'] = 1;
-                } else {
+                } elseif (Connection::getException()) {
+                    # code...
+                    $response['status'] = 0;
                     $response['exception'] = Connection::getException();
+                    //print_r($_POST);
+                } else {
+                    //print_r($_POST);
+                    $response['status'] = -1;   
+                    $response['exception'] = 'Error to get document';
                 }
 
                 break;
@@ -40,9 +47,13 @@ if (!isset($_GET['action'])) {
 
                 if ($response['client'] = $query->getClient($_POST['documents'])) {
                     $response['status'] = 1;
-                } else {
-                    print_r($_POST);
+                } elseif (Connection::getException()) {
+                    # code...
+                    $response['status'] = 0;
                     $response['exception'] = Connection::getException();
+                } else {
+                    // print_r($_POST);
+                    $response['exception'] = 'Error to get client';
                 }
 
 
@@ -75,6 +86,94 @@ if (!isset($_GET['action'])) {
 
                 break;
 
+            case 'all':
+
+                if ($response['dataset'] = $query->all()) {
+                    $response['status'] = 1;
+                    $response['message'] = '';
+                } elseif (Connection::getException()) {
+                    $response['exception'] = Connection::getException();
+                } else {
+                    $response['exception'] = "Doesn't exist regiter";
+                }
+
+                break;
+
+            case 'one':
+
+                if ($response['dataset'] = $query->oneReview($_POST['idreview'])) {
+                    $response['status'] = 1;
+                } else {
+                    $response['exception'] = Connection::getException();
+                }
+
+                break;
+
+            case 'update':
+
+                // validar los datos recibidos del form
+                $_POST = Validate::form($_POST);
+
+                // validar que existe el detalle según el producto y orden
+                // selccionada
+                if ($detail = $query->checkDetail(
+                    $_POST['products'],
+                    $_POST['orders']
+                )) {
+
+                    // validar los datos
+                    if (!$review->setIdReview($_POST['idreview'])) {
+                        $response['exception'] = 'Review incorrect';
+                    } elseif (!$review->setComment($_POST['comment'])) {
+                        $response['exception'] = 'Error in comment';
+                    } elseif (!$review->setIdDetailOrder($detail['id_detail_order'])) {
+                        $response['exception'] = 'Detail incorrect';
+                    } elseif ($query->change()) {
+                        $response['status'] = 1;
+                        $response['message'] = 'Data was successfully modified';
+                    } else {
+                        $response['exception'] = Connection::getException();
+                    }
+                } else {
+                    $response['exception'] = "Doesn't exist this detail ";
+                }
+
+                break;
+
+            case 'delete':
+
+                // validar que venga datos por el método 'post'
+                if (!$_POST) {
+                    $response['exception'] = 'Error to get data to delete';
+                } else {
+
+                    if ($query->destroy($_POST['idreview'])) {
+                        $response['status'] = 1;
+                        $response['message'] = 'Data was successfully delete';
+                    } else {
+                        $response['exception'] = 'Error to delete this review';
+                    }
+                }
+
+                break;
+
+            case 'comments':
+
+                if (!$_POST) {
+                    $response['exception'] = 'Error to get product of url';
+                } else {
+
+                    if ($response['dataset'] = $query->comments($_POST['idproduct'])) {
+                        $response['status'] = 1;
+                    } elseif (Connection::getException()) {
+                        $response['exception'] = Connection::getException();
+                    } else {
+                        $response['status'] = -1;
+                        $response['exception'] = "Doesn't exist comments for this product";
+                    }
+                }
+
+                break;
             default:
                 $response['exception'] = "This action dosen't exist";
                 break;

@@ -175,26 +175,34 @@ async function loadSelect(filename, action, select, selected = null) {
         if (select === 'orders') {
             list += `<option value="0">New Order</option>`;
         }
-        JSON.dataset.forEach(element => {
-            //obtener el valor del (id)
-            id = Object.values(element)[0];
-            //obtener el valor del texto perteneciente al id
-            value = Object.values(element)[1];
+        console.log(JSON.message + JSON.status)
 
+        if (JSON.status === -1) {
+            // cargar un option con el message
+            list = `<option value="-1" disabled selected>Avoid options</option>`
+        }else{
 
-            //verificar sí se quiere carga en el <select> el id
-            if (select === 'orders') {
-                //verificar si el id es igual del valor ingresado anteriormente (en caso de ser update)
-                //primer caso, si es para update : segundo para create
-                (id != selected) ? list += `<option value="${id}">${id}</option>` : list += `<option value="${id}" selected>${id}</option>`;
-            } else {
-                //verificar si el id es igual del valor ingresado anteriormente (en caso de ser update)
-                //primer caso, si es para update : segundo para create
-                (id != selected) ? list += `<option value="${id}">${value}</option>` : list += `<option value="${id}" selected>${value}</option>`;
-            }
+            JSON.dataset.forEach(element => {
+                //obtener el valor del (id)
+                id = Object.values(element)[0];
+                //obtener el valor del texto perteneciente al id
+                value = Object.values(element)[1];
+    
+    
+                //verificar sí se quiere carga en el <select> el id
+                if (select === 'orders') {
+                    //verificar si el id es igual del valor ingresado anteriormente (en caso de ser update)
+                    //primer caso, si es para update : segundo para create
+                    (id != selected) ? list += `<option value="${id}">${id}</option>` : list += `<option value="${id}" selected>${id}</option>`;
+                } else {
+                    //verificar si el id es igual del valor ingresado anteriormente (en caso de ser update)
+                    //primer caso, si es para update : segundo para create
+                    (id != selected) ? list += `<option value="${id}">${value}</option>` : list += `<option value="${id}" selected>${value}</option>`;
+                }    
+    
+            });
+        }
 
-
-        });
     } else {
         //si no existen o ocurro algo erroneo
         option = `<option>void options</option>`;
@@ -225,10 +233,6 @@ async function loadSelectAll(filename, select, selected = null, idselect = false
         //si existen valores
         //agregar a la lista
         list += `<option disabled selected>Select option</option>`;
-        if (select === 'orders') {
-            list += `<option value="0">New Order</option>`;
-        }
-
         //recorrer los datos obtenidos
         JSON.dataset.forEach(element => {
             //obtener el valor del id

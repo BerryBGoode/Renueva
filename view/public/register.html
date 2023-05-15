@@ -8,15 +8,15 @@
     <!--title-->
     <title>Renueva</title>
     <!--Icon title-->
-    <link rel="shortcut icon" href="/resources/img/Logo/LogoFavIcon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../../resources/img/Logo/LogoFavIcon.png" type="image/x-icon">
     <!--Import Google Icon Font-->
-    <link href="./../../resources/general/fonts/fonts.css" rel="stylesheet">
+    <link href="../../resources/general/fonts/fonts.css" rel="stylesheet">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="../../resources/general/css/materialize.min.css"
         media="screen,projection" />
 
     <!--Main styles-->
-    <link rel="stylesheet" href="/resources/css/public/style_public.css">
+    <link rel="stylesheet" href="../../resources/css/public/style_public.css">
 </head>
 
 <body class="form-init">
@@ -26,30 +26,31 @@
         <div class="row">
             <div class="main-form col s12">
                 <div class="data-user">
-                    <form action="">
+                    <form method="post" id="register">
+
                         <div class="usuario">
                             <div class="input">
-                                <input type="text" placeholder="Username" class="login-input">
+                                <input type="text" placeholder="Username" class="login-input" id="username" name="username" required>
                             </div>
                             <div class="input">
-                                <input type="Email" placeholder="Email">
+                                <input type="Email" placeholder="Email" id="email" name="email" required>
                             </div>
                             <div class="input">
-                                <input type="password" placeholder="Password" class="login-input">
-                            </div>                           
+                                <input type="password" placeholder="Password" class="login-input" id="password" name="password" required>
+                            </div>                                                       
+                        </div>    
+                        <div class="modal-footer">
+                            <button type="submit" class="btn  boton-register">                                
+                                Regist me
+                            </button>
                         </div>
-                            <div class="button">
-                                <input type="file" class="choose file">
-                            </div>
-                        
                     </form>
-
                 </div>
             </div>
         </div>
         <div class="row logo-container">
             <div class="logo col s12">
-                <img src="/resources/img/Logo/LogoRenueva_Login.png" class="logo-login" alt="Logo">                
+                <img src="../../resources/img/Logo/LogoRenueva_Login.png" class="logo-login" alt="Logo">                
             </div>
             <div class="col s12">
                 <div class="button btn-register">
@@ -62,7 +63,12 @@
     </main>
 
     <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" src="./../../resources/general/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../resources/general/js/materialize.min.js"></script>
+        <!--controlador sweet alert-->
+        <script src="../../resources/general/js/sweetalert.min.js"></script>
+        <!-- general controller -->
+        <script src="../../controllers/controller.js"></script>
+    <script src="../../controllers/public/register.js"></script>
 </body>
 
 </html>

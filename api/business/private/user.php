@@ -54,67 +54,29 @@ if (isset($_GET['action'])) {
 
 
                 break;
-            case 'readAll':
 
-
-                break;
-
-            case 'search':
-
-
-                break;
-
-                //para insertar
-            case 'create':
-                //validar los datos que trae el formulario por medio del método $_POST con todos los datos
-                $_POST = Validate::form($_POST);
-                //enviando datos y validando datos
-                //solo los casos incorrectos
-                //$_POST['inputname']
-                // $user->setTypeUser(1); //solo tipo usuario 1 por testing
-                if (!$user->setUsername($_POST['username'])) {
-                    $response['exception'] = 'Username incorrect';
-                } elseif (!$user->setPassword($_POST['password'])) {
-                    $response['exception'] = Validate::errorPassword();
-                } elseif (!$user->setEmail($_POST['email'])) {
-                    $response['exception'] = 'Email format incorrect';
-                } /*else if (!$user->setPhoto('')) {
-                    $response['exception'] = Validate::errorFile();
-                }*/ elseif ($userquery->store()) {
-                    $response['status'] = 1;
-                    $response['message'] = 'User registred correctly';
-                } else {
-                    $response['exception'] = Connection::getException();
-                }
-
-                break;
-            case 'readOne':
-
-
-                break;
-            case 'delete':
-
-
-                break;
             default:
                 $response['exception'] = 'This Action is disable in session';
         }
     } else {
         //acciones cuando no sé a iniciado sesión
         switch ($_GET['action']) {
+
             case 'login':
+
                 //validar que el $_POST no traiga espacio demás
                 $_POST = Validate::form($_POST);
-                if ($userquery->validateUser($_POST['username'], $_POST['password']) == -1) {
+
+                if (!$userquery->validateUser($_POST['username'])) {
                     $response['exception'] = 'User no registred';
-                } elseif ($userquery->validateUser($_POST['username'], $_POST['password'] == 0)) {
-                    $response['exception'] = 'Incorrect password';
-                } else {
+                } elseif ($userquery->validatePassword($_POST['password'])) {
                     $response['status'] = 1;
                     $response['message'] = 'Authenticate Correct';
                     //crear  una sesión con el id usuario recuperado
                     $_SESSION['id_user'] = $user->getID();
                     $_SESSION['username'] = $user->getUsername();
+                } else {
+                    $response['exception'] = 'Password incorrect';
                 }
                 break;
 
@@ -124,7 +86,24 @@ if (isset($_GET['action'])) {
                 break;
 
             case 'signup':
-
+                //validar los datos que trae el formulario por medio del método $_POST con todos los datos
+                $_POST = Validate::form($_POST);
+                //enviando datos y validando datos
+                //solo los casos incorrectos
+                //$_POST['inputname']
+                $user->setTypeUser($userquery->getTypeUser('Client')['id_type_user']); //solo tipo usuario 1 por testing
+                if (!$user->setUsername($_POST['username'])) {
+                    $response['exception'] = 'Username incorrect';
+                } elseif (!$user->setPassword($_POST['password'])) {
+                    $response['exception'] = Validate::errorPassword();
+                } elseif (!$user->setEmail($_POST['email'])) {
+                    $response['exception'] = 'Email format incorrect';
+                } elseif ($userquery->store()) {
+                    $response['status'] = 1;
+                    $response['message'] = 'User registred correctly';
+                } else {
+                    $response['exception'] = Connection::getException();
+                }
 
                 break;
 
@@ -133,7 +112,7 @@ if (isset($_GET['action'])) {
         }
     }
     //formato para mostrar el contenido
-    header('content-type: application/json; charset=utf-8');    
+    header('content-type: application/json; charset=utf-8');
     // print_r($response);
     //resultado formato json y retorna al controlador
     print(json_encode($response));

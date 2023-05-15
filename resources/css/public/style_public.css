@@ -12,6 +12,7 @@
 }
 
 .body-article{
+
 }
 /* rules for change color of inputs text and email */
 input[type=text]:not(.browser-default):focus:not([readonly]),
@@ -45,6 +46,69 @@ header {
     width: 50%;
     height: 50%;
 
+}
+.index-main{
+    /* top: 20vh;
+    z-index: -1;
+    position: relative; */
+}
+.buttons-form-product{
+    display: flex;
+    gap: 2%;
+}
+
+.product-btn{
+    font-weight: 600;
+    color: #424242;
+    background-color: var(--primary-color);
+}
+
+.container-article{
+    height: 100vh;
+}
+.product-detail{
+    background-color: var(--bg-color);
+}
+
+.detail{
+    margin: 0 15%;
+}
+
+.view-icon{
+    display: flex;
+    align-items: center;
+}
+
+.product-image {
+    width: 100%;
+    height: 80%;
+    border-radius: 5px;
+}
+
+.product-image,
+.detail_product {
+    padding: 5%;
+}
+
+.detail_product{
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.main-products {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.product {
+    background: var(--body-color);
+    border-radius: 5px;
+    width: 45%;
 }
 
 .buttons-form-product{
@@ -513,7 +577,7 @@ h4 {
 
 .contact-cards {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     background-color: var(--card-color);
@@ -887,7 +951,9 @@ img.logo-login {
 .main-form {
     height: 100%;
 }
-
+.social-media{
+    display: flex;
+}
 .logo-container {
     height: 100%;
     margin: 0%;
@@ -896,6 +962,7 @@ img.logo-login {
     flex-direction: column;
     border-radius: 0 20px 20px 0;
     background-color: var(--first-color);
+    justify-content: space-evenly;
 }
 
 p {

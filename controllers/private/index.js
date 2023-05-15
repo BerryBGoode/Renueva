@@ -32,8 +32,6 @@ LOGIN.addEventListener('submit', async (event) => {
     //const. tipo JSON que retorna el response del server
     const JSON = await dataRequest(USERS, 'login', DATA);
     //sí el estado de este proceso es 1 se redirecciona al dashboard
-    console.log('exeception: ' + JSON.exception);
-    console.log('message:' + JSON.message);
     if (JSON.status) {
         notificationRedirect('success', JSON.message, true, 'dashboard.html');
     } else {
