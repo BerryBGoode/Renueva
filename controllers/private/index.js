@@ -22,7 +22,7 @@ const LOGIN = document.getElementById('login');
 /**
  * Método para enviar los datos del login
  * trigger 'submit'
- */
+ */ 
 LOGIN.addEventListener('submit', async (event) => {
     //valida que no se recargue la página
     event.preventDefault();

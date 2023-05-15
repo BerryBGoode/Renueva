@@ -10,7 +10,7 @@
     <!-- Optimización de la página web para dispositivos móviles -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- icon title -->
-    <link type="image/png" rel="icon" href="../../resources/img/Logo/LogoFavIcon.png">
+    <link type="image/png" rel="icon" href="../../resources/img/logo/LogoFavIcon.png">
     <!-- css files-->
     <link rel="stylesheet" href="../../resources/general/css/materialize.min.css">
     <link rel="stylesheet" href="../../resources/css/public/style_public.css">
@@ -18,26 +18,81 @@
 
 <body class="body-article">
 
-    <main class="container-article">    
-            <!--contiene el color de fondo -->
-        <div class="product-detail">
+    <header></header>
+    <div class="row banner">
+        <div class=" banner-description">
+            <img src="/resources/img/Logo/LogoRenueva_Login.png" alt="">
+        </div>
+    </div>
+    <main class="container-article">
+
+        <!--contiene el color de fondo -->
+        <div class="card-article ">
             <!-- detalle tiene margen -->
-            <div class="detail">
-                <div id="image">
-                    <img src="../../api/images/products/6440871b2fc25.jpg" alt="" srcset="">
-                </div>
-                <div id="detail">
-                    <span>Producto</span>
-                    <span>Precio</span>
-                    <span>Descripción</span>
-                    <span>Category</span>
-                </div>
-                <div class="order">
-                    <span>contador</span>
-                    <span>agragar</span>
+            <div class="col s12 m6 l6 xl6">
+                <img src="../../api/images/products/6440871b2fc25.jpg" alt="">
+            </div>
+            <div class="col s12 m6 l6 xl6 description ">
+                <h2>Product name</h2>
+                <span>Product description</span>
+                <div class="space"></div>
+                <span>$4.99</span>
+                <div class="cont-car">
+                    <div class="booton">
+                        <button class="button-article button1">-</button>
+                        <span> 1 </span>
+                        <button class="button-article button2">+</button>
+                    </div>
+                    <div class="booton">
+                        <button class="buutton-article">Add to car</button>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="space2"></div>
+        <div class="card-article coments">
+            <h6>Comments</h6>
+            <div class="space2"></div>
+            <div class="card2-article">
+                <div>
+                    <img src="../../resources/img/People/person1.jpeg" alt="">
+                </div>
+                <div class="info-comment">
+                    <span>Maria Fernanda de Molina</span>
+                    <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Culpa, explicabo quam molestias corrupti sint corporis dignissimos esse fuga sed quibusdam pariatur ipsam, illum odit minima perferendis, incidunt libero tenetur repellendus?</span>
+                </div>
+            </div>
+            <div class="space2"></div>
+            <div class="card2-article">
+                <div>
+                    <img src="../../resources/img/People/person1.jpeg" alt="">
+                </div>
+                <div class="info-comment">
+                    <span>Maria Fernanda de Molina</span>
+                    <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Culpa, explicabo quam molestias corrupti sint corporis dignissimos esse fuga sed quibusdam pariatur ipsam, illum odit minima perferendis, incidunt libero tenetur repellendus?</span>
+                </div>
+            </div>
+            <div class="space2"></div>
+            <div class="card2-article">
+                <div>
+                    <img src="../../resources/img/People/person1.jpeg" alt="">
+                </div>
+                <div class="info-comment">
+                    <span>Maria Fernanda de Molina</span>
+                    <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Culpa, explicabo quam molestias corrupti sint corporis dignissimos esse fuga sed quibusdam pariatur ipsam, illum odit minima perferendis, incidunt libero tenetur repellendus?</span>
+                </div>
+            </div>
+            <div class="data-comment">
+                <form action="">
+                    <div class="add-comment">
+                        <div class="input">
+                            <input type="text" placeholder="Username" class="login-input">
+                        </div>
+                    </div>
+                </form>
+            </div>    
+        </div>
+        <div class="space"></div>        
     </main>
 
 

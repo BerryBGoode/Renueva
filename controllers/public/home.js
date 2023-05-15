@@ -56,12 +56,14 @@ HEADER.innerHTML = `<nav class="nav-extended navbar-home">
 }
 
 const CARTBTN = document.getElementById('cart');
-
-CARTBTN.addEventListener('click', () => {
-    // verificar sesión
-    // dependiendo de la sesión enviar a login
-    // enviar a cart.html
-})
+if (CARTBTN) {
+    
+    CARTBTN.addEventListener('click', () => {
+        // verificar sesión
+        // dependiendo de la sesión enviar a login
+        // enviar a cart.html
+    })
+}
 
 document.addEventListener('DOMContentLoaded', function () {
 M.AutoInit();
