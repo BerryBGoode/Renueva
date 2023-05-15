@@ -242,7 +242,15 @@ nav ul li a:hover::after {
     padding-top: 20%;
 }
 
-/*search*/
+.space2{
+    padding-top: 3%;
+}
+
+.space2{
+    padding-top: 3%;
+}
+
+/* /search/ */
 
 #wrap {
     margin: 50px 100px;

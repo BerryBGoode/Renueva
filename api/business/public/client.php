@@ -15,6 +15,8 @@ $response = array('status' => 0, 'session' => 0, 'message' => null, 'exception' 
 if (isset($_SESSION['id_user'])) {
     
 } else {
+
+    $userquery = new UserQuery;
     //acciones cuando no se a iniciado
     switch ($_GET['action']) {
         case 'login':
