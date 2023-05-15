@@ -123,5 +123,4 @@ class UserQuery
     }
 }
 
-// $query = new UserQuery;
 // echo $query->validateUser('Fer', 'Fer1234567');
