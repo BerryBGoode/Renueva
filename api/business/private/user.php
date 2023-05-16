@@ -80,9 +80,22 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
-            case 'readUsers':
+            case 'LoginClient':
 
+                //validar que el $_POST no traiga espacio demás
+                $_POST = Validate::form($_POST);
 
+                if (!$userquery->validateClient($_POST['username'])) {
+                    $response['exception'] = 'User no registred';
+                } elseif ($userquery->validatePassword($_POST['password'])) {
+                    $response['status'] = 1;
+                    $response['message'] = 'Authenticate Correct';
+                    //crear  una sesión con el id usuario recuperado
+                    $_SESSION['id_user'] = $user->getID();
+                    $_SESSION['username'] = $user->getUsername();
+                } else {
+                    $response['exception'] = 'Password incorrect';
+                }
                 break;
 
             case 'signup':
@@ -91,6 +104,7 @@ if (isset($_GET['action'])) {
                 //enviando datos y validando datos
                 //solo los casos incorrectos
                 //$_POST['inputname']
+                print_r($_POST);
                 $user->setTypeUser($userquery->getTypeUser('Client')['id_type_user']); //solo tipo usuario 1 por testing
                 if (!$user->setUsername($_POST['username'])) {
                     $response['exception'] = 'Username incorrect';
@@ -98,7 +112,7 @@ if (isset($_GET['action'])) {
                     $response['exception'] = Validate::errorPassword();
                 } elseif (!$user->setEmail($_POST['email'])) {
                     $response['exception'] = 'Email format incorrect';
-                } elseif ($userquery->store()) {
+                } elseif ($userquery->store() && !Connection::getException()) {
                     $response['status'] = 1;
                     $response['message'] = 'User registred correctly';
                 } else {
