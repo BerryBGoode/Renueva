@@ -124,45 +124,8 @@ const LOADCLIENT = () => {
                     
                     // crear estado en proceso en la db
 
-                    // verificar sí existe sesión activa {
-                        // verificar vista para agregar producto (articulo o productos)
-                        // productos{
-                            // obtener el id del cliente que agrego compra                            
-                            // verificar ordenes pendientes {
-                                // obtener producto
-                                // obtener datos del orden pendiente
-                                // obtener el id de ese detalle según el fecha, cliente-> (idorden) , idproducto -> id detalle 
-                                // product === producto en la orden{
-                                    // + 1 cantidad en el producto
-                                // } existen más de 1{
-                                    // mostrar al cliente los detalles pendientes
-                                //}
-                                // } sino {
-                                    // agregar al detalle según el id de la orden pediente
-                                // }
-    
-                            //} sino{
-                                // hacer un insert en la tabla orders
-                                // obtener el id de la orden recien ingresada, según idcliente, fecha y estado en proceso
-                                // obtener el id de producto                            
-                                // ingresar cantidad por defecto 1 al detalle
-                                // muestra toast de que se agregado 1 producto                                                                                            
-                                // cliente ve carrito 
-                                    // cargar info del detalle
-                        // } articulo{
-                            // obtener el id del cliente que quiere comprar producto
-                            // verificar ordenes pendientes{ 
-                                
-                            // } existen mas de 1{
-                                // mostrar al cliente que tiene detalles pendientes
-                            // } sino
 
-                            // }
-                        // }
-
-                    // } sino {
-                    // mandarlo a iniciar sesión
-                    // }
+                    
                 })
             }
         })
