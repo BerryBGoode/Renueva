@@ -201,7 +201,7 @@ nav ul li a {
 
 nav ul li a::before {
     content: '';
-    border-bottom: 2px solid red;
+    border-bottom: 2px solid var(--yellow-color);
     position: absolute;
     bottom: -5px;
     width: 40%;
@@ -213,7 +213,7 @@ nav ul li a::before {
 
 nav ul li a::after {
     content: '';
-    border-bottom: 2px solid red;
+    border-bottom: 2px solid var(--yellow-color);
     position: absolute;
     bottom: -10px;
     width: 30%;
@@ -1078,11 +1078,13 @@ input[class='login-input']:not(.browser-default) {
     padding-top: 1.2vw;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
-.booton{
-    padding-right: 34%;
+.quantity{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
 }
 
 /* /card comments/ */
