@@ -1,18 +1,6 @@
 <?php
-//Atributos de la conexión
-//Servidor local
-define('SERVER', '127.0.0.1');
-//puerto (solo se utiliza este puerto para conectar con postgre)
-define('PORT', '5432');
-//base de datos
-define('DATABASE', 'renueva');
-//nombre de usuario postgresql
-define('USERNAME', 'postgres');
-//contraseña del usuario de postgre
-//la contraseña debe ser cambiada según establecida en postgresql
-define('PASSWORD', 'alvaradolira');
-//definir la constante con define, texto es mayus. es el nombre de la constante
-//y después el valor
+// archivo con los datos de la conexión
+require_once 'data.config.php';
 
 header('Access-Control-Allow-Origin: *');
 
