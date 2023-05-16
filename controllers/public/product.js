@@ -6,6 +6,8 @@ const CONTENT = document.getElementById('products');
 const PATH = '../../api/images/products/';
 // obj para guardar id de los productos  
 const PRODUCTS = [];
+
+
 // promise method para consultar y obtener las respuestas del api
 const REQUEST = (action, form = null) => {
     // crear un objeto const. vacio con los valores de method y body vacíos
@@ -102,7 +104,7 @@ const LOADCLIENT = () => {
                             <!-- agregar producto a orden -->
                         <form method="post" id="product">
                             <input type="number" name="idproduct" id="idproduct" class="hide" value="${PRODUCTS[index]}">
-                            <button type="submit" class="btn product-btn">
+                            <button type="submit" class="btn product-btn add-cart" value="${PRODUCTS[index]}">
                                 Buy
                             </button>
                         </form>
@@ -110,17 +112,30 @@ const LOADCLIENT = () => {
                 </div>                
                 `;
                 
-                index++;
-                
-                
-                
+                index++;                                            
             });
+            // obtener los botones para 'comprar'
+            const BUY = document.getElementsByClassName('add-cart');
+            // recorrer los botones encontrados
+            for(let i = 0; i < BUY.length; i++){
+                // crear evento click
+                BUY[i].addEventListener('click', async event => {
+                    event.preventDefault();
+                    
+                    // crear estado en proceso en la db
+
+
+                    
+                })
+            }
         })
         .catch(error => {
             console.error(error);
             // notificationRedirect('error', data.exception, false);
         })
 };
+
+
 
 // evento que se ejecuta cada vez que carga el DOM
 document.addEventListener('DOMContentLoaded', () => {

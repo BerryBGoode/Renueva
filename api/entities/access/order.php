@@ -186,6 +186,53 @@ class OrderQuery
         $param = array($order);
         return Connection::all($sql, $param);
     }
+
+    /**
+     * Método para obtener las ordenes pendientes que tiene el cliente
+     * que tiene la sesión activa
+     * $client, cliente que tiene sesión activa
+     * retorna un arreglo con los datos obtenidos según consulta 
+     */
+    public function getOrderByClient($client)
+    {
+        $state = 'in process';
+        $sql = 'SELECT idorder 
+                FROM orders 
+                WHERE idclient = ? 
+                AND idstate_order = (
+                    SELECT idstate_order 
+                    FROM states_orders
+                    WHERE state_order = ?
+                )';
+        $params = array($client, $state);
+        return Connection::all($sql, $params);
+    }
+
+    /**
+     * Método para obtener el detalle del cliente a partir del
+     * producto y la orden
+     * retorna un arreglo con los datos recuperados de la consulta 
+     */
+    public function getDetailByOrderProduct($order, $product)
+    {
+        $sql = 'SELECT * 
+                FROM detail_orders 
+                WHERE idorder = ? AND id_product = ?';
+        $params = array($order, $product);
+        return Connection::all($sql, $params);
+    }
+
+    /**
+     * Método para sumar +1 a la cantidad del detalle 
+     * retorna la cantidad de registros modificados
+     */
+    public function addQuantitive($product){
+        $sql = 'UPDATE detail_orders
+                SET cuantitive = cuantitive + 1
+                WHERE id_detail_order = ?';
+        $param = array($product);
+        return Connection::storeProcedure($sql, $param);
+    }
 }
 // /*cargar ordenes cuando agregue o actualize
 // /*cargar No.Orders
