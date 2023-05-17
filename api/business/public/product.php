@@ -7,6 +7,8 @@ $response = array('message' => null, 'exception' => null, 'dataset' => null, 'st
 // verificar sí existe un acción
 if ($_GET['action']) {
     
+    // no se reanuda valiables sesión porque no es necesario para ver productos
+
     // instancia de la clase con los queries de products
     $product = new ProductQuery;
 
@@ -14,6 +16,7 @@ if ($_GET['action']) {
     switch ($_GET['action']) {
         // acción para cargar los productos al cliente
         case 'loadProducts':
+
 
             if ($response['dataset'] = $product->loadProductsClient()) {
                 $response['status'] = 1;

@@ -42,7 +42,6 @@ class UserQuery
 
         //$user igual a la constante con la instancia de la clase
         $user = USER;
-        print_r($user->getUsername(). $user->getPassword(). $user->getEmail(). $user->getTypeUser());
         //$user->setTypeUser(1);
         //declarar var con el query
         $sql = 'INSERT INTO users(username, password, email, id_type_user/*, photo*/) VALUES (?, ?, ?, ?/*,?*/)';
@@ -80,12 +79,11 @@ class UserQuery
     {
         //$user igual a la constante con la instancia de la clase
         $user = USER;
-        $client = 2;
         //query para validar sí existe un registro con el nombre de ese usuario
         $sql = 'SELECT id_user
         FROM users 
-        WHERE username  = ? AND id_type_user = ?';
-        $param = array($username, $client);
+        WHERE username  = ?';
+        $param = array($username);
         //resulta es igual a los datos que retorne ese query
         $result = Connection::row($sql, $param);
         if ($result) {

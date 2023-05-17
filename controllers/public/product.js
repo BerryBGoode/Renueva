@@ -1,5 +1,6 @@
 // const para consultar las respuestas de la petición
 const PRODUCT = 'business/public/product.php';
+const CART = 'business/public/cart.php';
 // const para renederizar los datos obtenidos de la promise
 const CONTENT = document.getElementById('products');
 // const para acceder desde este directorio a las imagenes de api
@@ -123,7 +124,8 @@ const LOADCLIENT = () => {
                     event.preventDefault();
                     
                     // crear estado en proceso en la db
-
+                    const JSON = await dataRequest(CART, 'createOrder');
+                    console.log(JSON)
 
                     
                 })

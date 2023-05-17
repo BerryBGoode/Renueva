@@ -196,14 +196,14 @@ class OrderQuery
     public function getOrderByClient($client)
     {
         $state = 'in process';
-        $sql = 'SELECT idorder 
+        $sql = 'SELECT id_order 
                 FROM orders 
-                WHERE idclient = ? 
-                AND idstate_order = (
-                    SELECT idstate_order 
-                    FROM states_orders
-                    WHERE state_order = ?
-                )';
+                WHERE id_client = ( SELECT id_client 
+                                    FROM clients 
+                                    WHERE id_user = ?) 
+                AND id_state_order = (  SELECT id_state_order 
+                                        FROM states_orders
+                                        WHERE state_order = ?)';
         $params = array($client, $state);
         return Connection::all($sql, $params);
     }
@@ -226,7 +226,8 @@ class OrderQuery
      * Método para sumar +1 a la cantidad del detalle 
      * retorna la cantidad de registros modificados
      */
-    public function addQuantitive($product){
+    public function addQuantitive($product)
+    {
         $sql = 'UPDATE detail_orders
                 SET cuantitive = cuantitive + 1
                 WHERE id_detail_order = ?';
