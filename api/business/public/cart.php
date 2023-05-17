@@ -24,25 +24,36 @@ if (!isset($_GET['action'])) {
         switch ($_GET['action']) {
             case 'createOrder':
                 // verificar sí el cliente que quiere comprar X producto tiene un orden pendiente
-                if ($order = $query->getOrderByClient($_SESSION['id_client'])) {
+                if ($orders = $query->getOrderByClient($_SESSION['id_client'])) {
                     // línea 30 a la 37, valida que las ordenes pendientes tengan un detalle, sí no lo tienen la eliminará
                     // recorrer las ordenes encontradas
-                    for ($i = 0; $i < count($order); $i++) {
+                    for ($i = 0; $i < count($orders); $i++) {
                         // verfícar sí esa orden no tiene detalle     
-                        if (!$details = $query->details(implode(' ', $order[$i]))) {
+                        if (!$details = $query->details(implode(' ', $orders[$i]))) {
                             // eliminar orden pendiente sí no tiene detalle
                             // convertirla de array a string
-                            $query->destroyOrder(implode(' ', $order[$i]));
+                            $query->destroyOrder(implode(' ', $orders[$i]));
                             // print_r($order[$i]);
                         }
                     }
+                    // hasta aquí tengo ordenes que tienen detalle
+                    // verificar sí la orden pendiente y el producto ya tienen un detalle, para agregar +1 cantidad
+                    // iterar el arreglo con la orden con detalle
+                    for ($i = 0; $i < count($orders); $i++) {
+                        // verificar sí el detalle de la orden ya tiene producto agregado
+                        // y que el producto es el que quiere comprar el cliente
+                        if ($details = $query->getDetailByOrderProduct(implode(' ',$orders[$i]), $_POST['product'])) {
+                            // cliente ya tiene un detalle con ese producto
+                            // entonces procede a agregar +1 a la cantidad de ese detalle                        
+                            $query->addQuantitive($details[$i]['id_detail_order']);
+                            $response['status'] = 1;
+                        }else{
+                            // agregar producto al detalle
+                        }
+                        
+                    }
+                } else {
                     // crear orden en caso tenga un orden nueva
-                    // verificar sí la orden pendiente y el producto ya tienen un detalle, para agregar 
-                    // if (condition) {
-                    //     # code...
-                    // }
-                } 
-                else {
                     // no tiene orden pendiente - crear orden y detalle
                 }
 

@@ -218,7 +218,7 @@ class OrderQuery
     {
         $sql = 'SELECT * 
                 FROM detail_orders 
-                WHERE idorder = ? AND id_product = ?';
+                WHERE id_order = ? AND id_product = ?';
         $params = array($order, $product);
         return Connection::all($sql, $params);
     }
@@ -227,12 +227,12 @@ class OrderQuery
      * Método para sumar +1 a la cantidad del detalle 
      * retorna la cantidad de registros modificados
      */
-    public function addQuantitive($product)
+    public function addQuantitive($detail)
     {
         $sql = 'UPDATE detail_orders
                 SET cuantitive = cuantitive + 1
                 WHERE id_detail_order = ?';
-        $param = array($product);
+        $param = array($detail);
         return Connection::storeProcedure($sql, $param);
     }
 }

@@ -7,6 +7,7 @@ const CONTENT = document.getElementById('products');
 const PATH = '../../api/images/products/';
 // obj para guardar id de los productos  
 const PRODUCTS = [];
+// inicializar toast
 
 
 // promise method para consultar y obtener las respuestas del api
@@ -67,15 +68,15 @@ const LOADCLIENT = () => {
     REQUEST('loadProducts')
         // obtener del obj promise la respuesta y guardarla en un objeto
         .then(data => {
-            
-            
+
+
             // reiniciar los valores 
             PRODUCTS.splice(0, PRODUCTS.length);
             // definiar un var. para identificar la vez que se ha recorrido el objeto JSON
             let index = 0;
             data.dataset.forEach(element => {
                 PRODUCTS.push(element.id_product);
-                
+
                 // inyectar el contenido del anterior recorrido + actual                        
                 CONTENT.innerHTML += `    
                 
@@ -112,22 +113,25 @@ const LOADCLIENT = () => {
                     </div>
                 </div>                
                 `;
-                
-                index++;                                            
+
+                index++;
             });
             // obtener los botones para 'comprar'
             const BUY = document.getElementsByClassName('add-cart');
             // recorrer los botones encontrados
-            for(let i = 0; i < BUY.length; i++){
+            for (let i = 0; i < BUY.length; i++) {
                 // crear evento click
                 BUY[i].addEventListener('click', async event => {
                     event.preventDefault();
-                    
+                    const DATA = new FormData;
+                    DATA.append('product', BUY[i].value);
                     // crear estado en proceso en la db
-                    const JSON = await dataRequest(CART, 'createOrder');
-                    console.log(JSON)
+                    const JSON = await dataRequest(CART, 'createOrder', DATA);
+                    if (JSON.status) {
+                        M.toast({ html: 'Product append to the cart' })
+                    }
 
-                    
+
                 })
             }
         })
