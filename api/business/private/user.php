@@ -41,19 +41,24 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
-            case 'readProfile':
+            case 'LoginClient':
 
+                //validar que el $_POST no traiga espacio demás
+                $_POST = Validate::form($_POST);
 
+                if (!$userquery->validateClient($_POST['username'])) {
+                    $response['exception'] = 'User no registred';
+                } elseif ($userquery->validatePassword($_POST['password'])) {
+                    $response['status'] = 1;
+                    $response['message'] = 'Authenticate Correct';
+                    //crear  una sesión con el id usuario recuperado
+                    $_SESSION['id_client'] = $user->getID();
+                    $_SESSION['user_client'] = $user->getUsername();
+                } else {
+                    $response['exception'] = 'Password incorrect';
+                }
                 break;
 
-            case 'editProfile':
-
-
-                break;
-            case 'changePassword':
-
-
-                break;
 
             default:
                 $response['exception'] = 'This Action is disable in session';
@@ -74,7 +79,7 @@ if (isset($_GET['action'])) {
                     $response['message'] = 'Authenticate Correct';
                     //crear  una sesión con el id usuario recuperado
                     $_SESSION['id_user'] = $user->getID();
-                    $_SESSION['username'] = $user->getUsername();
+                    $_SESSION['username'] = $_POST['username'];
                 } else {
                     $response['exception'] = 'Password incorrect';
                 }
@@ -91,8 +96,8 @@ if (isset($_GET['action'])) {
                     $response['status'] = 1;
                     $response['message'] = 'Authenticate Correct';
                     //crear  una sesión con el id usuario recuperado
-                    $_SESSION['id_user'] = $user->getID();
-                    $_SESSION['username'] = $user->getUsername();
+                    $_SESSION['id_client'] = $user->getID();
+                    $_SESSION['user_client'] = $_POST['username'];
                 } else {
                     $response['exception'] = 'Password incorrect';
                 }

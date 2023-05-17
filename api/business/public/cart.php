@@ -9,31 +9,37 @@ $response = array('status' => 0, 'message' => null, 'exception' => null, 'datase
 
 // verificar que no exista una acción
 if (!isset($_GET['action'])) {
-    $response['exception']= 'Action dissable';
+    $response['exception'] = 'Action dissable';
 } else {
-    // renuvar la sesión activa
+    // renuvar las variables de sesión activa
     session_start();
     // instanciar la clase con los queries
     $query = new OrderQuery;
     // verificar que no exista una sessión
-    if (!isset($_SESSION['id_user'])) {
+    if (!isset($_SESSION['id_client'])) {
         $response['status'] = -1;
         $response['exception'] = 'This action require to have account';
     } else {
         // verificar la acción de la que hace la petición
         switch ($_GET['action']) {
             case 'createOrder':
-                
-                
+
+                if ($response['dataset'] = $query->getOrderByClient($_SESSION['id_client'])) {
+                    $response['status'] = 1;
+                } else {
+                    # code...
+                }
 
                 break;
-            
+
             default:
                 # code...
                 break;
         }
     }
-    
 }
-
-?>
+//formato para mostrar el contenido
+header('content-type: application/json; charset=utf-8');
+// print_r($response);
+//resultado formato json y retorna al controlador
+print(json_encode($response));
