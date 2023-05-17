@@ -112,7 +112,7 @@ function notificacionOptions(msg) {
             },
             confirm2: {
                 text: 'Delete both',
-                value: 2,
+                value: 2    ,
                 visible: true,
                 className: 'grey darken-1'
             }
@@ -175,7 +175,6 @@ async function loadSelect(filename, action, select, selected = null) {
         if (select === 'orders') {
             list += `<option value="0">New Order</option>`;
         }
-        console.log(JSON.message + JSON.status)
 
         if (JSON.status === -1) {
             // cargar un option con el message
