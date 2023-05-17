@@ -23,12 +23,29 @@ if (!isset($_GET['action'])) {
         // verificar la acción de la que hace la petición
         switch ($_GET['action']) {
             case 'createOrder':
-
-                if ($response['dataset'] = $query->getOrderByClient($_SESSION['id_client'])) {
-                    $response['status'] = 1;
-                } else {
-                    # code...
+                // verificar sí el cliente que quiere comprar X producto tiene un orden pendiente
+                if ($order = $query->getOrderByClient($_SESSION['id_client'])) {
+                    // línea 30 a la 37, valida que las ordenes pendientes tengan un detalle, sí no lo tienen la eliminará
+                    // recorrer las ordenes encontradas
+                    for ($i = 0; $i < count($order); $i++) {
+                        // verfícar sí esa orden no tiene detalle     
+                        if (!$details = $query->details(implode(' ', $order[$i]))) {
+                            // eliminar orden pendiente sí no tiene detalle
+                            // convertirla de array a string
+                            $query->destroyOrder(implode(' ', $order[$i]));
+                            // print_r($order[$i]);
+                        }
+                    }
+                    // crear orden en caso tenga un orden nueva
+                    // verificar sí la orden pendiente y el producto ya tienen un detalle, para agregar 
+                    // if (condition) {
+                    //     # code...
+                    // }
+                } 
+                else {
+                    // no tiene orden pendiente - crear orden y detalle
                 }
+
 
                 break;
 

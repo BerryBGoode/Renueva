@@ -177,7 +177,7 @@ class OrderQuery
 
     /**
      * Método para obtener los detalles de una orden
-     * $order, orden seleccionada que viene de la URL
+     * $order, orden por seleccionar
      * retorna un arreglo con los datos según la consulta
      */
     public function details($order)
@@ -207,6 +207,7 @@ class OrderQuery
         $params = array($client, $state);
         return Connection::all($sql, $params);
     }
+    
 
     /**
      * Método para obtener el detalle del cliente a partir del
