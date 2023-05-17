@@ -49,6 +49,16 @@ if (!isset($_GET['action'])) {
                             $response['status'] = 1;
                         }else{
                             // agregar producto al detalle
+                            if (!ORDER->setDOrder(implode(' ',$orders[$i]))) {
+                                $response['exception'] = 'Error to get order';
+                            }elseif (!ORDER->setProduct($_POST['product'])) {
+                                $response['exception'] = 'Error to get product';
+                            }elseif (!ORDER->setQuantity($_POST['quantitive'])) {
+                                $response['exception'] = 'Error to get quantity';
+                            }elseif ($query->storeDetail()) {
+                                $response['status'] = 1;
+                            }
+
                         }
                         
                     }

@@ -125,10 +125,13 @@ const LOADCLIENT = () => {
                     event.preventDefault();
                     const DATA = new FormData;
                     DATA.append('product', BUY[i].value);
+                    DATA.append('quantitive', 1);
                     // crear estado en proceso en la db
                     const JSON = await dataRequest(CART, 'createOrder', DATA);
                     if (JSON.status) {
-                        M.toast({ html: 'Product append to the cart' })
+                        M.toast({ html: 'Product append in cart' });
+                    }else{
+                        M.toast({ html: JSON.excep});
                     }
 
 
