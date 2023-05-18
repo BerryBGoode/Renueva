@@ -1198,6 +1198,10 @@ input[class='login-input']:not(.browser-default) {
     display: flex;
     justify-content: center;
 }
+
+#rest, #sum{
+    cursor: pointer;
+}
 .info-comment {
     padding: 1vw;
     display: flex;
