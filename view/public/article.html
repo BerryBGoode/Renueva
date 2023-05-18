@@ -60,9 +60,11 @@
                         </svg>
 
                     </div>
-                    <div class="booton">
-                        <button type="submit" class="buutton-article">Add to car</button>
-                    </div>
+                    <form id="form-order" method="post">
+                        <div class="booton">                        
+                            <button type="submit" class="buutton-article">Add to car</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -73,7 +75,7 @@
             <div class="container-comments" id="container-comments"></div>
 
             <div class="data-comment">
-                <form action="">
+                <form method="post" id="form-comment">
                     <div class="add-comment">
                         <div class="input">
                             <input type="text" placeholder="Username" class="login-input">

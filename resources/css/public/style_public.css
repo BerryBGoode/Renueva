@@ -1179,11 +1179,15 @@ input[class='login-input']:not(.browser-default) {
     transition-duration: 0.4s;
     cursor: pointer;
 
-    background-color: var(--color-gris);
+    /* background-color: var(--color-gris); */
     color: black;
-    border: 2px solid var(--color-gris);
+    background-color: var(--yellow-color);
+    border: var(--yellow-color);
+    /* border: 2px solid var(--color-gris); */
 }
-
+.buutton-article:focus{
+    background-color: #ffeda6;
+}
 /* /Comments articles/ */
 
 .coments {

@@ -126,14 +126,21 @@ const LOADCLIENT = () => {
                     const DATA = new FormData;
                     DATA.append('product', BUY[i].value);
                     DATA.append('quantity', 1);
+                    DATA.append('view', 'products');
                     // DATA.append('date', );
                     // crear estado en proceso en la db
                     const JSON = await dataRequest(CART, 'createOrder', DATA);
-                    if (JSON.status) {
+                    console.log(JSON);
+                    if (JSON.status === 1) {
                         M.toast({ html: 'Product append in cart' });
-                    }else{
-                        let msg = JSON.exception +' ';
-                        M.toast({ html: msg});
+                    } else if (JSON.status === -1) {
+                        M.toast({ html: "You're need sign in to append product" });
+                        setTimeout(() => {
+                            location.href = 'login.html'
+                        }, 1500);
+                    } else {
+                        let msg = JSON.exception + ' ';
+                        M.toast({ html: msg });
                     }
 
 

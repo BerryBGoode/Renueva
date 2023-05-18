@@ -228,12 +228,12 @@ class OrderQuery
      * Método para sumar +1 a la cantidad del detalle 
      * retorna la cantidad de registros modificados
      */
-    public function addQuantitive($detail)
+    public function addQuantitive($detail, $quantity)
     {
         $sql = 'UPDATE detail_orders
-                SET cuantitive = cuantitive + 1
+                SET cuantitive = cuantitive + ?
                 WHERE id_detail_order = ?';
-        $param = array($detail);
+        $param = array($quantity, $detail);
         return Connection::storeProcedure($sql, $param);
     }
 
