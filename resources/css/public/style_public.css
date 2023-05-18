@@ -11,7 +11,7 @@
     --color-gris: #D9D9D9;
 }
 
-.body-article{
+.body-article {
     overflow-x: hidden;
     display: flex;
     height: 100vh;
@@ -21,6 +21,7 @@
 .bold {
     font-weight: bold;
 }
+
 /* rules for change color of inputs text and email */
 input[type=text]:not(.browser-default):focus:not([readonly]),
 input[type=email]:not(.browser-default):focus:not([readonly]) {
@@ -54,34 +55,37 @@ header {
     height: 50%;
 
 }
-.index-main{
+
+.index-main {
     /* top: 20vh;
     z-index: -1;
     position: relative; */
 }
-.buttons-form-product{
+
+.buttons-form-product {
     display: flex;
     gap: 2%;
 }
 
-.product-btn{
+.product-btn {
     font-weight: 600;
     color: #424242;
     background-color: var(--primary-color);
 }
 
-.container-article{
+.container-article {
     height: 100vh;
 }
-.product-detail{
+
+.product-detail {
     background-color: var(--bg-color);
 }
 
-.detail{
+.detail {
     margin: 0 15%;
 }
 
-.view-icon{
+.view-icon {
     display: flex;
     align-items: center;
 }
@@ -97,7 +101,7 @@ header {
     padding: 5%;
 }
 
-.detail_product{
+.detail_product {
     display: flex;
     flex-direction: column;
     font-weight: bold;
@@ -118,29 +122,30 @@ header {
     width: 45%;
 }
 
-.buttons-form-product{
+.buttons-form-product {
     display: flex;
     gap: 2%;
 }
 
-.product-btn{
+.product-btn {
     font-weight: 600;
     color: #424242;
     background-color: var(--primary-color);
 }
 
-.container-article{
+.container-article {
     height: 100vh;
 }
-.product-detail{
+
+.product-detail {
     background-color: var(--bg-color);
 }
 
-.detail{
+.detail {
     margin: 0 15%;
 }
 
-.view-icon{
+.view-icon {
     display: flex;
     align-items: center;
 }
@@ -156,7 +161,7 @@ header {
     padding: 5%;
 }
 
-.detail_product{
+.detail_product {
     display: flex;
     flex-direction: column;
     font-weight: bold;
@@ -249,11 +254,11 @@ nav ul li a:hover::after {
     padding-top: 20%;
 }
 
-.space2{
+.space2 {
     padding-top: 3%;
 }
 
-.space2{
+.space2 {
     padding-top: 3%;
 }
 
@@ -451,6 +456,12 @@ body {
     color: black;
 }
 
+
+.container-comments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 p {
     margin-top: 20px;
@@ -962,9 +973,11 @@ img.logo-login {
 .main-form {
     height: 100%;
 }
-.social-media{
+
+.social-media {
     display: flex;
 }
+
 .logo-container {
     height: 100%;
     margin: 0%;
@@ -1038,8 +1051,8 @@ input[class='login-input']:not(.browser-default) {
 /* /end register html rules/ */
 
 /* /style article/ */
-.container-article{
-    /* width: 100%; */
+.container-article {
+    width: 100vw;
     padding: 2%;
     background-color: var(--sec-color);
     display: flex;
@@ -1048,7 +1061,7 @@ input[class='login-input']:not(.browser-default) {
     align-items: center;
 }
 
-.article-detail{
+.article-detail {
     padding: auto;
     display: flex;
     flex-direction: row;
@@ -1057,7 +1070,7 @@ input[class='login-input']:not(.browser-default) {
 }
 
 
-.card-article{
+.card-article {
     background-color: var(--bg-color);
     box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.25);
     transition: .2s all;
@@ -1070,36 +1083,36 @@ input[class='login-input']:not(.browser-default) {
     align-items: center;
 }
 
-.card-article img{
+.card-article img {
     padding: 1.5vw;
 }
 
-.description{
+.description {
     padding-left: 2vw;
     width: 43vw;
     display: flex;
     flex-direction: column;
 }
 
-.description span{
+.description span {
     padding-left: 0.5vw;
 }
 
-.cont-car{
+.cont-car {
     padding-top: 1.2vw;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.quantity{
+.quantity {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
 }
 
 /* /card comments/ */
-.card2-article{
+.card2-article {
     background-color: var(--card-color);
     box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.25);
     transition: .2s all;
@@ -1109,7 +1122,7 @@ input[class='login-input']:not(.browser-default) {
     flex-direction: row;
 }
 
-.card2-article img{
+.card2-article img {
     width: 110%;
     height: 100%;
     border-radius: 50%;
@@ -1127,34 +1140,34 @@ input[class='login-input']:not(.browser-default) {
     border-radius: 50%;
     transition-duration: 0.4s;
     cursor: pointer;
-  }
-  
-  .button1 {
+}
+
+.button1 {
     background-color: var(--yellow-color);
     color: black;
     border: 2px solid var(--yellow-color);
-  }
-  
-  .button1:hover {
-    background-color:var(--bg-color);
+}
+
+.button1:hover {
+    background-color: var(--bg-color);
     color: black;
-    
-  }
-  
-  .button2 {
+
+}
+
+.button2 {
     background-color: var(--yellow-color);
     color: black;
     border: 2px solid var(--yellow-color);
-  }
-  
-  .button2:hover {
-    background-color:var(--bg-color);
+}
+
+.button2:hover {
+    background-color: var(--bg-color);
     color: black;
-  }
-  
-  /* /Buton add to car, article/ */
-  
-  .buutton-article {
+}
+
+/* /Buton add to car, article/ */
+
+.buutton-article {
     border: none;
     color: white;
     padding: 3px 8px;
@@ -1169,30 +1182,35 @@ input[class='login-input']:not(.browser-default) {
     background-color: var(--color-gris);
     color: black;
     border: 2px solid var(--color-gris);
-  }
+}
 
-  /* /Comments articles/ */
+/* /Comments articles/ */
 
-  .coments{
+.coments {
     padding: 1vw;
     width: 100%;
     display: flex;
     flex-direction: column;
-  }
-  
-  .info-comment{
+    align-items: stretch;
+}
+
+.title-comments{
+    display: flex;
+    justify-content: center;
+}
+.info-comment {
     padding: 1vw;
     display: flex;
     flex-direction: column;
 }
 
-    .info-comment span{
-        padding-top: 1vw;
-    }
+.info-comment span {
+    padding-top: 1vw;
+}
 
-    .add-comment{
-        padding: 3vw;
-    }
+.add-comment {
+    padding: 3vw;
+}
 
 /* /responsive design/ */
 @media screen and (max-width: 878px) {
@@ -1204,7 +1222,7 @@ input[class='login-input']:not(.browser-default) {
         flex-direction: column;
         align-items: center;
     }
-    
+
 
     .cards {
         display: flex;
@@ -1226,17 +1244,20 @@ input[class='login-input']:not(.browser-default) {
         padding: 30px;
     }
 
-    .card-article{
+    .card-article {
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
 
-    .description {width: 100%; height: 50vh;}
+    .description {
+        width: 100%;
+        height: 50vh;
+    }
 }
 
 @media screen and (max-width: 500px) {
-    .card-article img{
+    .card-article img {
         width: 100%;
     }
 }

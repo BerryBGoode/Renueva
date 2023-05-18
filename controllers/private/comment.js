@@ -39,8 +39,7 @@ async function loadTable() {
     DATA.append('idproduct', getProductURL());
     // obtener los datos del api según el proceso
     const JSON = await dataRequest(COMMENT, 'comments', DATA);
-
-    if (JSON.status) {
+    if (JSON.status === 1) {
 
         JSON.dataset.forEach(element => {
             // el '+=' se utilizar para agregar el valor recorrido más el anterior
