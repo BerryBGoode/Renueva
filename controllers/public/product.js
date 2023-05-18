@@ -7,8 +7,8 @@ const CONTENT = document.getElementById('products');
 const PATH = '../../api/images/products/';
 // obj para guardar id de los productos  
 const PRODUCTS = [];
-// inicializar toast
-
+// instanciar fecha
+const DATE = new Date();
 
 // promise method para consultar y obtener las respuestas del api
 const REQUEST = (action, form = null) => {
@@ -118,20 +118,22 @@ const LOADCLIENT = () => {
             });
             // obtener los botones para 'comprar'
             const BUY = document.getElementsByClassName('add-cart');
-            // recorrer los botones encontrados
+            // recorrer los botones encontrados 
             for (let i = 0; i < BUY.length; i++) {
                 // crear evento click
                 BUY[i].addEventListener('click', async event => {
                     event.preventDefault();
                     const DATA = new FormData;
                     DATA.append('product', BUY[i].value);
-                    DATA.append('quantitive', 1);
+                    DATA.append('quantity', 1);
+                    // DATA.append('date', );
                     // crear estado en proceso en la db
                     const JSON = await dataRequest(CART, 'createOrder', DATA);
                     if (JSON.status) {
                         M.toast({ html: 'Product append in cart' });
                     }else{
-                        M.toast({ html: JSON.excep});
+                        let msg = JSON.exception +' ';
+                        M.toast({ html: msg});
                     }
 
 

@@ -192,13 +192,13 @@ if (isset($_GET['action'])) {
 
             case 'deleteBoth':
                 //validar el form
-                $_POST = Validate::form($_POST);
+                $_POST = Validate::form($_POST);                
                 //validar el 'idorder' que exista o no sea menor a 0
                 if (!$_POST['id_order'] || $_POST['id_order'] < 0) {
                     $response['exception'] = 1;
                 } elseif ($query->destroyOrder($_POST['id_order'])) {
                     $response['status'] = 1;
-                    $response['message'] = 'Both data was correctly delete';
+                    $response['message'] = 'Order was correctly delete';
                 } else {
                     $response['exception'] = Connection::getException();
                 }

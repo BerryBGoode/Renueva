@@ -212,7 +212,6 @@ async function onModify(id) {
     //const. con las respuestas del api
     const JSON = await dataRequest(ORDER, 'one', DATA);
     //verificar la respuesta
-    console.log(JSON)
     if (JSON.status) {
         //abrir el modal
         MODAL.open();
@@ -237,29 +236,12 @@ async function onModify(id) {
 }
 
 //async-await method para eliminar los datos del detalle o de la orden seleccionada
-async function onDestroy(detail, order) {
+async function onDestroy(order) {
     //const. obj. para agregarle el 'idorder' y 'iddetail'
     const DATA = new FormData();
     DATA.append('idorder', order);
-    let confirm = await notificacionOptions('Do you wanna delete some?');
-    if (confirm == 1) {
-
-        //solo se quiere eliminar el detalle
-        //enviar el id
-        DATA.append('id_detail', detail);
-        //const. para guardar el response
-        const JSON = await dataRequest(ORDER, 'deleteDetail', DATA);
-        //verificar el estado de la acción
-        if (JSON.status) {
-
-            getData();
-            notificationRedirect('success', JSON.message, true);
-        } else {
-            notificationRedirect('error', JSON.exception, false);
-        }
-
-    } else if (confirm == 2) {
-
+    let confirm = await notificationConfirm('Do you wanna delete some?');
+    if (confirm) {
         //solo se quiere eliminar la orden y sus dependientes
         //enviar el id
         DATA.append('id_order', order);

@@ -42,36 +42,68 @@ if (!isset($_GET['action'])) {
                     for ($i = 0; $i < count($orders); $i++) {
                         // verificar sí el detalle de la orden ya tiene producto agregado
                         // y que el producto es el que quiere comprar el cliente
-                        if ($details = $query->getDetailByOrderProduct(implode(' ',$orders[$i]), $_POST['product'])) {
+                        if ($details = $query->getDetailByOrderProduct(implode(' ', $orders[$i]), $_POST['product'])) {
                             // cliente ya tiene un detalle con ese producto
                             // entonces procede a agregar +1 a la cantidad de ese detalle                        
                             $query->addQuantitive($details[$i]['id_detail_order']);
                             $response['status'] = 1;
-                        }else{
+                        } else {
                             // agregar producto al detalle
-                            if (!ORDER->setDOrder(implode(' ',$orders[$i]))) {
+                            if (!ORDER->setDOrder(implode(' ', $orders[$i]))) {
                                 $response['exception'] = 'Error to get order';
-                            }elseif (!ORDER->setProduct($_POST['product'])) {
+                            } elseif (!ORDER->setProduct($_POST['product'])) {
                                 $response['exception'] = 'Error to get product';
-                            }elseif (!ORDER->setQuantity($_POST['quantitive'])) {
+                            } elseif (!ORDER->setQuantity($_POST['quantity'])) {
                                 $response['exception'] = 'Error to get quantity';
-                            }elseif ($query->storeDetail()) {
+                            } elseif ($query->storeDetail()) {
                                 $response['status'] = 1;
+                            } else {
+                                $response['exception'] = Connection::getException();
                             }
-
                         }
-                        
                     }
                 } else {
                     // crear orden en caso tenga un orden nueva
                     // no tiene orden pendiente - crear orden y detalle
-                }
+                    // definiar horario local
+                    date_default_timezone_set('America/El_Salvador');
+                    $today = date('Y-m-d');
+                    // crear orden
+                    if (!ORDER->setClient(implode(' ', $query->getClient($_SESSION['id_client'])))) {
+                        $response['exception'] = 'Error to get client';
+                    } elseif (!ORDER->setDate($today)) {
+                        $response['exception'] = 'Error to get actually date';
+                    } elseif (!ORDER->setState(implode(' ',$query->InProcess()))) {                        
+                        $response['exception'] = 'Error to get state';
+                    } elseif ($query->storeOrder()) {
+                        // crear detalle                    
+                        $id = implode(' ', $query->getLastOrder());
+                        if ($id) {
 
+                            //verificar los datos para agregar detalle
+                            if (!ORDER->setDOrder($id)) {
+                                $response['exception'] = 'Order incorrect';
+                            } else if (!ORDER->setProduct($_POST['product'])) {
+                                $response['exception'] = 'Product incorrect';
+                            } elseif (!ORDER->setQuantity($_POST['quantity'])) {
+                                $response['exception'] = 'Quantity incorrect';
+                            } elseif ($query->storeDetail()) {
+                                $response['status'] = 1;
+                            } else {
+                                $response['exception'] = Connection::getException();
+                            }
+                        } else {
+                            $response['exception'] = Connection::getException();
+                        }
+                    } else {
+                        $response['exception'] = Connection::getException();
+                    }
+                }
 
                 break;
 
             default:
-                # code...
+                $response['exception'] = Connection::getException();
                 break;
         }
     }
