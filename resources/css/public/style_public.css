@@ -12,7 +12,14 @@
 }
 
 .body-article{
+    overflow-x: hidden;
+    display: flex;
+    height: 100vh;
 
+}
+
+.bold {
+    font-weight: bold;
 }
 /* rules for change color of inputs text and email */
 input[type=text]:not(.browser-default):focus:not([readonly]),

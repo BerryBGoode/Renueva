@@ -29,14 +29,15 @@
         <!--contiene el color de fondo -->
         <div class="card-article ">
             <!-- detalle tiene margen -->
-            <div class="col s12 m6 l6 xl6">
-                <img src="../../api/images/products/6440871b2fc25.jpg" alt="">
+            <div class="col s12 m6 l6 xl6" id="img">
+                <!-- <img id="img" src="../../api/images/products/6440871b2fc25.jpg" alt=""> -->
             </div>
             <div class="col s12 m6 l6 xl6 description ">
-                <h2>Product name</h2>
-                <span>Product description</span>
+                <h3 id="name">Name</h3>
+                <span id="category" class="bold">Category</span>
+                <span id="description">Description</span>
                 <div class="space"></div>
-                <span>$4.99</span>
+                <span id="price">price</span>
                 <div class="cont-car">
                     <div class="quantity">
                         
@@ -60,7 +61,7 @@
 
                     </div>
                     <div class="booton">
-                        <button class="buutton-article">Add to car</button>
+                        <button type="submit" class="buutton-article">Add to car</button>
                     </div>
                 </div>
             </div>
@@ -120,7 +121,9 @@
 
     <!-- Importación de archivos JavaScript -->
     <script type="text/javascript" src="../../resources/general/js/materialize.min.js"></script>
+    <script src="../../controllers/controller.js"></script>
     <script type="text/javascript" src="../../controllers/public/home.js"></script>
+    <script src="../../controllers/public/article.js"></script>
 </body>
 
 </html>
