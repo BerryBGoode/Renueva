@@ -37,7 +37,7 @@ if (!isset($_GET['action'])) {
                     //print_r($_POST);
                 } else {
                     //print_r($_POST);
-                    $response['status'] = -1;   
+                    $response['status'] = -1;
                     $response['exception'] = 'Error to get document';
                 }
 
@@ -94,7 +94,8 @@ if (!isset($_GET['action'])) {
                 } elseif (Connection::getException()) {
                     $response['exception'] = Connection::getException();
                 } else {
-                    $response['exception'] = "Doesn't exist regiter";
+                    $response['status'] = -1;
+                    $response['exception'] = "Doesn't exist comments for this product";
                 }
 
                 break;

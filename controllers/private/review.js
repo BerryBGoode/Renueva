@@ -94,8 +94,8 @@ async function loadTable() {
     ROWS.innerHTML = ``;
     // obtener la respuesta del servidor 
     const JSON = await dataRequest(REVIEW, 'all');
-    if (JSON.status) {
-        console.log(JSON.dataset)
+    if (JSON.status === 1) {
+        // console.log(JSON.dataset)
         // recorrer todos los registros que tiene el dataset
         JSON.dataset.forEach(element => {
             // ROWS igual a la fila recorrida + la anterior
@@ -152,7 +152,10 @@ async function loadTable() {
             </tr>`;
         });
         MSG.textContent = JSON.message;
-    } else {
+    } else if (JSON.status === -1) {
+        notificationRedirect('info', JSON.exception, false);
+    }
+    else {
         notificationRedirect('error', JSON.exception, false);
     }
 }
@@ -173,7 +176,7 @@ async function onModify(id) {
     TXTBUTTON.innerHTML = `Modify`;
     // instancia de la clase FormData enviar datos sin un <form>
     const DATA = new FormData;
-    console.log(id)
+    // console.log(id)
     // adjuntar el id review
     DATA.append('idreview', id);
     // obtener la respuesta del servidor
