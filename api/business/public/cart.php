@@ -102,6 +102,19 @@ if (!isset($_GET['action'])) {
 
                 break;
 
+            case 'viewCart':
+                
+                if ($response['dataset'] = $query->details($_POST['order'])) {
+                    $response['status'] = 1;
+                    $response['message'] = count($response['dataset']);
+                } elseif (Connection::getException()) {
+                    $response['exception'] = Connection::getException();
+                } else {
+                    $response['exception'] = "Doesn't exist products in your cart";
+                }
+                
+
+                break;
             default:
                 $response['exception'] = Connection::getException();
                 break;
@@ -113,3 +126,4 @@ header('content-type: application/json; charset=utf-8');
 // print_r($response);
 //resultado formato json y retorna al controlador
 print(json_encode($response));
+?>

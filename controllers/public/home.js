@@ -27,7 +27,7 @@ HEADER.innerHTML = `<nav class="nav-extended navbar-home">
 
                     </from>
             </div>
-            <div class="icons-nav">                
+            <div class="icons-nav">                                
                 <svg id="cart" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -47,7 +47,7 @@ HEADER.innerHTML = `<nav class="nav-extended navbar-home">
                             <path d="M9 8H21" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
                                 stroke-linejoin="round"></path>
                         </g>
-                </svg>                
+                </svg>                                
             </div>
 
         </nav>
@@ -68,3 +68,9 @@ if (CARTBTN) {
 document.addEventListener('DOMContentLoaded', function () {
 M.AutoInit();
 });
+
+
+document.getElementById('cart').addEventListener('click', () =>{
+    // obtener orden pendiente según cliente
+
+})
