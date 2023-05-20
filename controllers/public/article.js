@@ -6,6 +6,10 @@ const CART = 'business/public/cart.php';
 const PATH = '../../api/images/products/';
 // componente donde renderizar comentarios
 const COMMENTS = document.getElementById('container-comments');
+// formulario para agregar producto
+const FORM = document.getElementById('form-order');
+// var para contador
+let count = document.getElementById('count');
 /**
  * Método para obtener el producto que se consulta, este producto viene de la url
  */
@@ -40,6 +44,11 @@ document.addEventListener('DOMContentLoaded', async event => {
 
         // comentarios
         loadComments(event);
+
+        // contador
+        count.innerText = 1;
+        count.value = 1;
+        quantity();
 
     } else {
         M.toast({ html: 'Error to get this product!!' });
@@ -77,3 +86,46 @@ const loadComments = async event => {
             });
         }
 }
+
+const quantity = () =>{
+
+    // obtener boton para quitar cantidad y crear evento click
+    document.getElementById('rest').addEventListener('click', () => {
+        // verificar sí el contandor es mayor o igual 1 
+        if (count.value > 1) {
+            // poder restar cantidad
+            count.value = count.value - 1;
+            count.innerText = count.value;
+        }
+        
+    })
+
+    // obtener boton para agregar cantidad y crear evento click
+    document.getElementById('sum').addEventListener('click', () => {
+        count.value = count.value + 1;
+        count.innerText = count.value;
+    })
+}
+
+FORM.addEventListener('submit', async event => {
+    event.preventDefault();
+    const DATA = new FormData;
+    DATA.append('product', getProductURL());
+    DATA.append('quantity', count.value);
+    DATA.append('view', 'article');
+    // DATA.append('date', );
+    // crear estado en proceso en la db
+    const JSON = await dataRequest(CART, 'createOrder', DATA);
+    console.log(JSON);
+    if (JSON.status === 1) {
+        M.toast({ html: 'Product append in cart' });
+    } else if (JSON.status === -1) {
+        M.toast({ html: "You're need sign in to append product" });
+        setTimeout(() => {
+            location.href = 'login.html'
+        }, 1500);
+    } else {
+        let msg = JSON.exception + ' ';
+        M.toast({ html: msg });
+    }
+})

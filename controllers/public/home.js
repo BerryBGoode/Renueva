@@ -3,7 +3,7 @@ const SECTION = document.querySelector('section');
 
 if (HEADER) {
 
-HEADER.innerHTML = `<nav class="nav-extended navbar-home">
+    HEADER.innerHTML = `<nav class="nav-extended navbar-home">
             <div class="nav-wrapper">
                 <img src="../../resources/img/Logo/LogoRenueva_Login.png" alt="" class="header-img">
             </div>
@@ -27,7 +27,7 @@ HEADER.innerHTML = `<nav class="nav-extended navbar-home">
 
                     </from>
             </div>
-            <div class="icons-nav">                
+            <div class="icons-nav">                                
                 <svg id="cart" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -47,7 +47,7 @@ HEADER.innerHTML = `<nav class="nav-extended navbar-home">
                             <path d="M9 8H21" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
                                 stroke-linejoin="round"></path>
                         </g>
-                </svg>                
+                </svg>                                
             </div>
 
         </nav>
@@ -57,14 +57,37 @@ HEADER.innerHTML = `<nav class="nav-extended navbar-home">
 
 const CARTBTN = document.getElementById('cart');
 if (CARTBTN) {
-    
-    CARTBTN.addEventListener('click', () => {
-        // verificar sesión
+
+    const ORDER = 'business/public/cart.php';
+
+    CARTBTN.addEventListener('click', async () => {
+
+        // obtener orden pendiente según cliente
+        const JSON = await dataRequest(ORDER, 'getActuallyOrder');
+        // verificar el resultado
+        switch (JSON.status) {
+            case -1:
+                // mandar a usuario a iniciar sesión
+                setTimeout(() => {
+                    location.href = 'login.html';
+                }, 0500);
+                break;
+
+            case 1:
+                setTimeout(() => {
+                    const URL = 'cart.html' + '?orderid=' + encodeURIComponent(JSON.dataset[0].id_order);
+                    location.href = URL;
+                }, 0500);
+                break;
+
+            default:
+                break;
+        }
         // dependiendo de la sesión enviar a login
         // enviar a cart.html
     })
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-M.AutoInit();
+    M.AutoInit();
 });

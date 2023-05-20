@@ -190,10 +190,14 @@ header {
 }
 
 .icons-nav {
-    width: 30px;
-    height: 30px;
+    width: 1.8%;
+    /* width: 30px;*/
+    /* height: 30px;  */
 }
 
+#cart{
+    cursor: pointer;
+}
 body {
     background: var(--card-color);
 }
@@ -265,12 +269,15 @@ nav ul li a:hover::after {
 /* /search/ */
 
 #wrap {
-    margin: 50px 100px;
+    /* margin: 50px 100px; */
     display: inline-block;
     position: relative;
-    height: 60px;
-    float: right;
-    position: relative;
+    /* height: 60px; */
+}
+
+.total{
+    display: flex;
+    gap: 5%;
 }
 
 input[id='search'] {
@@ -1179,11 +1186,15 @@ input[class='login-input']:not(.browser-default) {
     transition-duration: 0.4s;
     cursor: pointer;
 
-    background-color: var(--color-gris);
+    /* background-color: var(--color-gris); */
     color: black;
-    border: 2px solid var(--color-gris);
+    background-color: var(--yellow-color);
+    border: var(--yellow-color);
+    /* border: 2px solid var(--color-gris); */
 }
-
+.buutton-article:focus{
+    background-color: #ffeda6;
+}
 /* /Comments articles/ */
 
 .coments {
@@ -1197,6 +1208,10 @@ input[class='login-input']:not(.browser-default) {
 .title-comments{
     display: flex;
     justify-content: center;
+}
+
+#rest, #sum{
+    cursor: pointer;
 }
 .info-comment {
     padding: 1vw;

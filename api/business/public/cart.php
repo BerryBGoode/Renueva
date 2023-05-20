@@ -45,7 +45,7 @@ if (!isset($_GET['action'])) {
                         if ($details = $query->getDetailByOrderProduct(implode(' ', $orders[$i]), $_POST['product'])) {
                             // cliente ya tiene un detalle con ese producto
                             // entonces procede a agregar +1 a la cantidad de ese detalle                        
-                            $query->addQuantitive($details[$i]['id_detail_order']);
+                            $query->addQuantitive($details[$i]['id_detail_order'], $_POST['quantity']);
                             $response['status'] = 1;
                         } else {
                             // agregar producto al detalle
@@ -73,7 +73,7 @@ if (!isset($_GET['action'])) {
                         $response['exception'] = 'Error to get client';
                     } elseif (!ORDER->setDate($today)) {
                         $response['exception'] = 'Error to get actually date';
-                    } elseif (!ORDER->setState(implode(' ',$query->InProcess()))) {                        
+                    } elseif (!ORDER->setState(implode(' ', $query->InProcess()))) {
                         $response['exception'] = 'Error to get state';
                     } elseif ($query->storeOrder()) {
                         // crear detalle                    
@@ -102,6 +102,30 @@ if (!isset($_GET['action'])) {
 
                 break;
 
+            case 'getActuallyOrder':
+            
+                if ($response['dataset'] = $query->getOrderByClient($_SESSION['id_client'])) {
+                    $response['status'] = 1;
+                } elseif (Connection::getException()) {
+                    $response['exception'] = Connection::getException();
+                } else {
+                    $response['exception'] = "Doesn't exist order";
+                }
+                break;
+
+            case 'viewCart':
+                
+                if ($response['dataset'] = $query->details($_POST['order'])) {
+                    $response['status'] = 1;
+                    $response['message'] = count($response['dataset']);
+                } elseif (Connection::getException()) {
+                    $response['exception'] = Connection::getException();
+                } else {
+                    $response['exception'] = "Doesn't exist products in your cart";
+                }
+                
+
+                break;
             default:
                 $response['exception'] = Connection::getException();
                 break;
@@ -113,3 +137,4 @@ header('content-type: application/json; charset=utf-8');
 // print_r($response);
 //resultado formato json y retorna al controlador
 print(json_encode($response));
+?>
