@@ -21,6 +21,9 @@
 .bold {
     font-weight: bold;
 }
+.x-hidden{
+    overflow-x: hidden;
+}
 
 /* rules for change color of inputs text and email */
 input[type=text]:not(.browser-default):focus:not([readonly]),
@@ -683,6 +686,7 @@ h4 {
     overflow: hidden;
     box-shadow: 0 0 0 10px var(--body-color), 0 15PX 50PX;
     position: relative;
+    z-index: -1;
 }
 
 .slider {

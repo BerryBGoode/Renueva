@@ -126,6 +126,17 @@ if (!isset($_GET['action'])) {
                 
 
                 break;
+
+            case 'changeQuantity':
+
+                if ($query->changeQuantity($_POST['quantity'], $_POST['detail'])) {
+                    $response['status'] = 1;
+                } else {
+                    $response['exception'] = Connection::getException();
+                }
+                
+
+                break;
             default:
                 $response['exception'] = Connection::getException();
                 break;

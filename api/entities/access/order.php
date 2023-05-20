@@ -183,7 +183,7 @@ class OrderQuery
      */
     public function details($order)
     {
-        $sql = 'SELECT * FROM details_orders WHERE id_order = ?';
+        $sql = 'SELECT * FROM details_orders WHERE id_order = ? ORDER BY id_detail_order DESC';
         $param = array($order);
         return Connection::all($sql, $param);
     }
@@ -273,6 +273,17 @@ class OrderQuery
         //primer registro
         $sql = 'SELECT id_order FROM orders ORDER BY id_order DESC LIMIT 1';
         return Connection::row($sql);
+    }
+
+    /**
+     * Método para actualizar la cantidad de productos a llevar en el detalle
+     * retorn la cantidad de registro modificados
+     */
+    public function changeQuantity($quantity, $detail)
+    {
+        $sql = 'UPDATE detail_orders SET cuantitive = ? WHERE id_detail_order = ?';
+        $params = array($quantity, $detail);
+        return Connection::storeProcedure($sql, $params);
     }
 }
 // /*cargar ordenes cuando agregue o actualize
