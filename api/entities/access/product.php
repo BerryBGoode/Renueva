@@ -106,4 +106,13 @@ class ProductQuery
         return Connection::all($sql, $param);
 
     }
+
+    public function loadProductsFeatured()
+    {
+        $sql = 'SELECT id_product, repeticiones
+        FROM vista_productos_repeticiones
+        ORDER BY repeticiones DESC;';
+        $param = array(1);
+        return Connection::all($sql, $param);
+    }
 }

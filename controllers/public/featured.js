@@ -1,79 +1,70 @@
-// const para consultar las respuestas de la petición
-const PRODUCT = 'business/public/product.php';
-// const para renederizar los datos obtenidos de la promise
-const CONTENT = document.getElementById('products');
-// const para acceder desde este directorio a las imagenes de api
+// constante para consultar las respuestas de la petición
+const FEATURED = 'business/public/product.php';
+// constante para renederizar los datos obtenidos de la promise
+const CONTENT = document.getElementById('featured');
+// constante para acceder desde este directorio a las imagenes de api
 const PATH = '../../api/images/products/';
-// obj para guardar id de los productos  
+// objeto para guardar id de los productos  
 const PRODUCTS = [];
-// promise method para consultar y obtener las respuestas del api
-const REQUEST = (action, form = null) => {
-    // crear un objeto const. vacio con los valores de method y body vacíos
+
+//promise method que consulta y se obtiene las respuestas del api
+const REQUEST  = (action, form = null) => {
+    //Se crea un objeto vacío con los valores method y body, estos dos vacíos
     const FORM = [
         method = '',
         body = ''
     ];
-    // verificar sí vienen datos (para actualizar, eliminar, etc...)
-    if (form) {
+    //se verifica si provienen datos
+    if(form) {
         FORM['method'] = 'post';
         FORM['body'] = form;
-    } else {
+     } else{
         FORM['method'] = 'get';
-    }
-    // instanciar la clase Promise
-    // enviandole resolve para obtener el valor de la promise (sí es exitosa)
-    // reject para obtener el valor de la promise si hubo un error 
-    // retornar la nueva promise
-    return new Promise((resolve, reject) => {
-        const PATH = new URL('http://localhost/renueva_temp/api/' + PRODUCT);
-        // enviar el nombre de la acción
-        PATH.searchParams.append('action', action);
-        // consultar api según 'PATH' y datos de la petición
+     }
+
+     //se retorna la nueva promise
+     return new Promise((resolve, reject) =>{
+        const PATH = new URL('http://localhost/renueva_temp/api/' + FEATURED);
+        //Se envía el nombre de la acción
+        PATH.searchParams.append('action',action);
+        //se consulta api según PATH y datos solicitados
         fetch(PATH.href, FORM)
-            // obtener la respuesta
+            //se obtienen respuestas
             .then(response => {
-                // verificar si la respuesta tiene un "ok" 
-                // nativo de la clase Promise
+                //verificar si la respuesta contiene un "ok"}
                 if (response.ok) {
-                    // convertir a json y obtener los datos
-                    // data es el arreglo con las respuestas
-                    response.json().then(data => {
-                        // obtener resultado de la data
+                    //se convieren a json y se  obtienen los datos
+                    response.json().then(data =>{
+                        //se obtiene resultados de la data
                         resolve(data)
                     })
-                } else {
+                }else{
                     // retraer el estado del proceso detectado por promise
                     reject(response.status)
                 }
-
             })
-            // obtener el error
+            //se obtiene el error
             .catch(error => {
-                // revolver el error
                 reject(error);
             })
-
-    })
+     })
 }
 
-// const méthod para cargar los datos en el formulario
-const LOADCLIENT = () => {
-    // reiniciar o iniciar los valores del contenedor
+//constante method que carga los datos en el formulario
+const LOADFEATURED = () => {
+    //se reinicia o  inician los valores dedl contenedor
     CONTENT.innerHTML = '';
-    // llamar la promise 
-    REQUEST('loadProducts')
-        // obtener del obj promise la respuesta y guardarla en un objeto
+    //se manda a llamar ala promise
+    REQUEST('loadProductsFeatured')
+        //se obtiene del obj promise, la respuesta y se guarda en un objeto.
         .then(data => {
-            
-            
-            // reiniciar los valores 
+            //se reuinician los valores
             PRODUCTS.splice(0, PRODUCTS.length);
-            // definiar un var. para identificar la vez que se ha recorrido el objeto JSON
+            //se define  un  var para identificar cuando se ha recorriddo el objto JSON
             let index = 0;
-            data.dataset.forEach(element => {
+            data.dataset.forEach(element=>{
                 PRODUCTS.push(element.id_product);
-                
-                // inyectar el contenido del anterior recorrido + actual                        
+                //seinyecta  el contenido del anterior recorrido + el actual
                 CONTENT.innerHTML += `    
                 
                 <div class="product"> 
@@ -111,19 +102,14 @@ const LOADCLIENT = () => {
                 `;
                 
                 index++;
-                
-                
-                
             });
         })
         .catch(error => {
             console.error(error);
-            // notificationRedirect('error', data.exception, false);
         })
 };
 
-// evento que se ejecuta cada vez que carga el DOM
+//evento que se ejecutará cada vez que se cargue el DOM
 document.addEventListener('DOMContentLoaded', () => {
     LOADCLIENT();
-
 })

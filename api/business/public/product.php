@@ -9,7 +9,6 @@ if ($_GET['action']) {
     
     // instancia de la clase con los queries de products
     $product = new ProductQuery;
-
     // evaluar la acción
     switch ($_GET['action']) {
         // acción para cargar los productos al cliente
@@ -26,6 +25,19 @@ if ($_GET['action']) {
                 $response['exception'] = "Doesn't exist products";
             }
             
+            
+            break;
+
+        case 'loadProductsFeatured':
+            if ($response['dataset'] = $product->loadProductsFeatured()) {
+                $response['status']= 1;
+                $response['count']= count($response['dataset']);
+                $response['path']= PRODUCT->getPath();
+            }elseif (Connection::getException()){
+                $response['exception']  = Connection::getException();
+            }  else{
+                $response['exception']  = "Doesn't exist featured products";
+            }
             
             break;
         
