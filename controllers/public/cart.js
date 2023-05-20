@@ -34,6 +34,13 @@ document.addEventListener('DOMContentLoaded', async event => {
     // if (ORDER.status) {
     //     const DATA = new FormData;
     // }
+
+    if (!getOrderURL()) {
+        M.toast({ html: "Doesn't exist order" });
+        setTimeout(() => {
+            location.href = '../../view/public';
+        }, 2000)
+    }
     TABLE.innerHTML = ``;
     QUANTITY.innerHTML = ``;
     const ORDER = new FormData;
@@ -83,7 +90,7 @@ document.addEventListener('DOMContentLoaded', async event => {
         let index = 0;
         // iterrar arreglo con los subtotales obtenidos
         for (const UNIT of SUBTOTAL) {
-            total+= parseFloat(UNIT + ' index: '+index);
+            total += parseFloat(UNIT + ' index: ' + index);
         }
         TOTAL.innerHTML = `<h5 class="bold">
         $${total.toLocaleString(5)}    
