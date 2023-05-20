@@ -102,6 +102,17 @@ if (!isset($_GET['action'])) {
 
                 break;
 
+            case 'getActuallyOrder':
+            
+                if ($response['dataset'] = $query->getOrderByClient($_SESSION['id_client'])) {
+                    $response['status'] = 1;
+                } elseif (Connection::getException()) {
+                    $response['exception'] = Connection::getException();
+                } else {
+                    $response['exception'] = "Doesn't exist order";
+                }
+                break;
+
             case 'viewCart':
                 
                 if ($response['dataset'] = $query->details($_POST['order'])) {

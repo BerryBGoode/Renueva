@@ -275,6 +275,11 @@ nav ul li a:hover::after {
     /* height: 60px; */
 }
 
+.total{
+    display: flex;
+    gap: 5%;
+}
+
 input[id='search'] {
     height: 60px;
     font-size: 55px;
