@@ -203,3 +203,17 @@ document.getElementById('buy').addEventListener('click', async event => {
         }, 2000)
     }
 })
+
+// evento -> método para cancelar orden
+document.getElementById('cancel').addEventListener('click', async event => {
+    event.preventDefault();
+    const ORDER = new FormData;
+    ORDER.append('order', getOrderURL());
+    const JSON = await dataRequest(CART, 'endOrder', ORDER);
+    if (JSON.status) {
+        M.toast({ html: "Your order cancelled" });
+        setTimeout(() => {
+            location.href = 'products.html';
+        }, 2000)
+    }
+})

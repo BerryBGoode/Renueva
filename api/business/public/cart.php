@@ -156,15 +156,23 @@ if (!isset($_GET['action'])) {
 
             case 'endOrder':
 
-                if ($query->endOrder($_POST['order'])) {
+                if ($query->changeStateOrder('on the way', $_POST['order'])) {
                     $response['status'] = 1;
                 } else {
                     $response['exception'] = Connection::getException();
                 }
 
-
                 break;
 
+            case 'cancelOrder':
+
+                if ($query->changeStateOrder('cancelled', $_POST['order'])) {
+                    $response['status'] = 1;
+                } else {
+                    $response['exception'] = Connection::getException();
+                }
+
+                break;
             default:
                 $response['exception'] = Connection::getException();
                 break;

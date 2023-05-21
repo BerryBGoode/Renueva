@@ -289,15 +289,15 @@ class OrderQuery
     /**
      * Método para finalizar un pedido
      */
-    public function endOrder($order)
+    public function changeStateOrder($state, $order)
     {
-        $state = 'on the way';
         $sql = 'UPDATE orders 
                 SET id_state_order = 
                     (SELECT id_state_order 
                     FROM states_orders 
-                    WHERE state_order = ?)';
-        $param = array($state);
+                    WHERE state_order = ?)
+                WHERE id_order = ?';
+        $param = array($state, $order);
         return Connection::storeProcedure($sql, $param);
     }
 }
