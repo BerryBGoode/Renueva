@@ -8,7 +8,8 @@ const DETAILS = document.getElementById('table-heade');
 const TOTAL = document.getElementById('total');
 // arreglo donde guardar los subtotales para ir sumando cada uno
 const SUBTOTAL = [];
-
+// arreglo para guardar el id de los productos de la orden
+const PRODUCTS = [];
 /**
  * Método para obtener la orden del url
  */
@@ -114,6 +115,7 @@ const LOAD = async () => {
             `;
             // asignar el subtotal obtenido del registro que esta recorriendo
             SUBTOTAL.push(element.total);
+            // asignar el id del producto a comprar
 
             // obtener id del detalle
             const ID = document.getElementsByClassName('iddetail');
@@ -125,38 +127,52 @@ const LOAD = async () => {
             let count = document.getElementsByClassName('count');
             // recorrer los botones encontrados
             for (let index = 0; index < ID.length; index++) {
+
                 // Evento para agregar cantidad
                 SUM[index].addEventListener('click', async event => {
                     event.preventDefault();
                     // hacer suma
                     let result = parseInt(count[index].textContent) + 1;
-                    // mostrar en la tabla
-                    count[index].innerHTML = result;
-                    // actualizar
-                    const DETAIL = new FormData;
-                    DETAIL.append('detail', ID[index].textContent);
-                    DETAIL.append('quantity', result);
-                    const JSON = await dataRequest(CART, 'changeQuantity', DETAIL);
-                    if (JSON.status) {
-                        M.toast({ html: "Product append" });
+                    // verificar sí el result es menor o igual la cantidad de existencias que tiene ese producto
+                    if (element.stock >= result) {
+
+                        // mostrar en la tabla
+                        count[index].innerHTML = result;
+                        // actualizar
+                        const DETAIL = new FormData;
+                        DETAIL.append('detail', ID[index].textContent);
+                        DETAIL.append('quantity', result);
+                        const JSON = await dataRequest(CART, 'changeQuantity', DETAIL);
+                        if (JSON.status) {
+                            M.toast({ html: "Product append" });
+                        }
+                    } else {
+                        M.toast({ html: "Exceeds the number of products that can be carried from this same" })
                     }
 
                 })
                 // Evento para restar cantidad
                 REST[index].addEventListener('click', async event => {
                     event.preventDefault();
-                    // hacer suma
-                    let result = parseInt(count[index].textContent) - 1;
-                    // mostrar en la tabla
-                    count[index].innerHTML = result;
-                    // actualizar
-                    const DETAIL = new FormData;
-                    DETAIL.append('detail', ID[index].textContent);
-                    DETAIL.append('quantity', result);
-                    const JSON = await dataRequest(CART, 'changeQuantity', DETAIL);
-                    if (JSON.status) {
-                        M.toast({ html: "Product disappend" });
+                    
+                    // verificar sí es un valor 1 
+                    if (parseInt(count[index].textContent) <= 1) {                        
+                        M.toast({ html: "Don't buy -1 quantity of your product" });
+                    } else {
+                        // hacer RESTA
+                        let result = parseInt(count[index].textContent) - 1;
+                        // mostrar en la tabla
+                        count[index].innerHTML = result;
+                        // actualizar
+                        const DETAIL = new FormData;
+                        DETAIL.append('detail', ID[index].textContent);
+                        DETAIL.append('quantity', result);
+                        const JSON = await dataRequest(CART, 'changeQuantity', DETAIL);
+                        if (JSON.status) {
+                            M.toast({ html: "Product disappend" });
+                        }
                     }
+
                 })
             }
         });
@@ -195,6 +211,7 @@ document.getElementById('buy').addEventListener('click', async event => {
     event.preventDefault();
     const ORDER = new FormData;
     ORDER.append('order', getOrderURL());
+    ORDER.append()
     const JSON = await dataRequest(CART, 'endOrder', ORDER);
     if (JSON.status) {
         M.toast({ html: "Your products are on the way" });
@@ -209,7 +226,7 @@ document.getElementById('cancel').addEventListener('click', async event => {
     event.preventDefault();
     const ORDER = new FormData;
     ORDER.append('order', getOrderURL());
-    const JSON = await dataRequest(CART, 'endOrder', ORDER);
+    const JSON = await dataRequest(CART, 'cancelOrder', ORDER);
     if (JSON.status) {
         M.toast({ html: "Your order cancelled" });
         setTimeout(() => {

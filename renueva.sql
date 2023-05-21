@@ -103,8 +103,8 @@ INSERT INTO public.states_orders(
 	 state_order)
 	VALUES 	('on the way'),
 			('delivered'),
-			('cancelled');
-			
+			('cancelled'),
+			('in process');
 INSERT INTO public.categories(
 	 category)
 	VALUES 	('creams'),
@@ -337,6 +337,13 @@ CREATE OR REPLACE TRIGGER update_stock
 AFTER UPDATE ON detail_orders
 FOR EACH ROW
 EXECUTE FUNCTION FUN_addStockProduct();
+-- TRIGGER PARA SUMAR EXISTENCIAS A LOS/EL PRODUCTO DE UNA ORDEN CANCELADA
+CREATE OR REPLACE TRIGGER update_stockByOrder
+AFTER UPDATE ON orders
+FOR EACH ROW
+	WHEN (OLD.id_state_order <> 3)
+EXECUTE FUNCTION FUN_addStockProduct()
+
 
 SELECT * FROM products;
 SELECT * FROM detail_orders;
@@ -504,7 +511,8 @@ CREATE OR REPLACE VIEW all_orders AS
 	ORDER BY o.id_order ASC
 
 CREATE OR REPLACE VIEW details_orders AS
-	SELECT o.id_order, c.address, c.id_client, c.document, p.name,c.names ,c.last_names, d.id_product, d.id_detail_order , o.date_order, d.cuantitive, s.id_state_order, s.state_order, p.price * d.cuantitive as total
+	SELECT o.id_order, c.address, c.id_client, c.document, p.name,c.names ,c.last_names, d.id_product,
+	d.id_detail_order , o.date_order, d.cuantitive, s.id_state_order, p.stock, s.state_order, p.price * d.cuantitive as total
 	FROM detail_orders d
 	INNER JOIN orders o ON o.id_order = d.id_order
 	INNER JOIN states_orders s ON s.id_state_order = o.id_state_order
@@ -602,3 +610,12 @@ ALTER TABLE products ADD CONSTRAINT u_product_name UNIQUE(name);
 ALTER TABLE categories ADD CONSTRAINT u_category_name UNIQUE(category);
 
 SELECT id_product, name FROM products WHERE id_state_product = 1 AND stock >= 1
+22 23-05-17 4
+INSERT INTO orders(id_client, date_order, id_state_order) VALUES (22, 23-05-17, 4)
+SELECT * FROM orders
+SELECT * FROM products_states_categories
+SELECT * FROM products
+
+SELECT * FROM detail_orders
+SELECT  * FROM reviews
+SELECT * FROM states_orders

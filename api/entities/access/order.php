@@ -300,6 +300,19 @@ class OrderQuery
         $param = array($state, $order);
         return Connection::storeProcedure($sql, $param);
     }
+
+    /**
+     * Método para obtener las existencias del producto a finalizar pedido
+     * esté método ayuda a validar que el cliente no lleve más de la cantidad de
+     * producto según la existencia
+     * retorna un arreglo con los datos según la consulta
+     */
+    public function getStocks($product)
+    {
+        $sql = 'SELECT stock FROM products WHERE id_producto = ?';
+        $param = array($product);
+        return Connection::row($sql, $param);
+    }
 }
 // /*cargar ordenes cuando agregue o actualize
 // /*cargar No.Orders

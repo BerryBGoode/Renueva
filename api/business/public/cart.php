@@ -155,7 +155,8 @@ if (!isset($_GET['action'])) {
                 break;
 
             case 'endOrder':
-
+                
+                print_r($_POST['products']);
                 if ($query->changeStateOrder('on the way', $_POST['order'])) {
                     $response['status'] = 1;
                 } else {
