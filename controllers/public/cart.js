@@ -229,8 +229,8 @@ document.getElementById('cancel').addEventListener('click', async event => {
     const JSON = await dataRequest(CART, 'cancelOrder', ORDER);
     if (JSON.status) {
         M.toast({ html: "Your order cancelled" });
-        setTimeout(() => {
-            location.href = 'products.html';
-        }, 2000)
+        // setTimeout(() => {
+        //     location.href = 'products.html';
+        // }, 2000)
     }
 })

@@ -166,7 +166,6 @@ if (!isset($_GET['action'])) {
                 break;
 
             case 'cancelOrder':
-
                 if ($query->changeStateOrder('cancelled', $_POST['order'])) {
                     $response['status'] = 1;
                 } else {
