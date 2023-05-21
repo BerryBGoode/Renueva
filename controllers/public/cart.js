@@ -110,16 +110,19 @@ document.addEventListener('DOMContentLoaded', async event => {
             `;
             // asignar el subtotal obtenido del registro que esta recorriendo
             SUBTOTAL.push(element.total);
-            
+
             // obtener id del detalle
             const ID = document.getElementsByClassName('iddetail');
             // obtener los botones para agregar 1 cantidad
             const SUM = document.getElementsByClassName('sum');
+            // obtener los botones para restar 1 cantidad
+            const REST = document.getElementsByClassName('rest');
             // elemento donde esta el valor del contador en base a la cantidad
             let count = document.getElementsByClassName('count');
             // recorrer los botones encontrados
-            for (let index = 0; index < SUM.length; index++) {                            
-                SUM[index].addEventListener('click', async event =>{
+            for (let index = 0; index < ID.length; index++) {
+                // Evento para agregar cantidad
+                SUM[index].addEventListener('click', async event => {
                     event.preventDefault();
                     // hacer suma
                     let result = parseInt(count[index].textContent) + 1;
@@ -127,15 +130,30 @@ document.addEventListener('DOMContentLoaded', async event => {
                     count[index].innerHTML = result;
                     // actualizar
                     const DETAIL = new FormData;
-                    DETAIL.append('detail',ID[index].textContent);
+                    DETAIL.append('detail', ID[index].textContent);
                     DETAIL.append('quantity', result);
                     const JSON = await dataRequest(CART, 'changeQuantity', DETAIL);
                     if (JSON.status) {
                         M.toast({ html: "Product append" });
                     }
-                    
+
                 })
-                
+                // Evento para restar cantidad
+                REST[index].addEventListener('click', async event => {
+                    event.preventDefault();
+                    // hacer suma
+                    let result = parseInt(count[index].textContent) - 1;
+                    // mostrar en la tabla
+                    count[index].innerHTML = result;
+                    // actualizar
+                    const DETAIL = new FormData;
+                    DETAIL.append('detail', ID[index].textContent);
+                    DETAIL.append('quantity', result);
+                    const JSON = await dataRequest(CART, 'changeQuantity', DETAIL);
+                    if (JSON.status) {
+                        M.toast({ html: "Product disappend" });
+                    }
+                })
             }
         });
         // almacena los subtotales para irlos sumando y encontrar el total
