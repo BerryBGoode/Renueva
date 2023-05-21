@@ -39,6 +39,10 @@ document.addEventListener('DOMContentLoaded', async event => {
             location.href = '../../view/public';
         }, 2000)
     }
+    LOAD();
+})
+
+const LOAD = async () => {
     TABLE.innerHTML = ``;
     DETAILS.innerHTML = ``;
     const ORDER = new FormData;
@@ -169,4 +173,19 @@ document.addEventListener('DOMContentLoaded', async event => {
 
 
     }
-})
+}
+
+async function onDestroy(id) {
+    let confirm = await notificationConfirm('Do you wanna delete this detail?');
+    if (confirm) {
+        const DATA = new FormData;
+        DATA.append('id_detail', id);
+        const JSON = await dataRequest(CART, 'deleteDetail', DATA);
+        if (JSON.status) {
+            LOAD();
+            notificationRedirect('success', JSON.message, true);
+        } else {
+            notificationRedirect('error', JSON.exception, false);
+        }
+    }
+}

@@ -103,7 +103,7 @@ if (!isset($_GET['action'])) {
                 break;
 
             case 'getActuallyOrder':
-            
+
                 if ($response['dataset'] = $query->getOrderByClient($_SESSION['id_client'])) {
                     $response['status'] = 1;
                 } elseif (Connection::getException()) {
@@ -114,7 +114,7 @@ if (!isset($_GET['action'])) {
                 break;
 
             case 'viewCart':
-                
+
                 if ($response['dataset'] = $query->details($_POST['order'])) {
                     $response['status'] = 1;
                     $response['message'] = count($response['dataset']);
@@ -123,7 +123,7 @@ if (!isset($_GET['action'])) {
                 } else {
                     $response['exception'] = "Doesn't exist products in your cart";
                 }
-                
+
 
                 break;
 
@@ -134,9 +134,25 @@ if (!isset($_GET['action'])) {
                 } else {
                     $response['exception'] = Connection::getException();
                 }
-                
+
 
                 break;
+
+            case 'deleteDetail':
+                //validar el form
+                $_POST = Validate::form($_POST);
+                //validar el 'iddetail' que exista o si es menor a 0
+                if (!$_POST['id_detail'] || $_POST['id_detail'] < 0) {
+                    $response['exception'] = 'Error to get detail';
+                } elseif ($query->destroyDetail($_POST['id_detail'])) {
+                    $response['status'] = 1;
+                    $response['message'] = 'Data was correctly delete';
+                } else {
+                    $response['exception'] = Connection::getException();
+                }
+
+                break;
+                
             default:
                 $response['exception'] = Connection::getException();
                 break;
@@ -148,4 +164,3 @@ header('content-type: application/json; charset=utf-8');
 // print_r($response);
 //resultado formato json y retorna al controlador
 print(json_encode($response));
-?>
