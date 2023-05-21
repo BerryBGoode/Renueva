@@ -285,6 +285,21 @@ class OrderQuery
         $params = array($quantity, $detail);
         return Connection::storeProcedure($sql, $params);
     }
+
+    /**
+     * Método para finalizar un pedido
+     */
+    public function endOrder($order)
+    {
+        $state = 'on the way';
+        $sql = 'UPDATE orders 
+                SET id_state_order = 
+                    (SELECT id_state_order 
+                    FROM states_orders 
+                    WHERE state_order = ?)';
+        $param = array($state);
+        return Connection::storeProcedure($sql, $param);
+    }
 }
 // /*cargar ordenes cuando agregue o actualize
 // /*cargar No.Orders

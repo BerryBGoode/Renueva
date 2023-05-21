@@ -61,10 +61,10 @@ if (CARTBTN) {
     const ORDER = 'business/public/cart.php';
 
     CARTBTN.addEventListener('click', async () => {
-
         // obtener orden pendiente según cliente
         const JSON = await dataRequest(ORDER, 'getActuallyOrder');
         // verificar el resultado
+        console.log(JSON)
         switch (JSON.status) {
             case -1:
                 // mandar a usuario a iniciar sesión
@@ -80,6 +80,10 @@ if (CARTBTN) {
                 }, 0500);
                 break;
 
+            case 2:
+                M.toast({ html: "Add products to your cart" });
+
+                break;
             default:
                 break;
         }

@@ -109,6 +109,7 @@ if (!isset($_GET['action'])) {
                 } elseif (Connection::getException()) {
                     $response['exception'] = Connection::getException();
                 } else {
+                    $response['status'] = 2;
                     $response['exception'] = "Doesn't exist order";
                 }
                 break;
@@ -152,7 +153,18 @@ if (!isset($_GET['action'])) {
                 }
 
                 break;
-                
+
+            case 'endOrder':
+
+                if ($query->endOrder($_POST['order'])) {
+                    $response['status'] = 1;
+                } else {
+                    $response['exception'] = Connection::getException();
+                }
+
+
+                break;
+
             default:
                 $response['exception'] = Connection::getException();
                 break;
