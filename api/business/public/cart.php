@@ -103,18 +103,19 @@ if (!isset($_GET['action'])) {
                 break;
 
             case 'getActuallyOrder':
-            
+
                 if ($response['dataset'] = $query->getOrderByClient($_SESSION['id_client'])) {
                     $response['status'] = 1;
                 } elseif (Connection::getException()) {
                     $response['exception'] = Connection::getException();
                 } else {
+                    $response['status'] = 2;
                     $response['exception'] = "Doesn't exist order";
                 }
                 break;
 
             case 'viewCart':
-                
+
                 if ($response['dataset'] = $query->details($_POST['order'])) {
                     $response['status'] = 1;
                     $response['message'] = count($response['dataset']);
@@ -123,7 +124,53 @@ if (!isset($_GET['action'])) {
                 } else {
                     $response['exception'] = "Doesn't exist products in your cart";
                 }
-                
+
+
+                break;
+
+            case 'changeQuantity':
+
+                if ($query->changeQuantity($_POST['quantity'], $_POST['detail'])) {
+                    $response['status'] = 1;
+                } else {
+                    $response['exception'] = Connection::getException();
+                }
+
+
+                break;
+
+            case 'deleteDetail':
+                //validar el form
+                $_POST = Validate::form($_POST);
+                //validar el 'iddetail' que exista o si es menor a 0
+                if (!$_POST['id_detail'] || $_POST['id_detail'] < 0) {
+                    $response['exception'] = 'Error to get detail';
+                } elseif ($query->destroyDetail($_POST['id_detail'])) {
+                    $response['status'] = 1;
+                    $response['message'] = 'Data was correctly delete';
+                } else {
+                    $response['exception'] = Connection::getException();
+                }
+
+                break;
+
+            case 'endOrder':
+
+                if ($query->changeStateOrder('on the way', $_POST['order'])) {
+                    $response['status'] = 1;
+                } else {
+                    $response['exception'] = Connection::getException();
+                }
+
+                break;
+
+            case 'cancelOrder':
+
+                if ($query->changeStateOrder('cancelled', $_POST['order'])) {
+                    $response['status'] = 1;
+                } else {
+                    $response['exception'] = Connection::getException();
+                }
 
                 break;
             default:
@@ -137,4 +184,3 @@ header('content-type: application/json; charset=utf-8');
 // print_r($response);
 //resultado formato json y retorna al controlador
 print(json_encode($response));
-?>

@@ -3,13 +3,11 @@ const CART = 'business/public/cart.php';
 // componente donde cargan los detalle 
 const TABLE = document.getElementById('tb-body');
 // elemento para cargar la cantidad de pedidos
-const QUANTITY = document.getElementById('table-heade');
+const DETAILS = document.getElementById('table-heade');
 // elemento donde carga el total de la orden
 const TOTAL = document.getElementById('total');
 // arreglo donde guardar los subtotales para ir sumando cada uno
 const SUBTOTAL = [];
-
-
 
 /**
  * Método para obtener la orden del url
@@ -34,8 +32,19 @@ document.addEventListener('DOMContentLoaded', async event => {
     // if (ORDER.status) {
     //     const DATA = new FormData;
     // }
+
+    if (!getOrderURL()) {
+        M.toast({ html: "Doesn't exist order" });
+        setTimeout(() => {
+            location.href = '../../view/public';
+        }, 2000)
+    }
+    LOAD();
+})
+
+const LOAD = async () => {
     TABLE.innerHTML = ``;
-    QUANTITY.innerHTML = ``;
+    DETAILS.innerHTML = ``;
     const ORDER = new FormData;
     // adjuntar order
     ORDER.append('order', getOrderURL());
@@ -44,12 +53,40 @@ document.addEventListener('DOMContentLoaded', async event => {
         // reiniciar los valores del arreglo
         SUBTOTAL.splice(0, SUBTOTAL.length);
         // recorrer los pedidos encontrados
+        DETAILS.innerHTML = `<span>${JSON.message} orders</span>`
         JSON.dataset.forEach(element => {
             TABLE.innerHTML += `
                 <tr>
+                    <td class="hide iddetail">${element.id_detail_order}</td>
                     <td>${element.name}</td>
                     <td>$${element.price}</td>
-                    <td>${element.cuantitive}</td>
+                    <td>
+                    
+                    <div class="quantity">
+                        
+                        <svg id="rest" class="rest" width="19" height="19" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12.5 22.9168C18.2291 22.9168 22.9166 18.2293 22.9166 12.5002C22.9166 6.771 18.2291 2.0835 12.5 2.0835C6.77081 2.0835 2.08331 6.771 2.08331 12.5002C2.08331 18.2293 6.77081 22.9168 12.5 22.9168Z"
+                                stroke="#424242" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M8.33331 12.5H16.6666" stroke="#424242" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+
+                        <span id="count" class="count">${element.cuantitive}</span>
+
+                        <svg id="sum" class="sum" width="19" height="19" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12.5 22.9168C18.2292 22.9168 22.9167 18.2293 22.9167 12.5002C22.9167 6.771 18.2292 2.0835 12.5 2.0835C6.77084 2.0835 2.08334 6.771 2.08334 12.5002C2.08334 18.2293 6.77084 22.9168 12.5 22.9168Z"
+                                stroke="#424242" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M8.33334 12.5H16.6667" stroke="#424242" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="M12.5 16.6668V8.3335" stroke="#424242" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+
+                    </div>
+                    
+                    </td>
                     <td>$${element.total}</td>
                     <td>
                         <!-- boton para eliminar -->
@@ -77,17 +114,106 @@ document.addEventListener('DOMContentLoaded', async event => {
             `;
             // asignar el subtotal obtenido del registro que esta recorriendo
             SUBTOTAL.push(element.total);
+
+            // obtener id del detalle
+            const ID = document.getElementsByClassName('iddetail');
+            // obtener los botones para agregar 1 cantidad
+            const SUM = document.getElementsByClassName('sum');
+            // obtener los botones para restar 1 cantidad
+            const REST = document.getElementsByClassName('rest');
+            // elemento donde esta el valor del contador en base a la cantidad
+            let count = document.getElementsByClassName('count');
+            // recorrer los botones encontrados
+            for (let index = 0; index < ID.length; index++) {
+                // Evento para agregar cantidad
+                SUM[index].addEventListener('click', async event => {
+                    event.preventDefault();
+                    // hacer suma
+                    let result = parseInt(count[index].textContent) + 1;
+                    // mostrar en la tabla
+                    count[index].innerHTML = result;
+                    // actualizar
+                    const DETAIL = new FormData;
+                    DETAIL.append('detail', ID[index].textContent);
+                    DETAIL.append('quantity', result);
+                    const JSON = await dataRequest(CART, 'changeQuantity', DETAIL);
+                    if (JSON.status) {
+                        M.toast({ html: "Product append" });
+                    }
+
+                })
+                // Evento para restar cantidad
+                REST[index].addEventListener('click', async event => {
+                    event.preventDefault();
+                    // hacer suma
+                    let result = parseInt(count[index].textContent) - 1;
+                    // mostrar en la tabla
+                    count[index].innerHTML = result;
+                    // actualizar
+                    const DETAIL = new FormData;
+                    DETAIL.append('detail', ID[index].textContent);
+                    DETAIL.append('quantity', result);
+                    const JSON = await dataRequest(CART, 'changeQuantity', DETAIL);
+                    if (JSON.status) {
+                        M.toast({ html: "Product disappend" });
+                    }
+                })
+            }
         });
         // almacena los subtotales para irlos sumando y encontrar el total
         let total = 0;
         let index = 0;
         // iterrar arreglo con los subtotales obtenidos
         for (const UNIT of SUBTOTAL) {
-            total+= parseFloat(UNIT + ' index: '+index);
+            total += parseFloat(UNIT + ' index: ' + index);
         }
         TOTAL.innerHTML = `<h5 class="bold">
         $${total.toLocaleString(5)}    
         </h5>`
 
+
+    }
+}
+
+async function onDestroy(id) {
+    let confirm = await notificationConfirm('Do you wanna delete this detail?');
+    if (confirm) {
+        const DATA = new FormData;
+        DATA.append('id_detail', id);
+        const JSON = await dataRequest(CART, 'deleteDetail', DATA);
+        if (JSON.status) {
+            LOAD();
+            notificationRedirect('success', JSON.message, true);
+        } else {
+            notificationRedirect('error', JSON.exception, false);
+        }
+    }
+}
+
+// evento -> método para finalizar pedido
+document.getElementById('buy').addEventListener('click', async event => {
+    event.preventDefault();
+    const ORDER = new FormData;
+    ORDER.append('order', getOrderURL());
+    const JSON = await dataRequest(CART, 'endOrder', ORDER);
+    if (JSON.status) {
+        M.toast({ html: "Your products are on the way" });
+        setTimeout(() => {
+            location.href = 'products.html';
+        }, 2000)
+    }
+})
+
+// evento -> método para cancelar orden
+document.getElementById('cancel').addEventListener('click', async event => {
+    event.preventDefault();
+    const ORDER = new FormData;
+    ORDER.append('order', getOrderURL());
+    const JSON = await dataRequest(CART, 'endOrder', ORDER);
+    if (JSON.status) {
+        M.toast({ html: "Your order cancelled" });
+        setTimeout(() => {
+            location.href = 'products.html';
+        }, 2000)
     }
 })
