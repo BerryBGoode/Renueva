@@ -85,6 +85,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
+                // login clientes
             case 'LoginClient':
 
                 //validar que el $_POST no traiga espacio demás

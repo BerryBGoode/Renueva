@@ -64,7 +64,6 @@ if (CARTBTN) {
         // obtener orden pendiente según cliente
         const JSON = await dataRequest(ORDER, 'getActuallyOrder');
         // verificar el resultado
-        console.log(JSON)
         switch (JSON.status) {
             case -1:
                 // mandar a usuario a iniciar sesión
