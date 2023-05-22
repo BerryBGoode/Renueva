@@ -105,7 +105,7 @@ if (!isset($_GET['action'])) {
                 }
 
                 break;
-                
+
             case 'getActuallyOrder':
                 // print_r($_SESSION);
                 if ($response['dataset'] = $query->getOrderByClient($_SESSION['id_client'])) {
@@ -161,7 +161,7 @@ if (!isset($_GET['action'])) {
 
             case 'endOrder':
                 
-                print_r($_POST['products']);
+                // print_r($_POST['products']);
                 if ($query->changeStateOrder('on the way', $_POST['order'])) {
                     $response['status'] = 1;
                 } else {

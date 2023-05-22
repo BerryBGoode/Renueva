@@ -221,7 +221,7 @@ document.getElementById('buy').addEventListener('click', async event => {
     event.preventDefault();
     const ORDER = new FormData;
     ORDER.append('order', getOrderURL());
-    ORDER.append()
+    // ORDER.append()
     const JSON = await dataRequest(CART, 'endOrder', ORDER);
     if (JSON.status) {
         M.toast({ html: "Your products are on the way" });

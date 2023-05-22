@@ -193,12 +193,13 @@ header {
 }
 
 .icons-nav {
-    width: 1.8%;
+    /* width: 1.8%; */
     /* width: 30px;*/
-    /* height: 30px;  */
+    height: 30px;
+    display: flex; 
 }
 
-#cart{
+#cart, #account{
     cursor: pointer;
 }
 body {

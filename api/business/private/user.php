@@ -17,7 +17,7 @@ if (isset($_GET['action'])) {
     //verificar si existe la sesión iniciar 
     //para poder administrar las acciones que puede realizar cuando ha iniciado sesión que cuando no
     //por el momento para avanzar el scrud de usuario solo cuando haya un sesión iniciada
-    if (isset($_SESSION['id_user'])) {
+    if (isset($_SESSION['id_user']) || isset($_SESSION['id_client'])) {
 
         //asignar 1 a la sesión porque existe una sesión
         $response['session'] = 1;
@@ -59,6 +59,21 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
+            case 'logOutClient':
+                // borrar variables de sesión de cliente
+                unset($_SESSION['id_client']);
+                unset($_SESSION['user_client']);
+                break;
+            case 'checkSessionClient':
+                print_r($_SESSION);
+                // verificar sesión
+                if (!isset($_SESSION['id_client'])) {
+                    $response['status'] = -1;
+                } else {
+                    $response['status'] = 1;
+                }
+
+                break;
 
             default:
                 $response['exception'] = 'This Action is disable in session';
