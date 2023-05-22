@@ -195,6 +195,14 @@ const LOAD = async () => {
                 location.href = 'products.html';
             }, 2000)
             break;
+
+        case -1:
+            M.toast({ html: "Don't inside in your account" });
+            setTimeout(() => {
+                location.href = '../../view/public';
+            }, 2000)
+            break;
+
         default:
             break;
     }
