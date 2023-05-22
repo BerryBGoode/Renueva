@@ -359,8 +359,7 @@ BEGIN
 					  FROM orders 
 					  WHERE id_state_order = (SELECT id_state_order 
 											  FROM states_orders
-											  WHERE state_order = 'cancelled')
-					) INTO _product_;					
+											  WHERE state_order = 'cancelled')) INTO _product_;					
 						
 -- 	actualizar existencias
 	UPDATE products SET stock = stock + _quantity_ WHERE id_product = _product_;

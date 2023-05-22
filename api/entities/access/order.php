@@ -183,8 +183,9 @@ class OrderQuery
      */
     public function details($order)
     {
-        $sql = 'SELECT * FROM details_orders WHERE id_order = ? ORDER BY id_detail_order DESC';
-        $param = array($order);
+        $state = implode(' ', self::InProcess());
+        $sql = 'SELECT * FROM details_orders WHERE id_order = ? AND state_order = ? ORDER BY id_detail_order DESC';
+        $param = array($order, $state);
         return Connection::all($sql, $param);
     }
 

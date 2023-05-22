@@ -50,13 +50,14 @@ const LOAD = async () => {
     // adjuntar order
     ORDER.append('order', getOrderURL());
     const JSON = await dataRequest(CART, 'viewCart', ORDER);
-    if (JSON.status) {
-        // reiniciar los valores del arreglo
-        SUBTOTAL.splice(0, SUBTOTAL.length);
-        // recorrer los pedidos encontrados
-        DETAILS.innerHTML = `<span>${JSON.message} orders</span>`
-        JSON.dataset.forEach(element => {
-            TABLE.innerHTML += `
+    switch (JSON.status) {
+        case 1:
+            // reiniciar los valores del arreglo
+            SUBTOTAL.splice(0, SUBTOTAL.length);
+            // recorrer los pedidos encontrados
+            DETAILS.innerHTML = `<span>${JSON.message} orders</span>`
+            JSON.dataset.forEach(element => {
+                TABLE.innerHTML += `
                 <tr>
                     <td class="hide iddetail">${element.id_detail_order}</td>
                     <td>${element.name}</td>
@@ -113,81 +114,89 @@ const LOAD = async () => {
                     </td>
                 </tr>
             `;
-            // asignar el subtotal obtenido del registro que esta recorriendo
-            SUBTOTAL.push(element.total);
-            // asignar el id del producto a comprar
+                // asignar el subtotal obtenido del registro que esta recorriendo
+                SUBTOTAL.push(element.total);
+                // asignar el id del producto a comprar
 
-            // obtener id del detalle
-            const ID = document.getElementsByClassName('iddetail');
-            // obtener los botones para agregar 1 cantidad
-            const SUM = document.getElementsByClassName('sum');
-            // obtener los botones para restar 1 cantidad
-            const REST = document.getElementsByClassName('rest');
-            // elemento donde esta el valor del contador en base a la cantidad
-            let count = document.getElementsByClassName('count');
-            // recorrer los botones encontrados
-            for (let index = 0; index < ID.length; index++) {
+                // obtener id del detalle
+                const ID = document.getElementsByClassName('iddetail');
+                // obtener los botones para agregar 1 cantidad
+                const SUM = document.getElementsByClassName('sum');
+                // obtener los botones para restar 1 cantidad
+                const REST = document.getElementsByClassName('rest');
+                // elemento donde esta el valor del contador en base a la cantidad
+                let count = document.getElementsByClassName('count');
+                // recorrer los botones encontrados
+                for (let index = 0; index < ID.length; index++) {
 
-                // Evento para agregar cantidad
-                SUM[index].addEventListener('click', async event => {
-                    event.preventDefault();
-                    // hacer suma
-                    let result = parseInt(count[index].textContent) + 1;
-                    // verificar sí el result es menor o igual la cantidad de existencias que tiene ese producto
-                    if (element.stock >= result) {
+                    // Evento para agregar cantidad
+                    SUM[index].addEventListener('click', async event => {
+                        event.preventDefault();
+                        // hacer suma
+                        let result = parseInt(count[index].textContent) + 1;
+                        // verificar sí el result es menor o igual la cantidad de existencias que tiene ese producto
+                        if (element.stock >= result) {
 
-                        // mostrar en la tabla
-                        count[index].innerHTML = result;
-                        // actualizar
-                        const DETAIL = new FormData;
-                        DETAIL.append('detail', ID[index].textContent);
-                        DETAIL.append('quantity', result);
-                        const JSON = await dataRequest(CART, 'changeQuantity', DETAIL);
-                        if (JSON.status) {
-                            M.toast({ html: "Product append" });
+                            // mostrar en la tabla
+                            count[index].innerHTML = result;
+                            // actualizar
+                            const DETAIL = new FormData;
+                            DETAIL.append('detail', ID[index].textContent);
+                            DETAIL.append('quantity', result);
+                            const JSON = await dataRequest(CART, 'changeQuantity', DETAIL);
+                            if (JSON.status) {
+                                M.toast({ html: "Product append" });
+                            }
+                        } else {
+                            M.toast({ html: "Exceeds the number of products that can be carried from this same" })
                         }
-                    } else {
-                        M.toast({ html: "Exceeds the number of products that can be carried from this same" })
-                    }
 
-                })
-                // Evento para restar cantidad
-                REST[index].addEventListener('click', async event => {
-                    event.preventDefault();
-                    
-                    // verificar sí es un valor 1 
-                    if (parseInt(count[index].textContent) <= 1) {                        
-                        M.toast({ html: "Don't buy -1 quantity of your product" });
-                    } else {
-                        // hacer RESTA
-                        let result = parseInt(count[index].textContent) - 1;
-                        // mostrar en la tabla
-                        count[index].innerHTML = result;
-                        // actualizar
-                        const DETAIL = new FormData;
-                        DETAIL.append('detail', ID[index].textContent);
-                        DETAIL.append('quantity', result);
-                        const JSON = await dataRequest(CART, 'changeQuantity', DETAIL);
-                        if (JSON.status) {
-                            M.toast({ html: "Product disappend" });
+                    })
+                    // Evento para restar cantidad
+                    REST[index].addEventListener('click', async event => {
+                        event.preventDefault();
+
+                        // verificar sí es un valor 1 
+                        if (parseInt(count[index].textContent) <= 1) {
+                            M.toast({ html: "Don't buy -1 quantity of your product" });
+                        } else {
+                            // hacer RESTA
+                            let result = parseInt(count[index].textContent) - 1;
+                            // mostrar en la tabla
+                            count[index].innerHTML = result;
+                            // actualizar
+                            const DETAIL = new FormData;
+                            DETAIL.append('detail', ID[index].textContent);
+                            DETAIL.append('quantity', result);
+                            const JSON = await dataRequest(CART, 'changeQuantity', DETAIL);
+                            if (JSON.status) {
+                                M.toast({ html: "Product disappend" });
+                            }
                         }
-                    }
 
-                })
+                    })
+                }
+            });
+            // almacena los subtotales para irlos sumando y encontrar el total
+            let total = 0;
+            let index = 0;
+            // iterrar arreglo con los subtotales obtenidos
+            for (const UNIT of SUBTOTAL) {
+                total += parseFloat(UNIT + ' index: ' + index);
             }
-        });
-        // almacena los subtotales para irlos sumando y encontrar el total
-        let total = 0;
-        let index = 0;
-        // iterrar arreglo con los subtotales obtenidos
-        for (const UNIT of SUBTOTAL) {
-            total += parseFloat(UNIT + ' index: ' + index);
-        }
-        TOTAL.innerHTML = `<h5 class="bold">
+            TOTAL.innerHTML = `<h5 class="bold">
         $${total.toLocaleString(5)}    
         </h5>`
+            break;
 
-
+        case 2:
+            M.toast({ html: JSON.exception })
+            setTimeout(() => {
+                location.href = 'products.html';
+            }, 2000)
+            break;
+        default:
+            break;
     }
 }
 
@@ -229,8 +238,8 @@ document.getElementById('cancel').addEventListener('click', async event => {
     const JSON = await dataRequest(CART, 'cancelOrder', ORDER);
     if (JSON.status) {
         M.toast({ html: "Your order cancelled" });
-        // setTimeout(() => {
-        //     location.href = 'products.html';
-        // }, 2000)
+        setTimeout(() => {
+            location.href = 'products.html';
+        }, 2000)
     }
 })

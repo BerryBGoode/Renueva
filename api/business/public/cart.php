@@ -122,6 +122,7 @@ if (!isset($_GET['action'])) {
                 } elseif (Connection::getException()) {
                     $response['exception'] = Connection::getException();
                 } else {
+                    $response['status'] = 2;
                     $response['exception'] = "Doesn't exist products in your cart";
                 }
 
