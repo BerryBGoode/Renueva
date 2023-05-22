@@ -58,11 +58,11 @@ if (HEADER) {
 const CARTBTN = document.getElementById('cart');
 if (CARTBTN) {
 
-    const ORDER = 'business/public/cart.php';
+    const CART = 'business/public/cart.php';
 
     CARTBTN.addEventListener('click', async () => {
         // obtener orden pendiente según cliente
-        const JSON = await dataRequest(ORDER, 'getActuallyOrder');
+        const JSON = await dataRequest(CART, 'getActuallyOrder');
         // verificar el resultado
         switch (JSON.status) {
             case -1:
@@ -74,12 +74,14 @@ if (CARTBTN) {
 
             case 1:
                 setTimeout(() => {
+                    // redireciones a la página del cart, enviandole la orden recuperada
                     const URL = 'cart.html' + '?orderid=' + encodeURIComponent(JSON.dataset[0].id_order);
                     location.href = URL;
                 }, 0500);
                 break;
 
             case 2:
+
                 M.toast({ html: "Add products to your cart" });
 
                 break;

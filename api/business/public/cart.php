@@ -29,11 +29,12 @@ if (!isset($_GET['action'])) {
                     // recorrer las ordenes encontradas
                     for ($i = 0; $i < count($orders); $i++) {
                         // verfícar sí esa orden no tiene detalle     
+                        
                         if (!$details = $query->details(implode(' ', $orders[$i]))) {
                             // eliminar orden pendiente sí no tiene detalle
                             // convertirla de array a string
                             $query->destroyOrder(implode(' ', $orders[$i]));
-                            // print_r($order[$i]);
+                            // print_r($details);
                         }
                     }
                     // hasta aquí tengo ordenes que tienen detalle
@@ -47,6 +48,7 @@ if (!isset($_GET['action'])) {
                             // entonces procede a agregar +1 a la cantidad de ese detalle                        
                             $query->addQuantitive($details[$i]['id_detail_order'], $_POST['quantity']);
                             $response['status'] = 1;
+                            $response['message'] = 'Se sumo un producto al carrito';
                         } else {
                             // agregar producto al detalle
                             if (!ORDER->setDOrder(implode(' ', $orders[$i]))) {
@@ -57,6 +59,7 @@ if (!isset($_GET['action'])) {
                                 $response['exception'] = 'Error to get quantity';
                             } elseif ($query->storeDetail()) {
                                 $response['status'] = 1;
+                                $response['message'] = 'Se creo detalle';
                             } else {
                                 $response['exception'] = Connection::getException();
                             }
@@ -89,6 +92,7 @@ if (!isset($_GET['action'])) {
                                 $response['exception'] = 'Quantity incorrect';
                             } elseif ($query->storeDetail()) {
                                 $response['status'] = 1;
+                                $response['message'] = 'Se creo orden y detalle';
                             } else {
                                 $response['exception'] = Connection::getException();
                             }
@@ -101,9 +105,9 @@ if (!isset($_GET['action'])) {
                 }
 
                 break;
-
+                
             case 'getActuallyOrder':
-
+                // print_r($_SESSION);
                 if ($response['dataset'] = $query->getOrderByClient($_SESSION['id_client'])) {
                     $response['status'] = 1;
                 } elseif (Connection::getException()) {
