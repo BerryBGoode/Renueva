@@ -37,12 +37,14 @@ if (isset($_SESSION['id_user'])) {
             
             break;
         
+        
         default:
             $response['exception'] = 'This Action is disable out sesion';           
     }
-    //formato para mostrar el contenido
-    header('content-type: application/json; charset=utf-8');    
-    // print_r($response);
-    //resultado formato json y retorna al controlador
-    print(json_encode($response));
 } 
+
+//formato para mostrar el contenido
+header('content-type: application/json; charset=utf-8');    
+// print_r($response);
+//resultado formato json y retorna al controlador
+print(json_encode($response));

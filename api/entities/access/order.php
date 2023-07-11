@@ -183,8 +183,9 @@ class OrderQuery
      */
     public function details($order)
     {
-        $sql = 'SELECT * FROM details_orders WHERE id_order = ? ORDER BY id_detail_order DESC';
-        $param = array($order);
+        $state = 'in process';
+        $sql = 'SELECT * FROM details_orders WHERE id_order = ? AND state_order = ? ORDER BY id_detail_order DESC';
+        $param = array($order, $state);
         return Connection::all($sql, $param);
     }
 
@@ -299,6 +300,19 @@ class OrderQuery
                 WHERE id_order = ?';
         $param = array($state, $order);
         return Connection::storeProcedure($sql, $param);
+    }
+
+    /**
+     * Método para obtener las existencias del producto a finalizar pedido
+     * esté método ayuda a validar que el cliente no lleve más de la cantidad de
+     * producto según la existencia
+     * retorna un arreglo con los datos según la consulta
+     */
+    public function getStocks($product)
+    {
+        $sql = 'SELECT stock FROM products WHERE id_producto = ?';
+        $param = array($product);
+        return Connection::row($sql, $param);
     }
 }
 // /*cargar ordenes cuando agregue o actualize

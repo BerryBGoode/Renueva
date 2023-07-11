@@ -118,4 +118,33 @@ class ReviewQuery
         $param = array($product);
         return Connection::all($sql, $param);
     }
+
+    /**
+     * Método para obtener las ordenes del un cliente
+     */
+    public function getOrderByCliente($client)
+    {
+        $sql = 'SELECT id_order 
+                FROM orders
+                WHERE id_client = (
+                    SELECT id_client
+                    FROM users
+                    WHERE id_user = ?
+                )';
+        $param = array($client);
+        return Connection::all($sql, $param);
+    }
+
+    /**
+     * Método para verficar sí existe un detalle con el producto, No. de orden recibido
+     * también se obtiene el cliente
+     * $product producto seleccionado, $order orden seleccionada
+     * retorna el id del detalle
+     */
+    public function getDetails($product, $order)
+    {
+        $sql = 'SELECT id_detail_order FROM detail_orders WHERE id_product = ? AND id_order = ?';
+        $params = array($product, $order);
+        return Connection::all($sql, $params);
+    }
 }

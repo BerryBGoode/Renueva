@@ -15,8 +15,8 @@ if (!isset($_GET['action'])) {
     session_start();
 
     // verificar sí existe un sesión de admin
-    if (!isset($_SESSION['id_user'])) {
-
+    if (!isset($_SESSION['id_user']) && !isset($_SESSION['id_client'])) {
+        $response['status'] = -1;
         $response['exception'] = 'Action denied';
     } else {
 
@@ -175,13 +175,82 @@ if (!isset($_GET['action'])) {
                 }
 
                 break;
+
+                // endpoint para publicar comentario
+            case 'publishComment':
+                // arreglo vacío
+                $order = [];
+                $detail = [];
+                // obtener las ordenes del cliente activo
+                if ($orders = $query->getOrderByCliente($_SESSION['id_client'])) {
+                    // iterar las ordenes 
+                    // print_r($orders);
+                    foreach ($orders as $orderclient){
+                        $order[] = $orderclient;
+                        // hasta aquí han llegado las ordenes que tiene un cliente
+                        if ($details = $query->getDetails($_POST['product'], implode(' ', $orderclient))) {
+
+                            foreach ($details as $detailclient){
+                                $detail[] = $detailclient;
+                            }
+
+                        } else {
+                            # code...
+                        }
+                        
+                    }
+                    // for ($i = 0; $i < count($orders); $i++) {
+                    //     $order = implode(' ', $orders[$i]);
+
+                        
+                    //     // hasta aquí llevan las ordenes que tiene un cliente
+                    //     // veríficar orden por orden sí tiene el producto a comentar                        
+                    //     // if ($details = $query->getDetails($_POST['product'], $order)) {
+
+                    //     //     print_r($details);
+                    //     //     for ($i=0; $i < count($details) ; $i++) { 
+                    //     //         $response['dataset'] = implode(' ', $details[$i]);
+                    //     //     }
+                    //     //     // $response['dataset'] = 
+                    //     //     // // verificar la cantidad de detalles
+                    //     //     // if (count($details) > 1) {
+                    //     //     //     // elegir un detalle random para agregar
+                    //     //     //     // iterar details
+                    //     //     //     // for ($i=0; $i < count($details) ; $i++) {                               
+                    //     //     //     //     // $detail = implode(' ',$details);
+                    //     //     //     // } 
+
+                    //     //     // } else {
+                    //     //     //     // agregar comentario del detalle
+                    //     //     //     REVIEW->setIdDetailOrder($details);
+                    //     //     //     REVIEW->setComment($_POST['comment']);
+                    //     //     //     if ($query->store()) {
+                    //     //     //         // se agrego comentario correctamente
+                    //     //     //         $response['status'] = 1;
+                    //     //     //     } else {
+                    //     //     //         $response['exception'] = Connection::getException();
+                    //     //     //     }
+                    //     //     // }
+                    //     // } else {
+                    //     //     // no tiene este producto registrado
+                    //     //     $response['status'] = 2;
+                    //     //     $response['exception'] = 'You not buy this product';
+                    //     // }
+                    // }
+                    $response['dataset'] = $detail;
+                } else {
+                    // no tiene ordenes registradas
+                    $response['status'] = 2;
+                    $response['exception'] = 'You not buy someone product of Renueva';
+                }
+                break;
             default:
                 $response['exception'] = "This action dosen't exist";
                 break;
         }
     }
 }
-//formato para mostrar el contenido
+//retonrna en formato json
 header('content-type: application/json; charset=utf-8');
 // print_r($response);
 //resultado formato json y retorna al controlador

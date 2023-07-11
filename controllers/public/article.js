@@ -10,6 +10,8 @@ const COMMENTS = document.getElementById('container-comments');
 const FORM = document.getElementById('form-order');
 // var para contador
 let count = document.getElementById('count');
+
+
 /**
  * Método para obtener el producto que se consulta, este producto viene de la url
  */
@@ -24,26 +26,31 @@ function getProductURL() {
     return VALUE;
 }
 
+const PRODUCTURL = getProductURL();
+
 // evento que se ejecuta cuando carga el dom
 document.addEventListener('DOMContentLoaded', async event => {
+    loadComments(event);
+    loadArticle(event);
+})
+
+const loadArticle = async event => {
     event.preventDefault();
     const ID = new FormData;
     // console.log(getProductURL());
-    ID.append('idproduct', getProductURL());
+    ID.append('idproduct', PRODUCTURL);
     const JSON = await dataRequest(PRODUCT, 'one', ID);
     if (JSON.status) {
         // console.log(JSON)
         // cargar datos en los componentes html
-        
+
         // detalles del producto
         document.getElementById('name').innerText = JSON.dataset.name;
         document.getElementById('category').innerText = JSON.dataset.category;
         document.getElementById('description').innerText = JSON.dataset.description;
-        document.getElementById('price').innerText = '$'+ JSON.dataset.price;
+        document.getElementById('price').innerText = '$' + JSON.dataset.price;
         document.getElementById('img').innerHTML = `<img src="${PATH + JSON.dataset.image}" id="img" width="100%" height="100%" alt="${JSON.dataset.name}">`;
 
-        // comentarios
-        loadComments(event);
 
         // contador
         count.innerText = 1;
@@ -58,7 +65,7 @@ document.addEventListener('DOMContentLoaded', async event => {
             location.href = 'products.html';
         }, 1000) //esperar 1 segundo
     }
-})
+}
 
 // método para cargar comentarios
 const loadComments = async event => {
@@ -68,13 +75,13 @@ const loadComments = async event => {
     COMMENTS.innerHTML = ``;
     // instancia donde guardar el producto a consultar
     const ID = new FormData;
-    ID.append('idproduct', getProductURL());
+    ID.append('idproduct', PRODUCTURL);
     const JSON = await dataRequest(COMMENT, 'comments', ID);
-        // veríficar sí existen comentarios
-        if (JSON.status === 1) {
-            // recorrer los comentarios encontrados
-            JSON.dataset.forEach(element => {
-                COMMENTS.innerHTML += `<div class="card2-article">
+    // veríficar sí existen comentarios
+    if (JSON.status === 1) {
+        // recorrer los comentarios encontrados
+        JSON.dataset.forEach(element => {
+            COMMENTS.innerHTML += `<div class="card2-article">
                     <div class="info-comment">
                         <span>${element.username}</span>
                         <span>${element.comment}</span>
@@ -83,11 +90,11 @@ const loadComments = async event => {
                 </div>
                 <div class="space2"></div>
                 `;
-            });
-        }
+        });
+    }
 }
 
-const quantity = () =>{
+const quantity = () => {
 
     // obtener boton para quitar cantidad y crear evento click
     document.getElementById('rest').addEventListener('click', () => {
@@ -97,7 +104,7 @@ const quantity = () =>{
             count.value = count.value - 1;
             count.innerText = count.value;
         }
-        
+
     })
 
     // obtener boton para agregar cantidad y crear evento click
@@ -110,7 +117,7 @@ const quantity = () =>{
 FORM.addEventListener('submit', async event => {
     event.preventDefault();
     const DATA = new FormData;
-    DATA.append('product', getProductURL());
+    DATA.append('product', PRODUCTURL);
     DATA.append('quantity', count.value);
     DATA.append('view', 'article');
     // DATA.append('date', );
@@ -129,3 +136,33 @@ FORM.addEventListener('submit', async event => {
         M.toast({ html: msg });
     }
 })
+
+// Publicar comentario
+document.getElementById('form-comment').addEventListener('submit', async event => {
+    event.preventDefault();
+    const DATA = new FormData(document.getElementById('form-comment'));
+    DATA.append('product', PRODUCTURL);
+    const JSON = await dataRequest(COMMENT, 'publishComment', DATA);
+    console.log(JSON);
+    switch (JSON.status) {
+        case 1:
+            // producto comentado correctamente
+            M.toast({ html: 'Commented product' });
+            break;
+
+        case 2:
+            // no cumple algún requerimiento
+            M.toast({ html: JSON.exception })
+            break;
+        case -1:
+            // no ha iniciado sesión
+            M.toast({ html: "You're need sign in to append product" });
+            setTimeout(() => {
+                location.href = 'login.html'
+            }, 1500);
+            break;
+        default:
+            break;
+    }
+
+});

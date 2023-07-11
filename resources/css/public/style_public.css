@@ -193,12 +193,18 @@ header {
 }
 
 .icons-nav {
-    width: 1.8%;
+    /* width: 1.8%; */
     /* width: 30px;*/
-    /* height: 30px;  */
+    height: 30px;
+    display: flex; 
+}
+.form-search{
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
 }
 
-#cart{
+#cart, #account, #search-button{
     cursor: pointer;
 }
 body {

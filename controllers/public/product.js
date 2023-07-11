@@ -154,6 +154,67 @@ const LOADCLIENT = () => {
 };
 
 
+const SEARCH = document.getElementById('search-input');
+// if (SEARCH) {
+//     SEARCH.addEventListener('keyup', async event => {
+//         event.preventDefault();
+//         const JSON = await dataRequest(PRODUCTS, 'loadProducts');
+//         if (JSON.status) {
+//             CONTENT.innerHTML = ``;
+//             let search = SEARCH.value.toLowerCase();
+//             if (search === '') {
+//                 LOADCLIENT();
+//             } else {
+//                 for (let products of JSON.dataset) {
+//                     let name = products.name;
+//                     let category = products.category;
+//                     let price = products.price;
+//                     if (name.indexOf(search) !== -1 || state.indexOf(search) !== -1 || category.indexOf(search) !== -1) {
+//                         CONTENT.innerHTML += `    
+                
+//                 <div class="product"> 
+//                     <div class="image">
+//                         <img src="${PATH + element.image}" alt="img" class="product-image">                        
+//                     </div>
+
+//                     <div class="detail_product">
+//                         <span>${element.name}</span>
+//                         <span>${element.category}</span>
+//                         <span>$${element.price}</span>                        
+//                     <div>             
+                    
+//                     <div class="buttons-form-product">
+//                             <!-- ver producto -->
+//                         <form action="article.html" method="get" id="article">
+//                             <input type="number" name="productid" id="productid" class="hide" value="${PRODUCTS[index]}">                    
+//                             <button type="submit" class="btn product-btn">
+//                             <svg class="view-icon" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+//                                 <path d="M16.2293 12.5001C16.2293 14.5626 14.5626 16.2293 12.5001 16.2293C10.4376 16.2293 8.771 14.5626 8.771 12.5001C8.771 10.4376 10.4376 8.771 12.5001 8.771C14.5626 8.771 16.2293 10.4376 16.2293 12.5001Z" stroke="#424242" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+//                                 <path d="M12.5001 21.1146C16.1772 21.1146 19.6043 18.9479 21.9897 15.1979C22.9272 13.7292 22.9272 11.2604 21.9897 9.79167C19.6043 6.04167 16.1772 3.875 12.5001 3.875C8.823 3.875 5.39591 6.04167 3.0105 9.79167C2.073 11.2604 2.073 13.7292 3.0105 15.1979C5.39591 18.9479 8.823 21.1146 12.5001 21.1146Z" stroke="#424242" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+//                             </svg>
+                        
+//                             </button>                                                
+//                         </form>
+//                             <!-- agregar producto a orden -->
+//                         <form method="post" id="product">
+//                             <input type="number" name="idproduct" id="idproduct" class="hide" value="${PRODUCTS[index]}">
+//                             <button type="submit" class="btn product-btn add-cart" value="${PRODUCTS[index]}">
+//                                 Buy
+//                             </button>
+//                         </form>
+//                     </div>
+//                 </div>                
+//                 `;
+//                     }
+
+//                 }
+//             }
+//         } else {
+
+//         }
+//     })
+// }
+
 
 // evento que se ejecuta cada vez que carga el DOM
 document.addEventListener('DOMContentLoaded', () => {

@@ -103,8 +103,8 @@ INSERT INTO public.states_orders(
 	 state_order)
 	VALUES 	('on the way'),
 			('delivered'),
-			('cancelled');
-			
+			('cancelled'),
+			('in process');
 INSERT INTO public.categories(
 	 category)
 	VALUES 	('creams'),
@@ -338,8 +338,56 @@ AFTER UPDATE ON detail_orders
 FOR EACH ROW
 EXECUTE FUNCTION FUN_addStockProduct();
 
+-- FUNCIÓN PARA SUMAR EXISTENCIAS AL PRODUCTO DE LA ORDEN CANCELADA
+CREATE OR REPLACE FUNCTION Fun_AddStockProductByOrder()
+RETURNS TRIGGER 
+AS
+$$
+DECLARE
+	_quantity_ INTEGER;
+	_product_ INTEGER;
+BEGIN
+-- seleccionar la cantidad del primer registro (registro modificado)
+	SELECT cuantitive FROM detail_orders 
+	WHERE id_order = (SELECT id_order 
+					  FROM orders 
+					  WHERE id_state_order = (SELECT id_state_order 
+											  FROM states_orders
+											  WHERE state_order = 'cancelled')) INTO _quantity_;
+	SELECT id_product FROM detail_orders 
+	WHERE id_order = (SELECT id_order 
+					  FROM orders 
+					  WHERE id_state_order = (SELECT id_state_order 
+											  FROM states_orders
+											  WHERE state_order = 'cancelled')) INTO _product_;					
+						
+-- 	actualizar existencias
+	UPDATE products SET stock = stock + _quantity_ WHERE id_product = _product_;
+	RETURN NEW;
+	
+END
+$$ LANGUAGE PLPGSQL;
+-- TRIGGER PARA SUMAR EXISTENCIAS A LOS/EL PRODUCTO DE UNA ORDEN CANCELADA
+CREATE OR REPLACE TRIGGER update_stockByOrder
+AFTER UPDATE ON orders
+FOR EACH ROW
+	WHEN (NEW.id_state_order = 3)	--3 -> cancelled
+EXECUTE FUNCTION Fun_AddStockProductByOrder()
+
+DROP TRIGGER update_stockByOrder
+
+
+UPDATE orders 
+                SET id_state_order = 
+                    (SELECT id_state_order 
+                    FROM states_orders 
+                    WHERE state_order = 'cancelled')
+                WHERE id_order = 51
+
+
 SELECT * FROM products;
-SELECT * FROM detail_orders;
+SELECT * FROM orders
+SELECT * FROM detail_orders WHERE id_order = 51;
 UPDATE detail_orders SET cuantitive = cuantitive - 1 WHERE id_detail_order = 2
 	--OPERADOR ARTIMETICO (-1)
 
@@ -504,13 +552,15 @@ CREATE OR REPLACE VIEW all_orders AS
 	ORDER BY o.id_order ASC
 
 CREATE OR REPLACE VIEW details_orders AS
-	SELECT o.id_order, c.address, c.id_client, c.document, p.name,c.names ,c.last_names, d.id_product, d.id_detail_order , o.date_order, d.cuantitive, s.id_state_order, s.state_order, p.price * d.cuantitive as total
+	SELECT o.id_order, c.address, c.id_client, c.document, p.name,c.names ,c.last_names, d.id_product,
+	d.id_detail_order , o.date_order, d.cuantitive, s.id_state_order, p.price, p.stock, s.state_order, p.price * d.cuantitive as total
 	FROM detail_orders d
 	INNER JOIN orders o ON o.id_order = d.id_order
 	INNER JOIN states_orders s ON s.id_state_order = o.id_state_order
 	INNER JOIN clients c ON c.id_client = o.id_client
 	INNER JOIN products p ON p.id_product = d.id_product
 	ORDER BY o.id_order ASC
+	
 
 	
 DROP VIEW details_orders
@@ -519,6 +569,7 @@ SELECT * FROM details_orders;
 SELECT * FROM detail_orders
 SELECT * FROM orders
 SELECT * FROM products
+
 
 SELECT id_detail_order, id_order, id_product, cuantitive, count(id_product)
 FROM detail_orders
@@ -602,3 +653,12 @@ ALTER TABLE products ADD CONSTRAINT u_product_name UNIQUE(name);
 ALTER TABLE categories ADD CONSTRAINT u_category_name UNIQUE(category);
 
 SELECT id_product, name FROM products WHERE id_state_product = 1 AND stock >= 1
+22 23-05-17 4
+INSERT INTO orders(id_client, date_order, id_state_order) VALUES (22, 23-05-17, 4)
+SELECT * FROM orders
+SELECT * FROM products_states_categories
+SELECT * FROM products
+
+SELECT * FROM detail_orders
+SELECT  * FROM reviews
+SELECT * FROM states_orders

@@ -15,20 +15,20 @@ if (HEADER) {
                 </ul>
             </div>
             <div id="wrap">
-                <form action="" autocomplete="on">
-                    <input id="search" name="search" type="text" placeholder="What're we looking for?" autocomplete="off">
-                    <svg width="25" height="25" viewBox="0 0 27 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M11.5264 24.1588C17.34 24.1588 22.0528 18.9745 22.0528 12.5794C22.0528 6.18426 17.34 1 11.5264 1C5.71283 1 1 6.18426 1 12.5794C1 18.9745 5.71283 24.1588 11.5264 24.1588Z"
-                            stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M26 30.6719L20.7368 24.8822" stroke="black" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
+            <form method="post" id="form-search" class="form-search">    
+                    <svg width="18px" height="18px" id="search-button"
+                    viewBox="0 0 29 29" fill="none" class="search-icon" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12.5263 21.5122C18.3398 21.5122 23.0526 17.1442 23.0526 11.7561C23.0526 6.36795 18.3398 2 12.5263 2C6.71279 2 2 6.36795 2 11.7561C2 17.1442 6.71279 21.5122 12.5263 21.5122Z"
+                        stroke="#424242" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M27 26.9999L21.7368 22.1218" stroke="#424242" stroke-width="4" stroke-linecap="round"
+                        stroke-linejoin="round" />
                     </svg>
-
-                    </from>
+                    <input type="search" name="search" id="search-input">
+            </form>
             </div>
             <div class="icons-nav">                                
-                <svg id="cart" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg id="cart" data-tooltip="I am a tooltip" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                         <g id="SVGRepo_iconCarrier">
@@ -48,6 +48,13 @@ if (HEADER) {
                                 stroke-linejoin="round"></path>
                         </g>
                 </svg>                                
+                <svg id="account" width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier"> 
+                        <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" stroke="#424242" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> 
+                        <path d="M20.5899 22C20.5899 18.13 16.7399 15 11.9999 15C7.25991 15 3.40991 18.13 3.40991 22" stroke="#424242" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> 
+                    </g>
+                </svg>
             </div>
 
         </nav>
@@ -58,29 +65,30 @@ if (HEADER) {
 const CARTBTN = document.getElementById('cart');
 if (CARTBTN) {
 
-    const ORDER = 'business/public/cart.php';
+    const CART = 'business/public/cart.php';
 
     CARTBTN.addEventListener('click', async () => {
         // obtener orden pendiente según cliente
-        const JSON = await dataRequest(ORDER, 'getActuallyOrder');
+        const JSON = await dataRequest(CART, 'getActuallyOrder');
         // verificar el resultado
-        console.log(JSON)
         switch (JSON.status) {
             case -1:
                 // mandar a usuario a iniciar sesión
                 setTimeout(() => {
                     location.href = 'login.html';
-                }, 0500);
+                }, 500);
                 break;
 
             case 1:
                 setTimeout(() => {
+                    // redireciones a la página del cart, enviandole la orden recuperada
                     const URL = 'cart.html' + '?orderid=' + encodeURIComponent(JSON.dataset[0].id_order);
                     location.href = URL;
-                }, 0500);
+                }, 500);
                 break;
 
             case 2:
+
                 M.toast({ html: "Add products to your cart" });
 
                 break;
@@ -92,6 +100,45 @@ if (CARTBTN) {
     })
 }
 
+const USERS = 'business/private/user.php';
+const ACCOUNT = document.getElementById('account');
+if (ACCOUNT) {
+
+
+    let button = '<button class="btn-flat toast-action" type="submit">Log out</button>'
+
+    ACCOUNT.addEventListener('click', async event => {
+        event.preventDefault();
+        const JSON = await dataRequest(USERS, 'checkSessionClient');
+        switch (JSON.status) {
+            case 1:
+                M.toast({ html: '<span> Do you wanna log out </span><button class="btn-flat toast-action" onclick="logOut()" type="submit">Log out</button>' })
+                break;
+
+            case -1:
+                setTimeout(() => {
+                    location.href = 'login.html';
+                }, 500);
+                break;
+                break;
+            default:
+                break;
+        }
+    })
+}
+
+const logOut = async () => {
+    const JSON = await dataRequest(USERS, 'logOut');
+    if (JSON.status) {
+        setTimeout(() => {
+            location.href = '../../view/public/';
+        }, 500);
+
+    }
+
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     M.AutoInit();
 });
+
