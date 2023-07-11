@@ -15,7 +15,7 @@ if (!isset($_GET['action'])) {
     session_start();
 
     // verificar sí existe un sesión de admin
-    if (!isset($_SESSION['id_user']) || !isset($_SESSION['id_client'])) {
+    if (!isset($_SESSION['id_user']) && !isset($_SESSION['id_client'])) {
         $response['status'] = -1;
         $response['exception'] = 'Action denied';
     } else {

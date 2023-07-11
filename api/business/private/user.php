@@ -65,7 +65,7 @@ if (isset($_GET['action'])) {
                 unset($_SESSION['user_client']);
                 break;
             case 'checkSessionClient':
-                print_r($_SESSION);
+                // print_r($_SESSION);
                 // verificar sesión
                 if (!isset($_SESSION['id_client'])) {
                     $response['status'] = -1;
@@ -82,6 +82,16 @@ if (isset($_GET['action'])) {
         //acciones cuando no sé a iniciado sesión
         switch ($_GET['action']) {
 
+            case 'checkSessionClient':
+                // print_r($_SESSION);
+                // verificar sesión
+                if (!isset($_SESSION['id_client'])) {
+                    $response['status'] = -1;
+                } else {
+                    $response['status'] = 1;
+                }
+
+                break;
             case 'login':
 
                 //validar que el $_POST no traiga espacio demás

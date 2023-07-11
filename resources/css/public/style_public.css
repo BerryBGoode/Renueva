@@ -198,8 +198,13 @@ header {
     height: 30px;
     display: flex; 
 }
+.form-search{
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+}
 
-#cart, #account{
+#cart, #account, #search-button{
     cursor: pointer;
 }
 body {

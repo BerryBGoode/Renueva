@@ -15,17 +15,17 @@ if (HEADER) {
                 </ul>
             </div>
             <div id="wrap">
-                <form action="" autocomplete="on">
-                    <input id="search" name="search" type="text" placeholder="What're we looking for?" autocomplete="off">
-                    <svg width="25" height="25" viewBox="0 0 27 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M11.5264 24.1588C17.34 24.1588 22.0528 18.9745 22.0528 12.5794C22.0528 6.18426 17.34 1 11.5264 1C5.71283 1 1 6.18426 1 12.5794C1 18.9745 5.71283 24.1588 11.5264 24.1588Z"
-                            stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M26 30.6719L20.7368 24.8822" stroke="black" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
+            <form method="post" id="form-search" class="form-search">    
+                    <svg width="18px" height="18px" id="search-button"
+                    viewBox="0 0 29 29" fill="none" class="search-icon" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12.5263 21.5122C18.3398 21.5122 23.0526 17.1442 23.0526 11.7561C23.0526 6.36795 18.3398 2 12.5263 2C6.71279 2 2 6.36795 2 11.7561C2 17.1442 6.71279 21.5122 12.5263 21.5122Z"
+                        stroke="#424242" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M27 26.9999L21.7368 22.1218" stroke="#424242" stroke-width="4" stroke-linecap="round"
+                        stroke-linejoin="round" />
                     </svg>
-
-                    </from>
+                    <input type="search" name="search" id="search-input">
+            </form>
             </div>
             <div class="icons-nav">                                
                 <svg id="cart" data-tooltip="I am a tooltip" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -76,7 +76,7 @@ if (CARTBTN) {
                 // mandar a usuario a iniciar sesión
                 setTimeout(() => {
                     location.href = 'login.html';
-                }, 0500);
+                }, 500);
                 break;
 
             case 1:
@@ -84,7 +84,7 @@ if (CARTBTN) {
                     // redireciones a la página del cart, enviandole la orden recuperada
                     const URL = 'cart.html' + '?orderid=' + encodeURIComponent(JSON.dataset[0].id_order);
                     location.href = URL;
-                }, 0500);
+                }, 500);
                 break;
 
             case 2:
@@ -118,7 +118,7 @@ if (ACCOUNT) {
             case -1:
                 setTimeout(() => {
                     location.href = 'login.html';
-                }, 0500);
+                }, 500);
                 break;
                 break;
             default:
@@ -129,11 +129,15 @@ if (ACCOUNT) {
 
 const logOut = async () => {
     const JSON = await dataRequest(USERS, 'logOut');
-    setTimeout(() => {
-        location.href = '../../view/public/';
-    }, 0500);
+    if (JSON.status) {
+        setTimeout(() => {
+            location.href = '../../view/public/';
+        }, 500);
+
+    }
 
 }
+
 document.addEventListener('DOMContentLoaded', function () {
     M.AutoInit();
 });
