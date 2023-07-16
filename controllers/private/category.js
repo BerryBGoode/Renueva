@@ -33,7 +33,7 @@ FORM.addEventListener('submit', async (evt) => {
     //validar que no se pueda recargar la página
     evt.preventDefault();
     //verificar la acción
-    document.getElementById('idcategory').value ? action = 'update' : action = 'create';
+    document.getElementById('id_category').value ? action = 'update' : action = 'create';
     //filtrar los datos del form
     //instanciando la clas FormData y enviandole el form a validar
     const DATA = new FormData(FORM);
@@ -50,7 +50,7 @@ FORM.addEventListener('submit', async (evt) => {
     } else {
         MODAL.open();
         notificationRedirect('error', JSON.exception, false);
-    }
+    } 
 })
 
 
