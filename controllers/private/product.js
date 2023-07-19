@@ -336,3 +336,16 @@ FORMSEARCH.addEventListener('keyup', async (evt) => onSearch(evt));
  * async-await event para filtrado del buscado cuando ejecute el evento 'submit'
  */
 FORMSEARCH.addEventListener('submit', async (event) => onSearch(event))
+
+/**
+ *  Función para ejecutar el reporte de productos por categoría
+ *  Sin parametros.
+ *  Sin retornos.
+*/
+
+function OpenReport() {
+    // Se define una constante objeto con la ruta exacta del informe en el servidor.
+    const PATH = new URL(`${API}reports/producto.php`);
+    // Se manda a abrir el reporte en una nueva pestaña.
+    window.open(PAT.href);
+}

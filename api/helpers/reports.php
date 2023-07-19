@@ -1,6 +1,6 @@
 <?php
 //incluir clase que genera pdf, llamando a la librería
-require_once('../../libraries/fpdf185/fpdf.php')
+require_once('../../libraries/fpdf185/fpdf.php');
 
 /**
  * Clase que define las plantillas de los reportes
@@ -62,7 +62,7 @@ class report extends FPDF{
         $this->image('../../resources/img/logo/LogoRenueva_Login.png', 15, 15, 20);
         //Se ubica el título
         $this->cell(20);
-        $this->setFont('Arial', 'B', 15):
+        $this->setFont('Arial', 'B', 15);
         $this->cell(166, 10, $this->stringEncoder($this->title), 0, 1, 'C');
         // Se incluye un salto de línea para visualizar el contenido principal del documento.
         $this->ln(10);
