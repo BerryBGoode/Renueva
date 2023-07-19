@@ -2,15 +2,16 @@
 // Se agrega la clase con las plantillas que generan los reportes
 require_once('../helpers/reports.php');
 // Se agregan las clases para el acceso y transferencias de datos.
+require_once('../entities/transfers/product.php');
+require_once('../entities/transfers/category.php');
 require_once('../entities/access/product.php');
-require_once('../entities/access/category.php');
 
 // Inicializar clase para crear reporte
 $pdf = new Report;
 // Se inicia el reporte por el encabezado del doc.
 $pdf->reportHeader('Products by categories');
 //Se instancia el modelo Categpría para obetener los datos
-$category = new Category;
+$category = new CategoryQuery;
 //Verificar si existen registros que se muestren, sino, imprimir un mensaje.
 if ($dataCategories = $category->all()) {
     //Se establece un color de relleno en los encabezados
