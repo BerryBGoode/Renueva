@@ -10,7 +10,7 @@ require_once('../entities/access/product.php');
 $pdf = new Report;
 // Se inicia el reporte por el encabezado del doc.
 $pdf->reportHeader('Products by categories');
-//Se instancia el modelo Categpría para obetener los datos
+//Se instancia el modelo Categoría para obetener los datos
 $category = new CategoryQuery;
 //Verificar si existen registros que se muestren, sino, imprimir un mensaje.
 if ($dataCategories = $category->all()) {
@@ -33,9 +33,10 @@ if ($dataCategories = $category->all()) {
         // Se muestra una celda con el título de la sección.
         $pdf->cell(0, 10, $pdf->stringEncoder('Category: ' . $rowCategories['category']), 1, 1, 'C', 1);
         // Se crea una instancia del modelo Producto para procesar la información.
-        $product = new Product;
+        $product = new ProductQuery;
+        $products = new Product;
         // Se asigna la sección para obtener los artículos correspondientes. En caso contrario, se muestra un mensaje de error.
-        if ($product->setCategory($rowCategories['id_category'])) {
+        if ($products->setCategory($rowCategories['id_category'])) {
             // Se comprueba si hay registros disponibles para mostrar. En caso contrario, se muestra un mensaje.
             if ($dataProducts = $product->productCategory()) {
                 //Se itera sobre los registros fila por fila
