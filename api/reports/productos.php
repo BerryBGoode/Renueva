@@ -1,47 +1,47 @@
 <?php
-// Se agrega la clase con las plantillas que generan los reportes
+// The class with the templates that generate the reports is added
 require_once('../helpers/reports.php');
-// Se agregan las clases para el acceso y transferencias de datos.
+// The classes for access and data transfers are added.
 require_once('../entities/transfers/product.php');
 require_once('../entities/transfers/category.php');
 require_once('../entities/access/product.php');
 
-// Inicializar clase para crear reporte
+// Initialize class to create report
 $pdf = new Report;
-// Se inicia el reporte por el encabezado del doc.
+// The report is started by the header of the doc.
 $pdf->reportHeader('Products by categories');
-//Se instancia el modelo Categoría para obetener los datos
+//The Category model is instantiated to obtain the data
 $category = new CategoryQuery;
-//Verificar si existen registros que se muestren, sino, imprimir un mensaje.
+//Check if there are records that are displayed, if not, print a message.
 if ($dataCategories = $category->all()) {
-    //Se establece un color de relleno en los encabezados
+    //Set a fill color in the headers
     $pdf->SetFillColor(175);
-    // Se establece la fuente para los encabezados
-    $pdf->setFont('Times', 'B', 11);
-    //Imprimir celdas con encabezados
+    // Set the font for the headers
+    $pdf->SetFont('Times', 'B', 11);
+    //Print cells with headers
     $pdf->cell(126, 10, 'Name', 1, 0, 'C', 1);
     $pdf->cell(30, 10, 'Price (US$)', 1, 0, 'C', 1);
     $pdf->cell(30, 10, 'Description', 1, 1, 'C', 1);
 
-    // Se asigna un tono de fondo para visualizar el título de la sección. 
-    $pdf->setFillColor(225);
-    // Se define el tipo de letra para la información de los artículos.
-    $pdf->setFont('Times', '', 11);
+    // A background tone is assigned to display the section title.
+    $pdf->SetFillColor(225);
+    // The font for the article information is defined.
+    $pdf->SetFont('Times', 'B', 11);
 
-    // Se iteran los registros uno por uno.
+    // Iterate through the records one by one.
     foreach ($dataCategories as $rowCategories) {
-        // Se muestra una celda con el título de la sección.
+        // A cell with the title of the section is displayed.
         $pdf->cell(0, 10, $pdf->stringEncoder('Category: ' . $rowCategories['category']), 1, 1, 'C', 1);
-        // Se crea una instancia del modelo Producto para procesar la información.
+        // An instance of the Product model is created to process the information.
         $product = new ProductQuery;
         $products = new Product;
-        // Se asigna la sección para obtener los artículos correspondientes. En caso contrario, se muestra un mensaje de error.
+        // The section is assigned to get the corresponding articles. Otherwise, an error message is displayed.
         if ($products->setCategory($rowCategories['id_category'])) {
-            // Se comprueba si hay registros disponibles para mostrar. En caso contrario, se muestra un mensaje.
+            // Check if there are records available to display. Otherwise, a message is displayed.
             if ($dataProducts = $product->productCategory()) {
-                //Se itera sobre los registros fila por fila
+                // Iterate over the records row by row
                 foreach ($dataProducts as $rowProduct) {
-                    // Se muestran las celdas con la información de los artículos.
+                    // The cells with the information of the articles are shown.
                     $pdf->cell(70, 10, $pdf->stringEncoder($rowProduct['name']), 1, 0);
                     $pdf->cell(30, 10, $rowProduct['price'], 1, 0);
                     $pdf->cell(86, 10, $pdf->stringEncoder(['description']), 1, 0);
@@ -56,5 +56,5 @@ if ($dataCategories = $category->all()) {
 } else {
     $pdf->cell(0, 10, $pdf->stringEncoder('no categories found'), 1, 1);
 }
-// Se llama automáticamente al método footer() y se envía el documento al navegador web
+// The footer() method is automatically called and the document is sent to the web browser
 $pdf->output('I', 'product.pdf');
