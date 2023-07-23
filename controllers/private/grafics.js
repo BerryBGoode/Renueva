@@ -29,7 +29,7 @@ async function categoryBarGraph() {
             amount.push(element.amount);
         });
         // crear la gráfica
-        graphBar('bar-categories', categories, amount, 'Cantidad de productos', 'Cantidad de productos de las categorias')
+        graphBar('bar-categories', categories, amount, 'Cantidad de productos', 'Products by category')
     } else {
         // remover la gráfica
         document.getElementById('bar-categories').remove();
@@ -54,7 +54,7 @@ async function priceBarGraph() {
             products.push(element.name);
         })
         // crear gráfica
-        graphBar('bar-prices', products, prices, '', 'Precio de los productos')
+        graphBar('bar-prices', products, prices, null, 'Price of products')
     } else {
         // remover la gráfica
         document.getElementById('bar-prices').remove();
@@ -78,7 +78,7 @@ async function consumptionPieGraph() {
             products.push(element.name);
         })
         // crear gráfica
-        graphPie('bar-consumption', products, prices, '', 'Precio de los productos')
+        graphPie('bar-consumption', products, prices, 'More sales', '')
     } else {
         // remover la gráfica
         document.getElementById('bar-prices').remove();
@@ -104,7 +104,7 @@ async function stockPieGraph() {
         })
         // crear gráfica
         // graphPie('bar-stock', products, stock, '', 'Cantidad de productos')
-        polarGraph('bar-stock', products, 'Cantidad de productos', stock)
+        polarGraph('bar-stock', products, 'Stock of products', stock)
     } else {
         // remover la gráfica
         document.getElementById('bar-stock').remove();

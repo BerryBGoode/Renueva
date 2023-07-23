@@ -262,10 +262,10 @@ async function loadSelectAll(filename, select, selected = null, idselect = false
  * @param {*} dom elemento del DOM donde se aplicará
  * @param {*} x datos del eje X
  * @param {*} y datos del eje y
- * @param {*} msg mensaje de los datos
+ * @param {*} legend mensaje de los datos
  * @param {*} title titulo del gráfico
  */
-function graphBar(dom, x, y, msg = null, title) {
+function graphBar(dom, x, y, legend, title) {
     // arreglo para guardar código de los colores para la gráfica en hex
     let colores = [];
     // generar colores hex de 6 cigras por cada elemento independiente
@@ -281,7 +281,7 @@ function graphBar(dom, x, y, msg = null, title) {
         data: {
             labels: x,
             datasets: [{
-                label: msg,
+                label: legend,
                 data: y,
                 borderColor: '#000',
                 borderWidth: 1,
@@ -296,7 +296,7 @@ function graphBar(dom, x, y, msg = null, title) {
                     display: true,
                     text: title
                 },
-                msg: {
+                legend: {
                     display: false,
                 }
             },

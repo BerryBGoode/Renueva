@@ -141,10 +141,10 @@ class ProductQuery
      * Método para obtener los productos de la categoría
      */
 
-     public function productCategory()
+    public function productCategory()
     {
         $sql = 'SELECT * FROM products WHERE id_category = ?';
-        $param = array ($this->$category);
+        $param = array($this->$category);
         return Connection::all($sql, $param);
     }
 }
