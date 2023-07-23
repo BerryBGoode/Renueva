@@ -1,8 +1,5 @@
 <?php
 //archivo con los attr de transferencia 
-
-use JetBrains\PhpStorm\Internal\ReturnTypeContract;
-
 require_once('../../entities/transfers/category.php');
 //archivo con los procedmientos cercanos a la base
 require_once('../../helpers/connection.php');

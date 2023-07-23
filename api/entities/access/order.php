@@ -258,8 +258,8 @@ class OrderQuery
     public function getClient($user)
     {
         $sql = 'SELECT id_client 
-                FROM clients 
-                WHERE id_user = ?';
+               FROM clients 
+                 WHERE id_user = ?';
         $param = array($user);
         return Connection::row($sql, $param);
     }
@@ -315,6 +315,21 @@ class OrderQuery
         return Connection::row($sql, $param);
     }
 
+
+    /**
+     * Método para generar reportes
+     */
+    public function ClientOrders()
+    {
+        $sql = 'SELECT * FROM view_clients_orders';
+        $param = array();
+        return Connection::row($sql, $param);
+    }
+
+    /**
+     * Método para el estado de la orden
+     */
+
     /**
      * Método para obtener las ventas por mes 
      */
@@ -324,6 +339,10 @@ class OrderQuery
         return Connection::all($sql);
     }
 }
+
+
+
+
 // /*cargar ordenes cuando agregue o actualize
 // /*cargar No.Orders
 // /*lógica para agregar:

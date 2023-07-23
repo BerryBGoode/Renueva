@@ -3,7 +3,7 @@
 require_once('../../helpers/connection.php');
 // archivo con los datos de transferencia
 require_once('../../entities/transfers/product.php');
-
+require_once('../../entities/access/category.php');
 // clase con los queries
 class ProductQuery
 {
@@ -144,7 +144,7 @@ class ProductQuery
      public function productCategory()
     {
         $sql = 'SELECT * FROM products WHERE id_category = ?';
-        $param = array ($this->$category);
+        $param = array ($this->category);
         return Connection::all($sql, $param);
     }
 }
