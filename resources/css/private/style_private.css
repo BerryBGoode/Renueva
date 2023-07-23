@@ -430,6 +430,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 
 .content-container {
     display: grid;
+    overflow-y: auto;
     /*this display have the container use all parent container*/
     background-color: var(--container-color);
     box-sizing: border-box;
@@ -449,8 +450,13 @@ textarea.materialize-textarea:focus:not([readonly]) {
     border-radius: 50px;*/
 }
 
+canvas{
+    display: initial !important;
+    box-sizing: unset;
+    margin: 0;
+}
+
 .template-main-container {
-    overflow: auto;
     width: 100%;
     margin: 10px 10px 10px 0;
 }
@@ -518,22 +524,22 @@ input[placeholder="Search"]:not(.browser-default):focus:not([readonly]) {
     /* cambiar a 100% */
     /* width: 47%; */
     height: 42vh;
-    grid-row: 1;
-    grid-column: 1/3;
+    /* grid-row: 1; */
+    /* grid-column: 1/3; */
 
 }
 
 .graph-pie {
     /* width: 47%; */
-    margin: 0 0 0 25px;
+    /* margin: 0 0 0 25px; */
     height: 42vh;
-    grid-row: 2;
+    /* grid-row: 2; */
 
 }
 
 .graph-column {
     /* width: 47.5%; */
-    margin: 0 25px 0 0;
+    /* margin: 0 25px 0 0; */
     height: 42vh;
     grid-row: 2;
 }

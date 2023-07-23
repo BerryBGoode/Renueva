@@ -160,6 +160,33 @@ if (!isset($_GET['action'])) {
                 }
 
                 break;
+            case 'priceProductGraph':
+                if ($response['dataset'] = $query->priceProductDesc()) {
+                    $response['status'] = 1;
+                } elseif (Connection::getException()) {
+                    $response['exception'] = Connection::getException();
+                } else {
+                    $response['exception'] = "Doesn't exist registred";
+                }
+                break;
+            case 'consumptionProduct':
+                if ($response['dataset'] = $query->consumptionProduct()) {
+                    $response['status'] = 1;
+                } elseif (Connection::getException()) {
+                    $response['exception'] = Connection::getException();
+                } else {
+                    $response['exception'] = "Doesn't exist registred";
+                }
+                break;
+            case 'stockProducts':
+                if ($response['dataset'] = $query->stockProducts()) {
+                    $response['status'] = 1;
+                } elseif (Connection::getException()) {
+                    $response['exception'] = Connection::getException();
+                } else {
+                    $response['exception'] = "Doesn't exist registred";
+                }
+                break;
             default:
                 $response['exception'] = 'This action disabled';
                 break;

@@ -330,8 +330,14 @@ class OrderQuery
      * Método para el estado de la orden
      */
 
-
-
+    /**
+     * Método para obtener las ventas por mes 
+     */
+    public function getSales()
+    {
+        $sql = 'SELECT month, sales FROM salesAtMonth';
+        return Connection::all($sql);
+    }
 }
 
 
