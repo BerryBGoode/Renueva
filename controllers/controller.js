@@ -265,7 +265,7 @@ async function loadSelectAll(filename, select, selected = null, idselect = false
  * @param {*} msg mensaje de los datos
  * @param {*} title titulo del gráfico
  */
-function graphBar(dom, x, y, msg, title) {
+function graphBar(dom, x, y, msg = null, title) {
     // arreglo para guardar código de los colores para la gráfica en hex
     let colores = [];
     // generar colores hex de 6 cigras por cada elemento independiente
@@ -303,11 +303,130 @@ function graphBar(dom, x, y, msg, title) {
             scales: {
                 y: {
                     tricks: {
-                        stepSize: 1,                            
+                        stepSize: 1,
                         beginAtZero: true
                     }
                 }
             }
         }
     });
+}
+
+/**
+ * Método para generar gráfica de pastel
+ * @param {*} dom elemento del DOM donde se aplicará
+ * @param {*} msg mensaje de la gráfica
+ * @param {*} values datos a mostrar
+ * @param {*} title titulo de la gráfica
+ */
+function graphPie(dom, msg, values, title) {
+    // colores para agregar al gráfico
+    let colors = [];
+    // generar los colores en base a la cantidad de registros recibidos
+    values.forEach(() => {
+        // generar un color hex 
+        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
+    });
+    // elemento donde se mostrará la gráfica
+    const element = document.getElementById(dom).getContext('2d');
+    const graph = new Chart(element, {
+        type: 'pie',
+        data: {
+            labels: msg,
+            datasets: [{
+                data: values,
+                backgroundColor: colors
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: title
+                }
+            }
+        }
+    })
+}
+
+
+/**
+ * Método para generar gráfica polar
+ * @param {*} dom elemento del DOM donde se aplicará
+ * @param {*} elements elementos de los que se quiere saber el dato
+ * @param {*} title mensaje del grafico
+ * @param {*} values valorea a agregar la gráfica
+ */
+function polarGraph(dom, elements, title, values) {
+    // colores para agregar al gráfico
+    let colors = [];
+    // generar los colores en base a la cantidad de registros recibidos
+    values.forEach(() => {
+        // generar un color hex 
+        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
+    });
+    // elemento donde se mostrará la gráfica
+    const element = document.getElementById(dom).getContext('2d');
+    const graph = new Chart(element, {
+        type: 'polarArea',
+        data: {
+            labels: elements,
+            datasets: [{
+                data: values,
+                backgroundColor: colors
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: title
+                }
+            }
+        }
+    })
+}
+
+/**
+ * Método para generar una gráfica lineal (preferiblemente para ventas)
+ * @param {*} dom elemento del DOM donde se mostrará la gráfica
+ * @param {*} labels elementos a índependientes a estudiar 
+ * @param {*} values valores a mostrar en la gráfica
+ * @param {*} title titulo de la gráfica
+ */
+function lineGraph(dom, labels, values, title) {
+    // obtener elemento del DOM donde se mostrará
+    // labels = Utils.months({count: 7})
+    const element = document.getElementById(dom).getContext('2d');
+    // instancia del obj con las opciones de la gráfica
+    const graph = new Chart(element, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: title,
+                data: values,
+                fill: true,
+                borderColor: '#FFFBF2',
+                tension: 0.1
+            }]
+            // labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+            // datasets: [{
+            //     label: 'Datos de la gráfica',
+            //     data: [10, 20, 15, 30, 25],
+            //     borderColor: 'rgba(75, 192, 192, 1)',
+            //     backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            //     borderWidth: 1,
+            //     fill: true
+            // }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    })
 }
