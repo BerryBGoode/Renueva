@@ -34,15 +34,28 @@
                     </div>
                     <!--dashboard container place to content the graphics-->
                     <div class="dashboard-container">
-                        
-                        <div class="container-graph graph-pie">
-                            <img src="/resources/img/LogoFavIcon.png" alt="">
-                        </div>
-                        <div class="container-graph graph-column">
-                            <img src="/resources/img/LogoRenueva_Login.png" alt="">
-                        </div>
+
                         <div class="container-graph graph-line">
-                            <img src="/resources/img/sidebar-logo.png" alt="" srcset="">
+                            <canvas id="line-sales"></canvas>
+                        </div>
+                        <!-- <div class="tw-graphs"> -->
+                        <div class="container-graph graph-pie">
+
+                            <canvas id="bar-categories"></canvas>
+
+                        </div>
+
+                        <div class="container-graph graph-column">
+                            <canvas id="bar-consumption"></canvas>
+                        </div>
+
+                        <div class="container-graph">
+                            <canvas id="bar-stock"></canvas>
+
+                        </div>
+                        <!-- </div> -->
+                        <div class="container-graph">
+                            <canvas id="bar-prices"></canvas>
                         </div>
                     </div>
                 </div>
@@ -62,6 +75,8 @@
     <script src="../../controllers/private/form-search.js"></script>
     <!--JavaScript to render some content-->
     <script type="text/javascript" src="../../controllers/private/render.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../../controllers/private/grafics.js"></script>
 </body>
 
 </html>

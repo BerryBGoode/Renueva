@@ -314,6 +314,15 @@ class OrderQuery
         $param = array($product);
         return Connection::row($sql, $param);
     }
+
+    /**
+     * Método para obtener las ventas por mes 
+     */
+    public function getSales()
+    {
+        $sql = 'SELECT month, sales FROM salesAtMonth';
+        return Connection::all($sql);
+    }
 }
 // /*cargar ordenes cuando agregue o actualize
 // /*cargar No.Orders

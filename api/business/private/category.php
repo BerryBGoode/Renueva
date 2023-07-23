@@ -87,6 +87,16 @@ if (isset($_GET['action'])) {
 
 
                 break;
+
+            case 'allGraphCategories':
+                if ($response['dataset'] = $query->allGraph()) {
+                    $response['status'] = 1;
+                } elseif (Connection::getException()) {
+                    $response['exception'] = Connection::getException();
+                } else {
+                    $response['exception'] = "Doesn't exist registred";
+                }
+                break;
             default:
 
                 break;

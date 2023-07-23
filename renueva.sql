@@ -662,3 +662,9 @@ SELECT * FROM products
 SELECT * FROM detail_orders
 SELECT  * FROM reviews
 SELECT * FROM states_orders
+
+CREATE VIEW salesAtMonth AS
+SELECT TO_CHAR(date_order, 'Month') as month, EXTRACT(MONTH FROM date_order) as numMonth, count(*) as sales 
+FROM orders
+GROUP BY TO_CHAR(date_order, 'Month'), numMonth
+ORDER BY numMonth ASC

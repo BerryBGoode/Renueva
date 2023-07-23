@@ -104,7 +104,37 @@ class ProductQuery
                 WHERE id_state_product = 1 AND stock >= 1 AND image ILIKE ?';
         $param = array("%.%");
         return Connection::all($sql, $param);
+    }
 
+    /**
+     * Método para obtener los precios de los productos del más caro al menos
+     */
+    public function priceProductDesc()
+    {
+        $sql = 'SELECT name, price FROM products ORDER BY price DESC';
+        return Connection::all($sql);
+    }
+
+    /**
+     * Metodo para obtener la cantidad de veces que se ha comprado un producto
+     */
+    public function consumptionProduct()
+    {
+        $sql = 'SELECT p."name", count(d.id_product) AS Consumption
+        FROM products p
+        INNER JOIN detail_orders d ON p.id_product = d.id_product
+        GROUP BY p."name"
+        ORDER BY count(p.id_product) DESC';
+        return Connection::all($sql);
+    }
+
+    /**
+     * Método para obtener las existencias que tiene un producto
+     */
+    public function stockProducts()
+    {
+        $sql = 'SELECT name, SUM(stock) as stock_products FROM products GROUP BY name ORDER BY stock_products DESC ';
+        return Connection::all($sql);
     }
 
     /**

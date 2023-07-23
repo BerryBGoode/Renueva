@@ -112,9 +112,17 @@ if (isset($_GET['action'])) {
                     $response['exception'] = "Doesn't exist register";
                 }
 
-
                 break;
 
+            case 'getSales':
+                if ($response['dataset'] = $query->getSales()) {
+                    $response['status'] = 1;
+                } elseif (Connection::getException()) {
+                    $response['exception'] = Connection::getException();
+                } else {
+                    $response['exception'] = "Doesn't exist request";
+                }
+                break;
             case 'one':
 
                 if (!$_POST['iddetail']) {
@@ -192,7 +200,7 @@ if (isset($_GET['action'])) {
 
             case 'deleteBoth':
                 //validar el form
-                $_POST = Validate::form($_POST);                
+                $_POST = Validate::form($_POST);
                 //validar el 'idorder' que exista o no sea menor a 0
                 if (!$_POST['id_order'] || $_POST['id_order'] < 0) {
                     $response['exception'] = 1;
