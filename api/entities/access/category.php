@@ -65,4 +65,18 @@ class CategoryQuery
         $param = array($id);
         return Connection::row($sql, $param);
     }
+
+    /*
+    * Métodos para consultas info para gráficas
+    */
+
+    /**
+     * Método para obtener la cantidad de productos 
+     * que tiene una categoria
+     */
+    public function allGraph()
+    {
+        $sql = 'SELECT * FROM all_categories ORDER BY amount DESC';
+        return Connection::all($sql);
+    }
 }

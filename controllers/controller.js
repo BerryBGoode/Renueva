@@ -112,7 +112,7 @@ function notificacionOptions(msg) {
             },
             confirm2: {
                 text: 'Delete both',
-                value: 2    ,
+                value: 2,
                 visible: true,
                 className: 'grey darken-1'
             }
@@ -179,15 +179,15 @@ async function loadSelect(filename, action, select, selected = null) {
         if (JSON.status === -1) {
             // cargar un option con el message
             list = `<option value="-1" disabled selected>Avoid options</option>`
-        }else{
+        } else {
 
             JSON.dataset.forEach(element => {
                 //obtener el valor del (id)
                 id = Object.values(element)[0];
                 //obtener el valor del texto perteneciente al id
                 value = Object.values(element)[1];
-    
-    
+
+
                 //verificar sí se quiere carga en el <select> el id
                 if (select === 'orders') {
                     //verificar si el id es igual del valor ingresado anteriormente (en caso de ser update)
@@ -197,8 +197,8 @@ async function loadSelect(filename, action, select, selected = null) {
                     //verificar si el id es igual del valor ingresado anteriormente (en caso de ser update)
                     //primer caso, si es para update : segundo para create
                     (id != selected) ? list += `<option value="${id}">${value}</option>` : list += `<option value="${id}" selected>${value}</option>`;
-                }    
-    
+                }
+
             });
         }
 
@@ -255,4 +255,59 @@ async function loadSelectAll(filename, select, selected = null, idselect = false
     document.getElementById(select).innerHTML = list;
     //Inicializar el <select> para así despligue las opciones
     M.FormSelect.init(document.querySelectorAll('select'));
+}
+
+/**
+ * Método para generar gráfico de barras veriticales
+ * @param {*} dom elemento del DOM donde se aplicará
+ * @param {*} x datos del eje X
+ * @param {*} y datos del eje y
+ * @param {*} msg mensaje de los datos
+ * @param {*} title titulo del gráfico
+ */
+function graphBar(dom, x, y, msg, title) {
+    // arreglo para guardar código de los colores para la gráfica en hex
+    let colores = [];
+    // generar colores hex de 6 cigras por cada elemento independiente
+    x.forEach(() => {
+        // agregar el código hex para cada barra vert. de la gráfica
+        colores.push('#' + (Math.random().toString(16)).substring(2, 8));
+    });
+    // establecer un elemento del DOM donde se aplicará la grafica
+    const element = document.getElementById(dom).getContext('2d');
+
+    const grap = new Chart(element, {
+        type: 'bar',
+        data: {
+            labels: x,
+            datasets: [{
+                label: msg,
+                data: y,
+                borderColor: '#000',
+                borderWidth: 1,
+                backgroundColor: colores,
+                barPercentage: 1,
+            }]
+        },
+        options: {
+            aspectRatio: 1,
+            plugins: {
+                title: {
+                    display: true,
+                    text: title
+                },
+                msg: {
+                    display: false,
+                }
+            },
+            scales: {
+                y: {
+                    tricks: {
+                        stepSize: 1,                            
+                        beginAtZero: true
+                    }
+                }
+            }
+        }
+    });
 }
