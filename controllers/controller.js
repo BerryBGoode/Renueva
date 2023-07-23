@@ -402,7 +402,7 @@ function lineGraph(dom, labels, values, title) {
     const graph = new Chart(element, {
         type: 'line',
         data: {
-            labels: labels,
+            labels: labels,//['January', 'February', 'March', 'May', 'June', 'July', 'August', 'Septembre', 'October', 'November', 'December'],
             datasets: [{
                 label: title,
                 data: values,

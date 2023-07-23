@@ -514,8 +514,8 @@ input[placeholder="Search"]:not(.browser-default):focus:not([readonly]) {
     gap: 15px;
     margin: 15px 0 0 0;
     width: 100%;
-    /* display: grid; */
-    /* grid-template-rows: repeat(2, 1fr); */
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
 }
 
 /* if have with grid template, so dosen't have width exactly */
