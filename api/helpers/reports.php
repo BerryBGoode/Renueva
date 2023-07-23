@@ -5,8 +5,7 @@ require_once('../../libraries/fpdf185/fpdf.php');
 /**
  * Clase que define las plantillas de los reportes
  */
-class report extends FPDF
-{
+class Report extends FPDF{
 
     //Constante que define la ruta de las vistas del sitio privado
     const PRIVATE_URL = 'http://localhost/renueva_temp/view/private/';

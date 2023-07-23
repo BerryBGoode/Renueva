@@ -3,7 +3,7 @@
 require_once('../../helpers/connection.php');
 // archivo con los datos de transferencia
 require_once('../../entities/transfers/product.php');
-
+require_once('../../entities/access/category.php');
 // clase con los queries
 class ProductQuery
 {
