@@ -32,8 +32,8 @@ if ($dataCategories = $category->all()) {
         //Print cells with headers
 
         $pdf->cell(10, 10, '#', 1, 0, 'C', 1);
-        $pdf->cell(80, 10, 'Name', 1, 0, 'C', 1);
-        $pdf->cell(20, 10, 'Price (US$)', 1, 0, 'C', 1);
+        $pdf->cell(75, 10, 'Name', 1, 0, 'C', 1);
+        $pdf->cell(25, 10, 'Price (US$)', 1, 0, 'C', 1);
         $pdf->cell(75.9, 10, 'Description', 1, 1, 'C', 1);
 
         // A background tone is assigned to display the section title.
@@ -52,10 +52,9 @@ if ($dataCategories = $category->all()) {
                 foreach ($dataProducts as $rowProduct) {
                     // The cells with the information of the articles are shown.
                     $num++;
-                    $pdf->cell(10, 10, $num, 1, 0);
-                    $pdf->cell(80, 10, $pdf->stringEncoder($rowProduct['name']), 1, 0);
-                    $pdf->cell(20, 10, '$'.$rowProduct['price'], 1, 0);
-                    // $pdf->cell(75.9, 10, 'a', 1, 0);
+                    $pdf->cell(10, 10, $num, 1, 0, 'C');
+                    $pdf->cell(75, 10, $pdf->stringEncoder($rowProduct['name']), 1, 0);
+                    $pdf->cell(25, 10, '$'.$rowProduct['price'], 1, 0);                
                     $pdf->cell(75.9, 10, $pdf->stringEncoder($rowProduct['description']), 1, 1);
                 }
             } else {

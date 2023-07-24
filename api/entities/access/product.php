@@ -120,10 +120,10 @@ class ProductQuery
      */
     public function consumptionProduct()
     {
-        $sql = 'SELECT p."name", count(d.id_product) AS Consumption
+        $sql = 'SELECT p."name", p.price, count(d.id_product) AS Consumption
         FROM products p
         INNER JOIN detail_orders d ON p.id_product = d.id_product
-        GROUP BY p."name"
+        GROUP BY p."name", p.price
         ORDER BY count(p.id_product) DESC';
         return Connection::all($sql);
     }
