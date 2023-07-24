@@ -29,6 +29,24 @@ body {
     overflow: hidden;
 }
 
+.sales-report{
+    top: 20% !important;
+}
+
+.sales-report-fixed-footer{
+    height: 55% !important;
+}
+
+.report-footer{
+    position: absolute !important;
+    bottom: 0;
+}
+.form-report{
+    position: relative;
+    height:100%;
+    width: 100%;
+}
+
 /* table rules */
 .table-container {
     margin: 0 25px 25px 25px;

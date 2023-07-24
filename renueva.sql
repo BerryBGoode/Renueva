@@ -668,3 +668,17 @@ SELECT TO_CHAR(date_order, 'Month') as month, EXTRACT(MONTH FROM date_order) as 
 FROM orders
 GROUP BY TO_CHAR(date_order, 'Month'), numMonth
 ORDER BY numMonth ASC
+
+CREATE VIEW sales_by_month AS
+WITH all_months AS (
+	SELECT TO_CHAR(month, 'Month') AS month, EXTRACT(MONTH FROM month) AS num
+	FROM generate_series(
+	'2023-01-01'::date, 
+    '2023-12-01'::date, 
+    '1 month'
+) AS month)
+SELECT all_months.month, count(id_order) as sales
+FROM all_months
+LEFT JOIN orders o ON all_months.num = EXTRACT(MONTH FROM o.date_order)
+GROUP BY all_months.month, all_months.num
+ORDER BY all_months.num ASC

@@ -335,7 +335,7 @@ class OrderQuery
      */
     public function getSales()
     {
-        $sql = 'SELECT month, sales FROM salesAtMonth';
+        $sql = 'SELECT month, sales FROM sales_by_month';
         return Connection::all($sql);
     }
 }

@@ -236,7 +236,15 @@ if (sidebar !== null) {
 //render buttons print and add
 let buttons = document.getElementById('more-actions');
 if (buttons !== null) {
-    buttons.innerHTML = `<a href="#modal" class="waves-effect waves-light btn modal-trigger"
-    onclick="window.onCreate()">Add</a>
-<button class="waves-effect waves-light btn" onclick="OpenReport()">Print</button>`;
+    // verificar sí estamos en ordenes
+    if (location.href.indexOf('orders')) {
+        buttons.innerHTML = `<a href="#modal" class="waves-effect waves-light btn modal-trigger"
+        onclick="window.onCreate()">Add</a>
+    <button class="waves-effect waves-light btn" onclick="OpenReport()">Print</button>`;
+    }else{
+        
+        buttons.innerHTML = `<a href="#modal" class="waves-effect waves-light btn modal-trigger"
+        onclick="window.onCreate()">Add</a>
+    <button class="waves-effect waves-light btn" onclick="OpenReport()">Print</button>`;
+    }
 }

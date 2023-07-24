@@ -138,6 +138,42 @@
         </div>
     </div>
 
+    <div id="sales-report" class="modal sales-report modal-fixed-footer sales-report-fixed-footer">
+        <div class="modal-content">
+
+
+            <form id="form-print" class="form-report" method="post">
+                
+                <div class="input-field col s12">
+                    <select required id="month-sale">
+                        <option value="" disabled selected >Choose month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <label>Month</label>
+                </div>
+                <div class="modal-footer report-footer">
+                    <button type="reset"
+                        class="modal-close waves-effect waves-green btn-flat btn-danger">Cancel</button>
+                    <button type="submit"  class="modal-close waves-effect waves-green btn-flat btn-succes">
+                        <!-- <div class="hide">a</div> -->
+                        Print
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="../../resources/general/js/materialize.min.js"></script>
     <!--modal script-->

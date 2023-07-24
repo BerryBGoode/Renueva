@@ -5,6 +5,9 @@ M.Modal.init(document.querySelectorAll('.modal'));
 //const para el modal
 const MODAL = M.Modal.getInstance(document.getElementById('modal'));
 //const. para el form.
+
+M.Modal.init(document.querySelectorAll('.sales-report'));
+const SALES = M.Modal.getInstance(document.getElementById('sales-report'));
 const FORM = document.getElementById('form-order');
 //const. para modificar el texto del boton
 const BUTTON = document.getElementById('process')
@@ -97,6 +100,10 @@ function onCreate() {
     loadSelect(ORDER, 'loadDocuments', 'documents');
     //llenar el <select> de 'states'
     loadSelect(ORDER, 'loadStates', 'states');
+}
+
+function onPrint() {
+    SALES.open();
 }
 
 /**
@@ -364,3 +371,10 @@ FORMSEARCH.addEventListener('keyup', async (evt) => onSearch(evt));
  * async-await event para cargar los datos cuando se ejecute el submit
  */
 FORMSEARCH.addEventListener('submit', async (evt) => onSearch(evt));
+
+function OpenReport() {
+    // Se define una constante objeto con la ruta exacta del informe en el servidor.
+    const PATH = new URL(`${API}reports/private/sales.php`);
+    // Se manda a abrir el reporte en una nueva pestaña.
+    window.open(PATH.href);
+}

@@ -5,7 +5,6 @@ require_once('../../entities/access/product.php');
 
 // instanciar clase para crear reportes
 $pdf = new Report;
-
 // definirle un titulo al reporte
 $pdf->reportHeader('More sales products');
 
