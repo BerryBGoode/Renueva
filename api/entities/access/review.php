@@ -147,4 +147,15 @@ class ReviewQuery
         $params = array($product, $order);
         return Connection::all($sql, $params);
     }
+
+    /**
+     * Método para obtener productos que tengan reviews sin repetir
+     */
+    public function getNoRepetProduct()
+    {
+        $sql = 'SELECT COUNT(DISTINCT name), id_product, name
+                FROM all_reviews
+                GROUP BY name, id_product';
+        return Connection::all($sql);
+    }
 }

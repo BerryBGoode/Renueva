@@ -335,3 +335,10 @@ FORMSEARCH.addEventListener('keyup', async (event) => onSearch(event));
  * async-await event para filtrado del buscado cuando ejecute el evento 'submit'
  */
 FORMSEARCH.addEventListener('submit', async (event) => onSearch(event));
+
+function OpenReport() {
+    // Se define una constante objeto con la ruta exacta del informe en el servidor.
+    const PATH = new URL(`${API}reports/private/review.php`);
+    // Se manda a abrir el reporte en una nueva pestaña.
+    window.open(PATH.href);
+}

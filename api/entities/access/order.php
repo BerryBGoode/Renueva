@@ -350,9 +350,19 @@ class OrderQuery
      */
     public function getDetailsAtOrder($order)
     {
-        $sql = 'SELECT * FROM  details_orders WHERE id_order = ?';
+        $sql = 'SELECT name, price, cuantitive, total as subtotal, date_order FROM  details_orders WHERE id_order = ?';
         $param = array($order);
         return Connection::all($sql, $param);
+    }
+
+    /**
+     * Método para obtener el total de una orde
+     */
+    public function getTotalByOrder($order)
+    {
+        $sql = 'SELECT sum(total) as total FROM details_orders WHERE id_order = ?';
+        $param = array($order);
+        return Connection::row($sql, $param);
     }
 }
 
