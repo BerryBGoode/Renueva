@@ -17,8 +17,7 @@ function getOrderURL() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    loadTable();
-
+    loadTable();    
 })
 
 async function loadTable() {
@@ -204,5 +203,16 @@ async function onDestroy(id){
         } else {
             notificationRedirect('error', JSON.exception, false);
         }
+    }
+}
+
+async function OpenReport() {
+    const DATA = new FormData;
+    const ORDER = getOrderURL();
+    DATA.append('idorder', ORDER);
+    const JSON = await dataRequest(DETAIL, 'getOrderToReport', DATA);
+    if (JSON.status) {
+        const PATH = new URL(JSON.dataset);
+        window.open(PATH.href)
     }
 }

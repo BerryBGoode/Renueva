@@ -125,6 +125,12 @@ class OrderQuery
         $param = array($id);
         return Connection::row($sql, $param);
     }
+    public function rowOrder($id, $object)
+    {
+        $sql = 'SELECT * FROM ' . $object . ' WHERE id_order = ?';
+        $param = array($id);
+        return Connection::row($sql, $param);
+    }
 
     /**
      * Método para actualizar los datos de la orden seleccionada
@@ -337,6 +343,16 @@ class OrderQuery
     {
         $sql = 'SELECT month, sales FROM sales_by_month';
         return Connection::all($sql);
+    }
+
+    /**
+     * Método para imprimir los detalles de una orden
+     */
+    public function getDetailsAtOrder($order)
+    {
+        $sql = 'SELECT * FROM  details_orders WHERE id_order = ?';
+        $param = array($order);
+        return Connection::all($sql, $param);
     }
 }
 

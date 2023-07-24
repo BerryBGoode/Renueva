@@ -124,12 +124,12 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'one':
-
+                
                 if (!$_POST['iddetail']) {
                     $response['exception'] = 'Error to get detail';
                 } else {
                     //recuperar los valores según el id detalle
-                    if ($response['dataset'] = $query->row($_POST['iddetail'], 'details_orders')) {
+                    if ($response['dataset'] = $query->row($_POST['ididetail'], 'details_orders')) {
                         $response['status'] = 1;
                     } elseif (Connection::getException()) {
                         $response['exception'] = Connection::getException();
@@ -140,12 +140,28 @@ if (isset($_GET['action'])) {
 
                 break;
 
-            case 'update':
+            case 'oneOrder':
+                
+                if (!$_POST['idorder']) {
+                    $response['exception'] = 'Error to get detail';
+                } else {
+                    //recuperar los valores según el id detalle
+                    if ($response['dataset'] = $query->rowOrder($_POST['idorder'], 'all_orders')) {
+                        $response['status'] = 1;
+                    } elseif (Connection::getException()) {
+                        $response['exception'] = Connection::getException();
+                    } else {
+                        $response['exception'] = "Error to get regist or this doesn't exist";
+                    }
+                }
+                break;
+
+            case 'updateOrder':
                 //validar form
                 $_POST = Validate::form($_POST);
                 //validar los datos para la actualización de 'order'
 
-
+                print_r($_POST);
                 if (!$order->setOrder($_POST['idorder'])) {
                     $response['exception'] = 'Order incorrect';
                 } elseif (!$order->setClient($_POST['idclient'])) {
@@ -242,6 +258,13 @@ if (isset($_GET['action'])) {
                     $response['exception'] = "Data wasn't registred";
                 }
 
+                break;
+            case 'getOrderToReport':
+                if ($_POST) {
+                    $_SESSION['order'] = $_POST['idorder'];
+                    $response['dataset'] = 'http://localhost/renueva_temp/api/reports/private/details.php';
+                    $response['status'] = 1;
+                }
                 break;
             default:
                 $response['exception'] = $_GET['action'] . ': This action is not defined';

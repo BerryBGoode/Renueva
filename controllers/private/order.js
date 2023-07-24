@@ -61,7 +61,7 @@ FORM.addEventListener('submit', async (event) => {
     //evitar que el usuario recargue la página
     event.preventDefault();
     //verificar la acción
-    document.getElementById('idorder').value ? action = 'update' : action = 'create';
+    document.getElementById('idorder').value ? action = 'updateOrder' : action = 'create';
     //const. para la instancia de la clase FormData con los datos del form
     const DATA = new FormData(FORM);
     //const. para guardar el resultado de la petición 
@@ -215,9 +215,9 @@ async function onModify(id) {
     const DATA = new FormData();
     //agregar el id del detalle al form
     //que es igual al param
-    DATA.append('iddetail', id);
+    DATA.append('idorder', id);
     //const. con las respuestas del api
-    const JSON = await dataRequest(ORDER, 'one', DATA);
+    const JSON = await dataRequest(ORDER, 'oneOrder', DATA);
     //verificar la respuesta
     if (JSON.status) {
         //abrir el modal
@@ -292,7 +292,7 @@ async function onSearch(evt) {
             // si ese coincide con el del input
             for (let orders of JSON.dataset) {
                 // convertir a minusculas los datos tipo string
-                let product = orders.name.toLowerCase();
+                let product = orders.names.toLowerCase();
                 let state = orders.state_order.toLowerCase();
                 // verificar sí conicide un caracter con alguno de ellos
                 if (product.indexOf(search) !== -1 || orders.document.indexOf(search) !== -1 ||
@@ -307,16 +307,24 @@ async function onSearch(evt) {
                     <td>${orders.date_order}</td>
                     <td class="address-col">${orders.address}</td>
                     <td>${orders.state_order}</td>
-                    <td class="action-col">
-                        
-                        <svg width="27" height="27" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M11.667 17.7917H21.8753" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M11.667 23.625H18.0545" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M14.5837 8.74999H20.417C23.3337 8.74999 23.3337 7.29166 23.3337 5.83332C23.3337 2.91666 21.8753 2.91666 20.417 2.91666H14.5837C13.1253 2.91666 11.667 2.91666 11.667 5.83332C11.667 8.74999 13.1253 8.74999 14.5837 8.74999Z" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M23.3333 5.86252C28.1896 6.12502 30.625 7.91877 30.625 14.5833V23.3333C30.625 29.1667 29.1667 32.0833 21.875 32.0833H13.125C5.83333 32.0833 4.375 29.1667 4.375 23.3333V14.5833C4.375 7.93335 6.81042 6.12502 11.6667 5.86252" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>                
-                        </svg>
-                    
-                    
+                    <td>
+
+                        <!-- boton para ver detalle-->
+                        <form action="detail_order.html" method="get">
+                            <input type="number" name="orderid" id="orderid" class="hide" value="${orders.id_order}">
+                            <button type="submit" class="button-transparent">
+                                <svg width="27" height="27" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11.667 17.7917H21.8753" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M11.667 23.625H18.0545" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M14.5837 8.74999H20.417C23.3337 8.74999 23.3337 7.29166 23.3337 5.83332C23.3337 2.91666 21.8753 2.91666 20.417 2.91666H14.5837C13.1253 2.91666 11.667 2.91666 11.667 5.83332C11.667 8.74999 13.1253 8.74999 14.5837 8.74999Z" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M23.3333 5.86252C28.1896 6.12502 30.625 7.91877 30.625 14.5833V23.3333C30.625 29.1667 29.1667 32.0833 21.875 32.0833H13.125C5.83333 32.0833 4.375 29.1667 4.375 23.3333V14.5833C4.375 7.93335 6.81042 6.12502 11.6667 5.86252" stroke="#424242" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>                
+                                </svg>
+                            </button>
+                        </form>
+
+                    </td>
+                    <td class="action-col">                                    
+                
                         <!-- boton para actualizar -->
                         <svg width="26" height="25" viewBox="0 0 34 33" fill="none" onclick="onModify(${orders.id_order})"
                         xmlns="http://www.w3.org/2000/svg">
@@ -333,7 +341,7 @@ async function onSearch(evt) {
                                 stroke="#424242" stroke-width="3" stroke-miterlimit="10"
                                 stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
-    
+
                         <!-- boton para eliminar -->
                         <svg width="22" height="25" viewBox="0 0 30 33" fill="none" onclick="onDestroy(${orders.id_order})"
                             xmlns="http://www.w3.org/2000/svg">
