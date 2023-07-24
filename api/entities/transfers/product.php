@@ -115,7 +115,7 @@ class Product
     }
 
     public function setCategory($cat)
-    {
+    {    
         if (Validate::checkNaturalNumber(($cat))) {
             $this->category = $cat;
             return true;
@@ -145,3 +145,6 @@ class Product
         return $this->path;
     }
 }
+// $a = new Product;
+// $a->setName('algo');
+// print_r($a->getName());

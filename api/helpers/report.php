@@ -1,11 +1,12 @@
 <?php
 //incluir clase que genera pdf, llamando a la librería
-require_once('../../libraries/fpdf185/fpdf.php');
+require_once('../../libraries/fpdf182/fpdf.php');
 
 /**
  * Clase que define las plantillas de los reportes
  */
-class Report extends FPDF{
+class Report extends FPDF
+{
 
     //Constante que define la ruta de las vistas del sitio privado
     const PRIVATE_URL = 'http://localhost/renueva_temp/view/private/';
@@ -59,12 +60,15 @@ class Report extends FPDF{
     public function header()
     {
         //Se asigna el logo
-        $this->image('../../resources/img/logo/LogoRenueva_Login.png', 15, 15, 20);
+        $this->image('../../../resources/img/logo/LogoRenueva_Login.png', 15, 15, 20);
         //Se ubica el título
         $this->cell(20);
         $this->setFont('Arial', 'B', 15);
         $this->cell(166, 10, $this->stringEncoder($this->title), 0, 1, 'C');
         // Se incluye un salto de línea para visualizar el contenido principal del documento.
+        $this->cell(20);
+        $this->setFont('Arial', 'B', 10);
+        $this->cell(166, 10, 'Date: '.date('d/m/Y'), 0, 1, 'C');
         $this->ln(10);
     }
 

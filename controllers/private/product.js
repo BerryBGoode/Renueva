@@ -345,7 +345,7 @@ FORMSEARCH.addEventListener('submit', async (event) => onSearch(event))
 
 function OpenReport() {
     // Se define una constante objeto con la ruta exacta del informe en el servidor.
-    const PATH = new URL(`${API}reports/producto.php`);
+    const PATH = new URL(`${API}reports/private/products.php`);
     // Se manda a abrir el reporte en una nueva pestaña.
-    window.open(PAT.href);
+    window.open(PATH.href);
 }

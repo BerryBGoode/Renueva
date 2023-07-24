@@ -5,7 +5,7 @@ require_once('../../helpers/validate.php');
 //const. con la instancia de la clase para utilizar los attr sin crear varios objs.
 const CATEGORY = new Category;
 //clase con los datos de transferencia
-Class Category
+class Category
 {
     //attr con las columnas de la tabla staffs
     public $id_category = null;
@@ -18,15 +18,15 @@ Class Category
      * get... : retorna el valor del attr
      */
 
-     public function setid_category($id_category)
-     {
-         if (Validate::checkNaturalNumber($id_category)) {
-             $this->id_category = $id_category;
-             return true;
-         }
-     }
+    public function setid_category($id_category)
+    {
+        if (Validate::checkNaturalNumber($id_category)) {
+            $this->id_category = $id_category;
+            return true;
+        }
+    }
 
-     public function getid_category()
+    public function getid_category()
     {
         return $this->id_category;
     }
@@ -45,4 +45,3 @@ Class Category
         return $this->category;
     }
 }
-?>

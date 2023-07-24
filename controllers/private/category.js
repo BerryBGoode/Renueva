@@ -260,3 +260,16 @@ async function onSearch(evt) {
 
 FORMSEARCH.addEventListener('keyup', async (evt) => onSearch(evt));
 FORMSEARCH.addEventListener('submit', async (evt) => onSearch(evt));
+
+/**
+ *  Función para ejecutar el reporte de productos por categoría
+ *  Sin parametros.
+ *  Sin retornos.
+*/
+
+function OpenReport() {
+    // Se define una constante objeto con la ruta exacta del informe en el servidor.
+    const PATH = new URL(`${API}reports/private/products.php`);
+    // Se manda a abrir el reporte en una nueva pestaña.
+    window.open(PATH.href);
+}

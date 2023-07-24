@@ -238,5 +238,5 @@ let buttons = document.getElementById('more-actions');
 if (buttons !== null) {
     buttons.innerHTML = `<a href="#modal" class="waves-effect waves-light btn modal-trigger"
     onclick="window.onCreate()">Add</a>
-<a href="" class="waves-effect waves-light btn " onclick="OpenReport">Print</a>`;
+<button class="waves-effect waves-light btn" onclick="OpenReport()">Print</button>`;
 }

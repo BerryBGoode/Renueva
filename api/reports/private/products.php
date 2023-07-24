@@ -1,10 +1,11 @@
 <?php
 // The class with the templates that generate the reports is added
-require_once('../helpers/reports.php');
+require_once('../../helpers/report.php');
 // The classes for access and data transfers are added.
-require_once('../entities/transfers/product.php');
-require_once('../entities/transfers/category.php');
-require_once('../entities/access/product.php');
+require_once('../../entities/transfers/product.php');
+require_once('../../entities/transfers/category.php');
+require_once('../../entities/access/product.php');
+// require_once('../helpers/validate.php');
 
 // Initialize class to create report
 $pdf = new Report;
@@ -17,34 +18,45 @@ if ($dataCategories = $category->all()) {
     //Set a fill color in the headers
     $pdf->SetFillColor(175);
     // Set the font for the headers
-    $pdf->SetFont('Times', 'B', 11);
-    //Print cells with headers
-    $pdf->cell(126, 10, 'Name', 1, 0, 'C', 1);
-    $pdf->cell(30, 10, 'Price (US$)', 1, 0, 'C', 1);
-    $pdf->cell(30, 10, 'Description', 1, 1, 'C', 1);
 
-    // A background tone is assigned to display the section title.
-    $pdf->SetFillColor(225);
-    // The font for the article information is defined.
-    $pdf->SetFont('Times', 'B', 11);
 
     // Iterate through the records one by one.
     foreach ($dataCategories as $rowCategories) {
+        $pdf->SetFillColor(175);
+        // Set the font for the headers
+    
         // A cell with the title of the section is displayed.
         $pdf->cell(0, 10, $pdf->stringEncoder('Category: ' . $rowCategories['category']), 1, 1, 'C', 1);
+
+        $pdf->SetFont('Arial', 'B', 11);
+        //Print cells with headers
+
+        $pdf->cell(10, 10, '#', 1, 0, 'C', 1);
+        $pdf->cell(80, 10, 'Name', 1, 0, 'C', 1);
+        $pdf->cell(20, 10, 'Price (US$)', 1, 0, 'C', 1);
+        $pdf->cell(75.9, 10, 'Description', 1, 1, 'C', 1);
+
+        // A background tone is assigned to display the section title.
+        $pdf->SetFillColor(225);
+        // The font for the article information is defined.
+        $pdf->SetFont('Arial', 'B', 10);
+
         // An instance of the Product model is created to process the information.
         $product = new ProductQuery;
-        $products = new Product;
-        // The section is assigned to get the corresponding articles. Otherwise, an error message is displayed.
-        if ($products->setCategory($rowCategories['id_category'])) {
+        // The section is assigned to get the corresponding articles. Otherwise, an error message is displayed.        
+        if (PRODUCT->setCategory($rowCategories['id_category'])) {
             // Check if there are records available to display. Otherwise, a message is displayed.
             if ($dataProducts = $product->productCategory()) {
+                $num = 0;
                 // Iterate over the records row by row
                 foreach ($dataProducts as $rowProduct) {
                     // The cells with the information of the articles are shown.
-                    $pdf->cell(70, 10, $pdf->stringEncoder($rowProduct['name']), 1, 0);
-                    $pdf->cell(30, 10, $rowProduct['price'], 1, 0);
-                    $pdf->cell(86, 10, $pdf->stringEncoder(['description']), 1, 0);
+                    $num++;
+                    $pdf->cell(10, 10, $num, 1, 0);
+                    $pdf->cell(80, 10, $pdf->stringEncoder($rowProduct['name']), 1, 0);
+                    $pdf->cell(20, 10, '$'.$rowProduct['price'], 1, 0);
+                    // $pdf->cell(75.9, 10, 'a', 1, 0);
+                    $pdf->cell(75.9, 10, $pdf->stringEncoder($rowProduct['description']), 1, 1);
                 }
             } else {
                 $pdf->cell(0, 10, $pdf->stringEncoder('There are no products in this category'), 1, 1);

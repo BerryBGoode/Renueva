@@ -1,9 +1,9 @@
 <?php 
 // The class with the templates that generate the reports is added
-require_once('../../api/helpers/reports.php');
+require_once('../../helpers/report.php');
 // The classes for access and data transfers are added.
-require_once('../../api/entities/transfers/client.php');
-require_once('../../api/entities/access/client.php');
+require_once('../../entities/transfers/client.php');
+require_once('../../entities/access/client.php');
 
 // Initialize class to create report
 $pdf = new Report;

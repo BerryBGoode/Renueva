@@ -317,3 +317,10 @@ FORMSEARCH.addEventListener('keyup', async (evt) => onSearch(evt));
  * descencadendor 'submit'
  */
 FORMSEARCH.addEventListener('submit', async (evt) => onSearch(evt));
+
+function OpenReport() {
+    // Se define una constante objeto con la ruta exacta del informe en el servidor.
+    const PATH = new URL(`${API}reports/private/clients.php`);
+    // Se manda a abrir el reporte en una nueva pestaña.
+    window.open(PATH.href);
+}

@@ -144,7 +144,7 @@ class ProductQuery
     public function productCategory()
     {
         $sql = 'SELECT * FROM products WHERE id_category = ?';
-        $param = array($this->$category);
+        $param = array(PRODUCT->getCategory());
         return Connection::all($sql, $param);
     }
 }
